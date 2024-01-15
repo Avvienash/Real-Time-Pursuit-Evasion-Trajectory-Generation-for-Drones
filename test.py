@@ -1,13 +1,3 @@
-
-
-
-
-
-
-
-
-
-
 """ 
 Author: Avvienash
 Date: 12/1/2024
@@ -46,11 +36,11 @@ plt.rcParams['animation.ffmpeg_path'] = 'C:\\Users\\Avvienash\\Documents\\ffmpeg
 
 pursuer_init_state = np.array([-4,-4,0,0])
 evader_init_state = np.array([4,4,0,0])
-pursuer_weights_version = 'weights/pursuer_weights_v2.pth'
-evader_weights_version = 'weights/evader_weights_v2.pth'
+pursuer_weights_version = 'weights/pursuer_weights_v11.pth'
+evader_weights_version = 'weights/evader_weights_v11.pth'
 frames = 200 # number of frames in the simulation
 fps = 15
-name = 'videos/Trajectory_Game_v1.mp4'
+name = 'videos/Trajectory_Game_v5.mp4'
 
 
 
@@ -76,6 +66,8 @@ def main():
     print("---------------------------------------------------------------")
     print("Running Test")
     print("---------------------------------------------------------------")
+    
+    
 
     
     pursuer_input = torch.tensor(np.concatenate((pursuer_init_state, evader_init_state)),dtype =torch.float) # initial input for the pursuer
@@ -135,6 +127,8 @@ def main():
         evader_final_traj = torch.mm(evader_sol.view(1,-1).to(device),evader_traj)
         pursuer_final_traj = pursuer_final_traj.squeeze()
         evader_final_traj = evader_final_traj.squeeze()
+        
+        
         
         # Store the states in the array
         pursuer_states[frame,:] = pursuer_input.cpu().clone().detach().numpy()[:4]

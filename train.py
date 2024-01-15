@@ -13,6 +13,7 @@ This file contains the code for the trajectory game generator.
 """ Importing Libraries """
 #region Importing Libraries
 import math
+import os
 import random
 import numpy as np
 import matplotlib
@@ -26,6 +27,7 @@ import cvxpy as cp
 import nashpy as nash
 
 from cvxpylayers.torch import CvxpyLayer
+from cvxpy.problems.objective import Maximize, Minimize
 from matplotlib.animation import FFMpegWriter
 from IPython.display import Video
 from datetime import datetime
@@ -68,14 +70,14 @@ pursuer_init_state = np.array([3,4,0,0])
 evader_init_state = np.array([4,4,0,0])
 
 # Interation Parameters
-solver_max_iter = 200000 # maximum number of iterations for the solver used in the trajectory generator function
+solver_max_iter = 100000 # maximum number of iterations for the solver used in the trajectory generator function
 reset_bool = True # If True then the initial state is reset
 reset_size = 10 # Number of iterations per episode
 num_episodes = 500
 total_iteration = num_episodes * reset_size# total number of iterations
 
 # Weights for the objective function
-W_state = 1000
+W_state = 1000 # 1000
 W_control = 1
 
 # Train Boolean
@@ -84,12 +86,13 @@ train_evader = True
 reset_evader = True
 
 # Save Version
-save_version = "3"
-use_version = False
+save_weights = True
+use_pretrained = False
 #endregion
 
 
 """ Main Function """""
+
 
 def main():
     # Description: This function is the main function.
@@ -101,9 +104,11 @@ def main():
     # Create the neural networks
     pursuer_net = PlayerTrajectoryGenerator(pursuer_num_traj,dim_x,n_steps,xy_limit,acc_limit,input_layer_num,hidden_layer_num,output_layer_num,device).to(device) # create the pursuer network 
     evader_net = PlayerTrajectoryGenerator(evader_num_traj,dim_x,n_steps,xy_limit,acc_limit,input_layer_num,hidden_layer_num,output_layer_num,device).to(device)  # create the evader network
-    if use_version != False:
-        pursuer_net.load_state_dict(torch.load(f'weights/pursuer_weights_v{use_version}.pth'))
-        evader_net.load_state_dict(torch.load(f'weights/evader_weights_v{use_version}.pth'))
+    
+    # Load the pretrained weights
+    if use_pretrained != False:
+        pursuer_net.load_state_dict(torch.load(f'weights/pursuer_weights_v{use_pretrained}.pth'))
+        evader_net.load_state_dict(torch.load(f'weights/evader_weights_v{use_pretrained}.pth'))
         print("Successfully loaded the trained networks")
     
     # Create the optimizer
@@ -117,6 +122,7 @@ def main():
         
     # create Trajectory Generator
     traj_generator = construct_mpc_problem(dim_x,dim_u,n_steps,xy_limit,acc_limit,dt,W_state,W_control,output_layer_num)
+    
     
     # get evader output
     evader_output = evader_net(evader_input)  # (num_traj, output_layer_num * n_steps)
@@ -138,11 +144,28 @@ def main():
         # Training the pursuer
         pursuer_output = pursuer_net(pursuer_input)
         pursuer_traj = GetTrajFromBatchinput(pursuer_output,pursuer_input,pursuer_num_traj,traj_generator,solver_max_iter,device)
-        pursuer_traj_ref = pursuer_traj.clone().detach()
+        
         
         # Training the evader
         evader_output = evader_net(evader_input)
-        evader_traj = GetTrajFromBatchinput(evader_output,evader_input,evader_num_traj,traj_generator,solver_max_iter,device)
+        try:
+            evader_traj = GetTrajFromBatchinput(evader_output,evader_input,evader_num_traj,traj_generator,solver_max_iter,device)
+        except Exception as e:
+            print(e)
+            print("Trajectory generation failed for trajectory: ", i+1)
+            evader_input = torch.tensor([random.randrange( -1* round(xy_limit*0.8) , round(xy_limit*0.8) ),
+                                            random.randrange( -1 * round(xy_limit*0.8) , round(xy_limit*0.8) ),
+                                            0,
+                                            0,
+                                            pursuer_final_traj[0],
+                                            pursuer_final_traj[1],
+                                            pursuer_final_traj[2],
+                                            pursuer_final_traj[3]],
+                                            dtype = torch.float)
+            continue
+        
+        
+        pursuer_traj_ref = pursuer_traj.clone().detach()
         evader_traj_ref = evader_traj.clone().detach()
 
         # Create the Bimatrix Game for the Pursuer
@@ -155,7 +178,7 @@ def main():
         evader_BMG_matrix = torch.zeros((evader_num_traj,pursuer_num_traj))
         for i in range(evader_num_traj):
             for j in range(pursuer_num_traj):
-                evader_BMG_matrix[i][j] = -1 * MSE_loss(evader_traj[i],pursuer_traj_ref[j])
+                evader_BMG_matrix[i][j] = -1* MSE_loss(evader_traj[i],pursuer_traj_ref[j])
                 
         # Solve the Bimatrix Game
         pursuer_BMG_matrix_np = pursuer_BMG_matrix.clone().detach().numpy()
@@ -188,7 +211,8 @@ def main():
         pursuer_net.zero_grad()
         pursuer_error.backward()
         if train_pursuer:
-            pursuer_optimizer.step()
+            #pursuer_optimizer.step()
+            pass
 
         evader_net.zero_grad()
         evader_error.backward()
@@ -262,10 +286,43 @@ def main():
     print("---------------------------------------------------------------")
     print("Saving the weights")
     print("---------------------------------------------------------------")
-    # Save the model weights
-    if save_version != False:
+
+    
+  
+    # Save the model weights  
+    if save_weights == True:
+        
+        save_version = get_latest_version('weights',"pursuer_weights_v") + 1
+        
+        print("Saving the weight as version: ", save_version)
+        
         torch.save(pursuer_net.state_dict(), f'weights/pursuer_weights_v{save_version}.pth')
         torch.save(evader_net.state_dict(), f'weights/evader_weights_v{save_version}.pth')
+        
+        # Save parameters to a text file
+        params_dict = {
+            'dim_x': dim_x,
+            'dim_u': dim_u,
+            'dt': dt,
+            'xy_limit': xy_limit,
+            'acc_limit': acc_limit,
+            'n_steps': n_steps,
+            'pursuer_num_traj': pursuer_num_traj,
+            'evader_num_traj': evader_num_traj,
+            'input_layer_num': input_layer_num,
+            'hidden_layer_num': hidden_layer_num,
+            'output_layer_num': output_layer_num,
+            'P_LR': P_LR,
+            'E_LR': E_LR,
+            'W_state': W_state,
+            'W_control': W_control,
+            'solver_max_iter': solver_max_iter,
+            
+        }
+        
+        with open(f'weights/model_params_v{save_version}.txt', 'w') as f:
+            for key, value in params_dict.items():
+                f.write(f'{key}: {value}\n')
         
 if __name__ == "__main__":
     main()

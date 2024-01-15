@@ -20,9 +20,11 @@ import torchvision.transforms as T
 import cvxpy as cp
 import nashpy as nash
 from matplotlib.gridspec import GridSpec
+import os
 
 
 from cvxpylayers.torch import CvxpyLayer
+from cvxpy.problems.objective import Maximize, Minimize
 from matplotlib.animation import FFMpegWriter
 from IPython.display import Video
 
@@ -74,6 +76,11 @@ class PlayerTrajectoryGenerator(nn.Module):
     
 """ Defining the Helper Functions """
 
+# Function to get the latest version in a folder
+def get_latest_version(folder,name):
+    versions = [int(file.split('_v')[1].split('.')[0]) for file in os.listdir(folder) if file.startswith(name)]
+    return max(versions) if versions else 0
+
 def construct_mpc_problem(dim_x,dim_u,n_steps,xy_limit,acc_limit,dt,W_state,W_control,output_layer_num):
     
     T = n_steps # timest
@@ -122,19 +129,27 @@ def construct_mpc_problem(dim_x,dim_u,n_steps,xy_limit,acc_limit,dt,W_state,W_co
 
     # Define the problem
     problem = cp.Problem(cp.Minimize(objective), constraints)
+   
+    
     return_layer = CvxpyLayer(problem, variables=[states, controls], parameters=[x, x0])
-
     return return_layer
 
 def GetTrajFromBatchinput(nn_output,nn_input,num_traj,traj_generator,solver_max_iter,device):
 
     result_list = [] # list to store the result
-    
+    solver_args = {
+        #"eps": 1e-4, 
+        "max_iters": solver_max_iter,
+        "verbose": False, 
+        #"acceleration_lookback": 0,
+        'solve_method':'ECOS',
+    }
     # iterate through the trajectories
     for i in range(num_traj):
-        (current_traj_output,control) = traj_generator(nn_output[i],nn_input[[0,1,2,3]].to(device),solver_args={"max_iters": solver_max_iter,"verbose": False})
+        (current_traj_output,control) = traj_generator(nn_output[i],nn_input[[0,1,2,3]].to(device),solver_args= solver_args)
         result_list.append(current_traj_output.view(1,-1))
-        
+
+                    
     result = torch.cat(result_list,dim=0) # concatenate the result to a tensor
     return result
 
