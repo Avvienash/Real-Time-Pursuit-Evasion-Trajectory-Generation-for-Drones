@@ -31,8 +31,6 @@ from utils import *
 
 plt.rcParams['animation.ffmpeg_path'] = 'C:\\Users\\Avvienash\\Documents\\ffmpeg-6.1-essentials_build\\ffmpeg-6.1-essentials_build\\bin\\ffmpeg.exe'
 
-
-
 class Controller:
     def __init__(self, version):
         
@@ -194,8 +192,8 @@ class Controller:
         print("Loading the Model Parameters")
         print("---------------------------------------------------------------")
         
-        pursuer_states = np.zeros((max_steps, 4))
-        evader_states = np.zeros((max_steps, 4))
+        pursuer_states = np.zeros((max_steps, self.loaded_params["dim_x"]))
+        evader_states = np.zeros((max_steps, self.loaded_params["dim_x"]))
         
         pursuer_trajectories = np.zeros((max_steps, self.loaded_params["n_steps"]*self.loaded_params["dim_x"]))
         evader_trajectories = np.zeros((max_steps, self.loaded_params["n_steps"]*self.loaded_params["dim_x"]))
@@ -204,14 +202,14 @@ class Controller:
             
             pursuer_final_traj, evader_final_traj = self.step(pursuer_input, evader_input)
             # Store the states in the array
-            pursuer_states[frame,:] = pursuer_input.cpu().clone().detach().numpy()[:4]
-            evader_states[frame,:] = evader_input.cpu().clone().detach().numpy()[:4]
+            pursuer_states[frame,:] = pursuer_input.cpu().clone().detach().numpy()[:self.loaded_params["dim_x"]]
+            evader_states[frame,:] = evader_input.cpu().clone().detach().numpy()[:self.loaded_params["dim_x"]]
             pursuer_trajectories[frame,:] = pursuer_final_traj.cpu().clone().detach().numpy()  
             evader_trajectories[frame,:] = evader_final_traj.cpu().clone().detach().numpy()
             
             # update the states
-            pursuer_input = torch.tensor([*pursuer_final_traj.clone().detach()[:4],*evader_final_traj.clone().detach()[:4]], dtype=torch.float)
-            evader_input = torch.tensor([*evader_final_traj.clone().detach()[:4],*pursuer_final_traj.clone().detach()[:4]], dtype=torch.float)
+            pursuer_input = torch.tensor([*pursuer_final_traj.clone().detach()[:self.loaded_params["dim_x"]],*evader_final_traj.clone().detach()[:self.loaded_params["dim_x"]]], dtype=torch.float)
+            evader_input = torch.tensor([*evader_final_traj.clone().detach()[:self.loaded_params["dim_x"]],*pursuer_final_traj.clone().detach()[:self.loaded_params["dim_x"]]], dtype=torch.float)
             
             if (abs(evader_final_traj[0] - pursuer_final_traj[0]) <= 0.2) and  (abs(evader_final_traj[1] - pursuer_final_traj[1]) <= 0.2) :
                 pursuer_states = pursuer_states[:frame+1]
@@ -248,11 +246,11 @@ def main():
     print("Running Animation")
     print("----------------------------------------------")
     
-    video_version = get_latest_version('videos',"demo_testing_v")
-    
+    video_version = get_latest_version('videos',"demo_testing_v") + 1
+    print("Video Version:", video_version)
     # Animate the simulation
     animate(fps = 10, 
-            name = "videos/demo_testing_v4.mp4", 
+            name = "videos/demo_testing_v" + str(video_version) + ".mp4", 
             pursuer_states = pursuer_states, 
             evader_states = evader_states, 
             pursuer_trajectories = pursuer_trajectories, 

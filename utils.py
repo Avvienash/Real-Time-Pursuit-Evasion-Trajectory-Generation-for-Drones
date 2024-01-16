@@ -74,6 +74,7 @@ class PlayerTrajectoryGenerator(nn.Module):
         return x
     
     
+
 """ Defining the Helper Functions """
 
 # Function to get the latest version in a folder
@@ -142,7 +143,7 @@ def GetTrajFromBatchinput(nn_output,nn_input,num_traj,traj_generator,solver_max_
         "max_iters": solver_max_iter,
         "verbose": False, 
         #"acceleration_lookback": 0,
-        'solve_method':'ECOS',
+        #'solve_method':'ECOS',
     }
     # iterate through the trajectories
     for i in range(num_traj):

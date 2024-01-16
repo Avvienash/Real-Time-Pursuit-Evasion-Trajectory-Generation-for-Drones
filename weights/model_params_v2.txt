@@ -4,12 +4,12 @@ dt: 0.2
 xy_limit: 5
 acc_limit: 0.5
 n_steps: 10
-pursuer_num_traj: 2
-evader_num_traj: 2
+pursuer_num_traj: 5
+evader_num_traj: 5
 input_layer_num: 8
 hidden_layer_num: 100
 output_layer_num: 60
-P_LR: 1e-07
+P_LR: 0.01
 E_LR: 0.01
 W_state: 1000
 W_control: 1

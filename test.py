@@ -36,11 +36,11 @@ plt.rcParams['animation.ffmpeg_path'] = 'C:\\Users\\Avvienash\\Documents\\ffmpeg
 
 pursuer_init_state = np.array([-4,-4,0,0])
 evader_init_state = np.array([4,4,0,0])
-pursuer_weights_version = 'weights/pursuer_weights_v11.pth'
-evader_weights_version = 'weights/evader_weights_v11.pth'
+pursuer_weights_version = 'weights/pursuer_weights_v2.pth'
+evader_weights_version = 'weights/evader_weights_v2.pth'
 frames = 200 # number of frames in the simulation
 fps = 15
-name = 'videos/Trajectory_Game_v5.mp4'
+name = 'videos/Trajectory_Game_v6.mp4'
 
 
 

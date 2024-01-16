@@ -52,8 +52,8 @@ acc_limit = 0.5
 
 # Trajectory Generator Parameters
 n_steps = 10 # number of steps in the trajectory
-pursuer_num_traj = 2 # number of trajectories to be generated for the pursuer
-evader_num_traj = 2 # number of trajectories to be generated for the evader
+pursuer_num_traj = 5 # number of trajectories to be generated for the pursuer
+evader_num_traj = 5 # number of trajectories to be generated for the evader
 
 # NN parameters
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu") # device
@@ -71,8 +71,8 @@ evader_init_state = np.array([4,4,0,0])
 
 # Interation Parameters
 solver_max_iter = 100000 # maximum number of iterations for the solver used in the trajectory generator function
-reset_bool = True # If True then the initial state is reset
-reset_size = 10 # Number of iterations per episode
+reset_bool = False # If True then the initial state is reset
+reset_size = 5 # Number of iterations per episode
 num_episodes = 500
 total_iteration = num_episodes * reset_size# total number of iterations
 
@@ -81,7 +81,7 @@ W_state = 1000 # 1000
 W_control = 1
 
 # Train Boolean
-train_pursuer = True
+train_pursuer = False
 train_evader = True
 reset_evader = True
 
@@ -148,22 +148,8 @@ def main():
         
         # Training the evader
         evader_output = evader_net(evader_input)
-        try:
-            evader_traj = GetTrajFromBatchinput(evader_output,evader_input,evader_num_traj,traj_generator,solver_max_iter,device)
-        except Exception as e:
-            print(e)
-            print("Trajectory generation failed for trajectory: ", i+1)
-            evader_input = torch.tensor([random.randrange( -1* round(xy_limit*0.8) , round(xy_limit*0.8) ),
-                                            random.randrange( -1 * round(xy_limit*0.8) , round(xy_limit*0.8) ),
-                                            0,
-                                            0,
-                                            pursuer_final_traj[0],
-                                            pursuer_final_traj[1],
-                                            pursuer_final_traj[2],
-                                            pursuer_final_traj[3]],
-                                            dtype = torch.float)
-            continue
-        
+        evader_traj = GetTrajFromBatchinput(evader_output,evader_input,evader_num_traj,traj_generator,solver_max_iter,device)
+
         
         pursuer_traj_ref = pursuer_traj.clone().detach()
         evader_traj_ref = evader_traj.clone().detach()
@@ -178,7 +164,7 @@ def main():
         evader_BMG_matrix = torch.zeros((evader_num_traj,pursuer_num_traj))
         for i in range(evader_num_traj):
             for j in range(pursuer_num_traj):
-                evader_BMG_matrix[i][j] = -1* MSE_loss(evader_traj[i],pursuer_traj_ref[j])
+                evader_BMG_matrix[i][j] = -1*MSE_loss(evader_traj[i],pursuer_traj_ref[j])
                 
         # Solve the Bimatrix Game
         pursuer_BMG_matrix_np = pursuer_BMG_matrix.clone().detach().numpy()
@@ -228,8 +214,8 @@ def main():
         
         
         if (i_episode % reset_size == 0) and reset_bool:
-            pursuer_input = torch.tensor([*pursuer_final_traj.clone().detach()[:4],*evader_final_traj.clone().detach()[:4]], dtype=torch.float)
-            evader_input = torch.tensor([*evader_final_traj.clone().detach()[:4],*pursuer_final_traj.clone().detach()[:4]], dtype=torch.float)
+            pursuer_input = torch.tensor([*pursuer_final_traj.clone().detach()[:dim_x],*evader_final_traj.clone().detach()[:dim_x]], dtype=torch.float)
+            evader_input = torch.tensor([*evader_final_traj.clone().detach()[:dim_x],*pursuer_final_traj.clone().detach()[:dim_x]], dtype=torch.float)
 
             
         
@@ -281,7 +267,9 @@ def main():
     plt.xlabel('episode')  # Replace 'X-axis label' with the appropriate label for your data
     plt.ylabel('Error')  # Replace 'Y-axis label' with the appropriate label for your data
     plt.title('Pursuer and Evader Errors over Time')  # Replace 'Title' with the appropriate title for your plot
-    plt.show()
+    
+    plot_name = "plots/losses_plot_v" + str(get_latest_version('plots',"losses_plot_v") + 1) + ".png"
+    plt.savefig(plot_name)
 
     print("---------------------------------------------------------------")
     print("Saving the weights")
