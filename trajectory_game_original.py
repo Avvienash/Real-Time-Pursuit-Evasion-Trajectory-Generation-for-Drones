@@ -197,6 +197,8 @@ def construct_mpc_problem():
     constraints += [controls[1] >= -beta]
 
     for t in range(1, T):
+        
+        
         constraints += [states[dim_x*t:dim_x*(t+1)] == A_np @ states[dim_x*(t-1):dim_x*t] + B_np @ controls[dim_u*t:dim_u*(t+1)]]
 
         # xy range
@@ -361,6 +363,8 @@ class PlayerTrajectoryGenerator(nn.Module):
         # self.network_result_ = x[0:dim_x*num_step].clone().detach()
         self.network_result_ = x.clone().detach()
         x = x.view(self.number_of_trajectory,-1)
+        
+        print("Mag Vector:", mag_vector)
 
         return x
 

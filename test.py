@@ -35,7 +35,7 @@ plt.rcParams['animation.ffmpeg_path'] = 'C:\\Users\\Avvienash\\Documents\\ffmpeg
 """ Global Variables """
 
 pursuer_init_state = np.array([-4,-4,0,0])
-evader_init_state = np.array([4,4,0,0])
+evader_init_state = np.array([-4,4,0,0])
 pursuer_weights_version = 'weights/pursuer_weights_v2.pth'
 evader_weights_version = 'weights/evader_weights_v2.pth'
 frames = 200 # number of frames in the simulation
@@ -116,7 +116,7 @@ def main():
         pursuer_BMG_matrix_np = pursuer_BMG_matrix.clone().detach().numpy()
         evader_BMG_matrix_np = evader_BMG_matrix.clone().detach().numpy()
         game = nash.Game(pursuer_BMG_matrix_np, evader_BMG_matrix_np)
-        equilibria = game.lemke_howson_enumeration()
+        equilibria = game.vertex_enumeration()
 
         sorted_equilibria = sorted(equilibria, key=lambda x: sum(x[0] * pursuer_BMG_matrix_np @ x[1]))
         pursuer_sol = torch.tensor(sorted_equilibria[0][0], dtype=torch.float)

@@ -1,0 +1,16 @@
+dim_x: 4
+dim_u: 2
+dt: 0.2
+xy_limit: 5
+acc_limit: 0.5
+n_steps: 5
+pursuer_num_traj: 4
+evader_num_traj: 4
+input_layer_num: 8
+hidden_layer_num: 128
+output_layer_num: 30
+P_LR: 0.01
+E_LR: 0.01
+W_state: 1000
+W_control: 1
+solver_max_iter: 100000

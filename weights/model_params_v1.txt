@@ -3,12 +3,12 @@ dim_u: 2
 dt: 0.2
 xy_limit: 5
 acc_limit: 0.5
-n_steps: 10
-pursuer_num_traj: 2
-evader_num_traj: 2
+n_steps: 1
+pursuer_num_traj: 4
+evader_num_traj: 4
 input_layer_num: 8
-hidden_layer_num: 100
-output_layer_num: 60
+hidden_layer_num: 128
+output_layer_num: 6
 P_LR: 0.01
 E_LR: 0.01
 W_state: 1000
