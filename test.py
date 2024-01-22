@@ -1,14 +1,9 @@
 """ 
-Author: Avvienash
-Date: 12/1/2024
-Description:
-    This file is used to test the trained networks.
-    The test is done by running a simulation between the pursuer and the evader.
-"""
+Test script
 
-""" Importing Libraries """
-#region Importing Libraries
+"""
 import math
+import os
 import random
 import numpy as np
 import matplotlib
@@ -20,160 +15,78 @@ import torch.nn.functional as F
 import torchvision.transforms as T
 import cvxpy as cp
 import nashpy as nash
+import sys 
+import logging
+import ast
 
 from cvxpylayers.torch import CvxpyLayer
+from cvxpy.problems.objective import Maximize, Minimize
 from matplotlib.animation import FFMpegWriter
 from IPython.display import Video
 from datetime import datetime
 
-from utils import *
-from train import *
-
-plt.rcParams['animation.ffmpeg_path'] = 'C:\\Users\\Avvienash\\Documents\\ffmpeg-6.1-essentials_build\\ffmpeg-6.1-essentials_build\\bin\\ffmpeg.exe'
-#endregion
-
-""" Global Variables """
-
-pursuer_init_state = np.array([-4,-4,0,0])
-evader_init_state = np.array([-4,4,0,0])
-pursuer_weights_version = 'weights/pursuer_weights_v2.pth'
-evader_weights_version = 'weights/evader_weights_v2.pth'
-frames = 200 # number of frames in the simulation
-fps = 15
-name = 'videos/Trajectory_Game_v6.mp4'
-
-
-
-
-""" Main Function """
+from main import *
 
 def main():
     
-    # Load the trained networks
-    print("---------------------------------------------------------------")
-    print("Loading the trained networks")
-    print("---------------------------------------------------------------")
+    logs_version = get_latest_version('logs','logs')
+    logs_filename = 'logs/logs_v' + str(logs_version + 1) + '.log'
+    logging.basicConfig(level=logging.INFO, 
+                        format='[%(levelname)s] %(message)s',
+                        handlers=[ logging.StreamHandler(),logging.FileHandler(logs_filename) ])
     
-    # Create the neural networks
-    pursuer_net = PlayerTrajectoryGenerator(pursuer_num_traj,dim_x,n_steps,xy_limit,acc_limit,input_layer_num,hidden_layer_num,output_layer_num,device).to(device) # create the pursuer network 
-    evader_net = PlayerTrajectoryGenerator(evader_num_traj,dim_x,n_steps,xy_limit,acc_limit,input_layer_num,hidden_layer_num,output_layer_num,device).to(device)  # create the evader network
-    pursuer_net.load_state_dict(torch.load(pursuer_weights_version)) # load the pursuer network
-    evader_net.load_state_dict(torch.load(pursuer_weights_version)) # load the evader network
-    print("Successfully loaded the trained networks")
+    logging.info('Starting test script')
+    
+    #load the model and params
+    load_version = get_latest_version('models','pursuer_model_v')
+    params = {}
+    file_path = f'models/model_params_v{load_version}.txt'
+    logging.info("File Path: %s", file_path)
+    
+    with open(file_path, 'r') as f:
+        for line in f:
+            key, value = line.strip().split(': ')
+            # Convert the value to int or float if possible
+            try:
+                value = int(value)
+            except ValueError:
+                try:
+                    value = float(value)
+                except ValueError:
+                    pass  # Keep the value as a string if conversion is not possible
+
+            params[key] = value
+            
+    # Now, you can access the parameters using loaded_params dictionary
+    logging.info("Loaded Parameters: %s", params)
     
     
-    # Run Test
-    print("---------------------------------------------------------------")
-    print("Running Test")
-    print("---------------------------------------------------------------")
+    generator = PlayerTrajectoryGenerator(num_traj = params['num_traj'],
+                                          state_dim = params['state_dim'],
+                                          input_dim = params['input_dim'],
+                                          n_steps = params['n_steps'],
+                                          dt = params['dt'],
+                                          limits = ast.literal_eval(params['limits']),
+                                          hidden_layer_num = params['hidden_layer_num'],
+                                          solver_max_iter = params['solver_max_iter'],
+                                          device = torch.device("cuda" if torch.cuda.is_available() else "cpu"),
+                                          verbose = params['verbose'],
+                                          solve_method = params['solve_method'])
+                                            
+     # Test the model
+    generator.load_model(get_latest_version('models','pursuer_model_v'))
     
+    pursuer_init_state = torch.tensor([0,0,0,0]).float()
+    evader_init_state = torch.tensor([4,4,0,0]).float()
+    
+    pursuer_states_sim, evader_states_sim, pursuer_trajectories_sim, evader_trajectories_sim = generator.test(pursuer_init_state, evader_init_state, num_epochs = 200)
+    name = "testing_animations/animation_v" + str(get_latest_version('testing_animations', "animation_v") + 1) + ".mp4"
+    generator.animate(pursuer_states_sim, evader_states_sim, pursuer_trajectories_sim, evader_trajectories_sim, name)
+    
+    return
     
 
     
-    pursuer_input = torch.tensor(np.concatenate((pursuer_init_state, evader_init_state)),dtype =torch.float) # initial input for the pursuer
-    evader_input  = torch.tensor(np.concatenate((evader_init_state, pursuer_init_state)),dtype =torch.float) # initial input for the evader
-    pursuer_states = np.zeros((frames,dim_x)) # array to store the pursuer states
-    evader_states = np.zeros((frames,dim_x)) # array to store the evader states
-    pursuer_trajectories = np.zeros((frames,dim_x*n_steps)) # array to store the pursuer trajectories
-    evader_trajectories = np.zeros((frames,dim_x*n_steps)) # array to store the evader trajectories
 
-
-
-    pursuer_net.eval() # set the pursuer network to evaluation mode
-    evader_net.eval() # set the evader network to evaluation mode
-    
-    traj_generator = construct_mpc_problem(dim_x,dim_u,n_steps,xy_limit,acc_limit,dt,W_state,W_control,output_layer_num)
-    MSE_loss = nn.MSELoss() # create the loss function
-
-    print("Running Simulation")
-    # Begin Simulation Loop
-    for frame in range(frames):
-
-        
-        with torch.no_grad():
-            evader_output = evader_net(evader_input)    
-            pursuer_output = pursuer_net(pursuer_input)
-        
-        pursuer_traj = GetTrajFromBatchinput(pursuer_output,pursuer_input,pursuer_num_traj,traj_generator,solver_max_iter,device)
-        pursuer_traj_ref = pursuer_traj.clone().detach()
-        
-        evader_traj = GetTrajFromBatchinput(evader_output,evader_input,evader_num_traj,traj_generator,solver_max_iter,device)
-        evader_traj_ref = evader_traj.clone().detach()
-
-        # Create the Bimatrix Game for the Pursuer
-        pursuer_BMG_matrix = torch.zeros((pursuer_num_traj,evader_num_traj))
-        for i in range(pursuer_num_traj):
-            for j in range(evader_num_traj):
-                pursuer_BMG_matrix[i][j] = MSE_loss(pursuer_traj[i],evader_traj_ref[j])
-                
-        # Create the Bimatrix Game for the Evader
-        evader_BMG_matrix = torch.zeros((evader_num_traj,pursuer_num_traj))
-        for i in range(evader_num_traj):
-            for j in range(pursuer_num_traj):
-                evader_BMG_matrix[i][j] = MSE_loss(evader_traj[i],pursuer_traj_ref[j])
-                
-        # Solve the Bimatrix Game
-        pursuer_BMG_matrix_np = pursuer_BMG_matrix.clone().detach().numpy()
-        evader_BMG_matrix_np = evader_BMG_matrix.clone().detach().numpy()
-        game = nash.Game(pursuer_BMG_matrix_np, evader_BMG_matrix_np)
-        equilibria = game.vertex_enumeration()
-
-        sorted_equilibria = sorted(equilibria, key=lambda x: sum(x[0] * pursuer_BMG_matrix_np @ x[1]))
-        pursuer_sol = torch.tensor(sorted_equilibria[0][0], dtype=torch.float)
-        evader_sol = torch.tensor(sorted_equilibria[0][1],dtype=torch.float)    
-        
-        # Calculate the trajectory
-        pursuer_final_traj = torch.mm(pursuer_sol.view(1,-1).to(device),pursuer_traj)
-        evader_final_traj = torch.mm(evader_sol.view(1,-1).to(device),evader_traj)
-        pursuer_final_traj = pursuer_final_traj.squeeze()
-        evader_final_traj = evader_final_traj.squeeze()
-        
-        
-        
-        # Store the states in the array
-        pursuer_states[frame,:] = pursuer_input.cpu().clone().detach().numpy()[:4]
-        evader_states[frame,:] = evader_input.cpu().clone().detach().numpy()[:4]
-        pursuer_trajectories[frame,:] = pursuer_final_traj.cpu().clone().detach().numpy()  
-        evader_trajectories[frame,:] = evader_final_traj.cpu().clone().detach().numpy()
-        
-        # update the states
-        pursuer_input = torch.tensor([*pursuer_final_traj.clone().detach()[:4],*evader_final_traj.clone().detach()[:4]], dtype=torch.float)
-        evader_input = torch.tensor([*evader_final_traj.clone().detach()[:4],*pursuer_final_traj.clone().detach()[:4]], dtype=torch.float)
-
-        
-        
-        
-        if (abs(evader_final_traj[0] - pursuer_final_traj[0]) <= 0.2) and  (abs(evader_final_traj[1] - pursuer_final_traj[1]) <= 0.2) :
-            pursuer_states = pursuer_states[:frame+1]
-            evader_states = evader_states[:frame+1]
-            pursuer_trajectories = pursuer_trajectories[:frame+1]
-            evader_trajectories = evader_trajectories[:frame+1]
-            print("Evader Caught")
-            break
-
-        # Check if the evader is cornered
-        if (abs(evader_final_traj[0]) > (xy_limit-0.2)) and   (abs(evader_final_traj[1])> (xy_limit-0.2)):
-            pursuer_states = pursuer_states[:frame+1]
-            evader_states = evader_states[:frame+1]
-            pursuer_trajectories = pursuer_trajectories[:frame+1]
-            evader_trajectories = evader_trajectories[:frame+1]
-            print("Evader Cornered")
-            break
-        
-        print("Frame: ", frame+1 , '/', frames)
-        
-    print("Evader States Shape: ", evader_states.shape)
-    print("Pursuer States Shape: ", pursuer_states.shape)
-    print("Evader Trajectories Shape: ", evader_trajectories.shape)
-    print("Pursuer Trajectories Shape: ", pursuer_trajectories.shape)
-
-    print("----------------------------------------------")
-    print("Running Animation")
-    print("----------------------------------------------")
-
-    animate(fps, name, pursuer_states, evader_states, pursuer_trajectories, evader_trajectories)
-    print("Animation Complete")
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
-
