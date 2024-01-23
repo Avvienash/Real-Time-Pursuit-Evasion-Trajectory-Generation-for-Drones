@@ -53,7 +53,10 @@ def main():
                 try:
                     value = float(value)
                 except ValueError:
-                    pass  # Keep the value as a string if conversion is not possible
+                    if value == 'True':
+                        value = True
+                    elif value == 'False':
+                        value = False  # Keep the value as a string if conversion is not possible
 
             params[key] = value
             
@@ -76,7 +79,7 @@ def main():
      # Test the model
     generator.load_model(get_latest_version('models','pursuer_model_v'))
     
-    pursuer_init_state = torch.tensor([0,0,0,0]).float()
+    pursuer_init_state = torch.tensor([-4,-4,0,0]).float()
     evader_init_state = torch.tensor([4,4,0,0]).float()
     
     pursuer_states_sim, evader_states_sim, pursuer_trajectories_sim, evader_trajectories_sim = generator.test(pursuer_init_state, evader_init_state, num_epochs = 200)

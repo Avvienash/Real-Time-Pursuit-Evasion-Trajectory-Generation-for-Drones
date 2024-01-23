@@ -114,7 +114,7 @@ class PlayerTrajectoryGenerator:
         self.hidden_layer_num = hidden_layer_num
         self.solver_args =  {
                             "max_iters": solver_max_iter,
-                            "verbose": False, 
+                            "verbose": verbose, 
                             'solve_method':solve_method,
                             }
         self.MSE_loss = nn.MSELoss()
@@ -574,20 +574,20 @@ def main():
     generator = PlayerTrajectoryGenerator(num_traj = 5,
                                           state_dim = 4,
                                           input_dim = 2,
-                                          n_steps = 5,
+                                          n_steps = 10,
                                           dt = 0.2,
                                           limits = [5,5,5,5,0.4,0.4],
                                           hidden_layer_num = 128,
-                                          solver_max_iter = 1000,
+                                          solver_max_iter = 10000,
                                           device = torch.device("cuda" if torch.cuda.is_available() else "cpu"))
     
     pursuer_error_sim,evader_error_sim,\
     pursuer_states_sim, evader_states_sim,\
-    pursuer_trajectories_sim, evader_trajectories_sim = generator.train(P_LR = 0.001,
-                                                                        E_LR = 0.001,
-                                                                        num_epochs = 100000,
+    pursuer_trajectories_sim, evader_trajectories_sim = generator.train(P_LR = 0.01,
+                                                                        E_LR = 0.01,
+                                                                        num_epochs = 10000,
                                                                         save_model = True,
-                                                                        reset_n_step = 1000)
+                                                                        reset_n_step = 300)
 
     generator.plot_losses(pursuer_error_sim, evader_error_sim)
 
