@@ -317,7 +317,7 @@ class PlayerTrajectoryGenerator:
         
         return pursuer_final_states, evader_final_states, pursuer_error, evader_error
     
-    def train(self,P_LR, E_LR, num_epochs, save_model = True):
+    def train(self,P_LR, E_LR, num_epochs, save_model = True, reset_n_step = 1000):
         
         logging.info("Training Player Trajectory Generator Pytorch Model...")
         
@@ -346,6 +346,8 @@ class PlayerTrajectoryGenerator:
         self.pursuer_model.train()
         self.evader_model.train()
         
+        reset_counter = 0
+        
         for epoch in range(num_epochs):
             
             pursuer_final_states, evader_final_states, pursuer_error, evader_error = self.generate_trajectories(pursuer_init_state, evader_init_state, optimization_layer)
@@ -366,16 +368,27 @@ class PlayerTrajectoryGenerator:
             pursuer_trajectories_sim[epoch,:,:] = pursuer_final_states.clone().detach().cpu().numpy()
             evader_trajectories_sim[epoch,:,:] = evader_final_states.clone().detach().cpu().numpy()
             
-            # check if evader caught by pursuer
+            
             pursuer_init_state = pursuer_final_states[0,:].clone().detach()
             evader_init_state = evader_final_states[0,:].clone().detach()
             
+            
+            # check if evader caught by pursuer
             if torch.norm(pursuer_init_state[:2] - evader_init_state[:2]) < 0.4:
                 
                 logging.info("Evader Caught by Pursuer")
                 pursuer_init_state = torch.randn(self.state_dim).mul(torch.tensor(self.limits[:self.state_dim])).to(self.device)
                 evader_init_state = torch.randn(self.state_dim).mul(torch.tensor(self.limits[:self.state_dim])).to(self.device)
+                reset_counter = 0
 
+            # reset the states after 1000 epochs
+            reset_counter += 1
+            if reset_counter == reset_n_step:
+                logging.info("Resetting the states afteer 1000 steps of evader not being caught by pursuer")
+                pursuer_init_state = torch.randn(self.state_dim).mul(torch.tensor(self.limits[:self.state_dim])).to(self.device)
+                evader_init_state = torch.randn(self.state_dim).mul(torch.tensor(self.limits[:self.state_dim])).to(self.device)
+                reset_counter = 0
+            
             
             logging.info("Epoch: %s, Pursuer Error: %s, Evader Error: %s, Distance between pursuer and evader: %s",
                         epoch, pursuer_error_sim[epoch], evader_error_sim[epoch],
@@ -568,8 +581,14 @@ def main():
                                           solver_max_iter = 1000,
                                           device = torch.device("cuda" if torch.cuda.is_available() else "cpu"))
     
-    pursuer_error_sim,evader_error_sim, pursuer_states_sim, evader_states_sim, pursuer_trajectories_sim, evader_trajectories_sim = generator.train(P_LR = 0.01, E_LR = 0.01, num_epochs = 100)
-    
+    pursuer_error_sim,evader_error_sim,\
+    pursuer_states_sim, evader_states_sim,\
+    pursuer_trajectories_sim, evader_trajectories_sim = generator.train(P_LR = 0.001,
+                                                                        E_LR = 0.001,
+                                                                        num_epochs = 100000,
+                                                                        save_model = True,
+                                                                        reset_n_step = 1000)
+
     generator.plot_losses(pursuer_error_sim, evader_error_sim)
 
     name = "training_animations/animation_v" + str(get_latest_version('training_animations', "animation_v") + 1) + ".mp4"
@@ -581,7 +600,10 @@ def main():
     pursuer_init_state = torch.tensor([0,0,0,0]).float()
     evader_init_state = torch.tensor([4,4,0,0]).float()
     
-    pursuer_states_sim, evader_states_sim, pursuer_trajectories_sim, evader_trajectories_sim = generator.test(pursuer_init_state, evader_init_state, num_epochs = 200)
+    pursuer_states_sim, evader_states_sim, pursuer_trajectories_sim, evader_trajectories_sim = generator.test(pursuer_init_state,
+                                                                                                              evader_init_state,
+                                                                                                              num_epochs = 200)
+    
     name = "testing_animations/animation_v" + str(get_latest_version('testing_animations', "animation_v") + 1) + ".mp4"
     generator.animate(pursuer_states_sim, evader_states_sim, pursuer_trajectories_sim, evader_trajectories_sim, name)
     

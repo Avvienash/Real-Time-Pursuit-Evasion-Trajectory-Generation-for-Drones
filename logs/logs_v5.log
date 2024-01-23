@@ -1,3 +1,0 @@
-[INFO] Starting test script
-[INFO] File Path: models/model_params_v1.txt
-[INFO] Loaded Parameters: {'num_traj': 5, 'state_dim': 4, 'input_dim': 2, 'n_steps': 5, 'dt': 0.2, 'limits': '[5, 5, 5, 5, 0.4, 0.4]', 'hidden_layer_num': 128, 'solver_max_iter': 1000, 'device': 'cuda', 'verbose': 'False', 'solve_method': 'ECOS'}
