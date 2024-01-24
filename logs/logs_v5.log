@@ -1,74 +1,48 @@
-[INFO] Starting test script
-[INFO] File Path: models/model_params_v2.txt
-[INFO] Loaded Parameters: {'num_traj': 5, 'state_dim': 4, 'input_dim': 2, 'n_steps': 5, 'dt': 0.2, 'limits': '[5, 5, 5, 5, 0.4, 0.4]', 'hidden_layer_num': 128, 'solver_max_iter': 500, 'device': 'cuda', 'verbose': False, 'solve_method': 'ECOS'}
 [INFO] Initializing Player Trajectory Generator Pytorch Model...
 [INFO] Mag Vector Shape: torch.Size([1, 150])
 [INFO] Initializing Player Trajectory Generator Pytorch Model...
 [INFO] Mag Vector Shape: torch.Size([1, 150])
-[INFO] Testing Player Trajectory Generator Pytorch Model...
-[INFO] Pursuer Initial State: tensor([-4., -4.,  0.,  0.])
-[INFO] Evader Initial State: tensor([4., 4., 0., 0.])
-[INFO] Epoch: 0, Pursuer Error: tensor([[32.0012]]), Evader Error: tensor([[-32.0012]]), Distance between pursuer and evader: 11.313708305358887
-[INFO] Epoch: 1, Pursuer Error: tensor([[32.0013]]), Evader Error: tensor([[-32.0013]]), Distance between pursuer and evader: 11.313708305358887
-[INFO] Epoch: 2, Pursuer Error: tensor([[32.0014]]), Evader Error: tensor([[-32.0014]]), Distance between pursuer and evader: 11.313708305358887
-[INFO] Epoch: 3, Pursuer Error: tensor([[32.0015]]), Evader Error: tensor([[-32.0015]]), Distance between pursuer and evader: 11.313708305358887
-[INFO] Epoch: 4, Pursuer Error: tensor([[32.0016]]), Evader Error: tensor([[-32.0016]]), Distance between pursuer and evader: 11.313708305358887
-[INFO] Epoch: 5, Pursuer Error: tensor([[32.0016]]), Evader Error: tensor([[-32.0016]]), Distance between pursuer and evader: 11.313708305358887
-[INFO] Epoch: 6, Pursuer Error: tensor([[32.0017]]), Evader Error: tensor([[-32.0017]]), Distance between pursuer and evader: 11.313708305358887
-[INFO] Epoch: 7, Pursuer Error: tensor([[31.4066]]), Evader Error: tensor([[-31.4066]]), Distance between pursuer and evader: 11.2998046875
-[INFO] Epoch: 8, Pursuer Error: tensor([[30.5512]]), Evader Error: tensor([[-30.5512]]), Distance between pursuer and evader: 11.24936580657959
-[INFO] Epoch: 9, Pursuer Error: tensor([[29.5553]]), Evader Error: tensor([[-29.5553]]), Distance between pursuer and evader: 11.153674125671387
-[INFO] Epoch: 10, Pursuer Error: tensor([[28.4206]]), Evader Error: tensor([[-28.4206]]), Distance between pursuer and evader: 11.01353931427002
-[INFO] Epoch: 11, Pursuer Error: tensor([[27.1445]]), Evader Error: tensor([[-27.1445]]), Distance between pursuer and evader: 10.829999923706055
-[INFO] Epoch: 12, Pursuer Error: tensor([[25.7437]]), Evader Error: tensor([[-25.7437]]), Distance between pursuer and evader: 10.604240417480469
-[INFO] Epoch: 13, Pursuer Error: tensor([[24.2562]]), Evader Error: tensor([[-24.2562]]), Distance between pursuer and evader: 10.341012001037598
-[INFO] Epoch: 14, Pursuer Error: tensor([[22.7042]]), Evader Error: tensor([[-22.7042]]), Distance between pursuer and evader: 10.046335220336914
-[INFO] Epoch: 15, Pursuer Error: tensor([[21.0320]]), Evader Error: tensor([[-21.0320]]), Distance between pursuer and evader: 9.718743324279785
-[INFO] Epoch: 16, Pursuer Error: tensor([[19.3147]]), Evader Error: tensor([[-19.3147]]), Distance between pursuer and evader: 9.350235939025879
-[INFO] Epoch: 17, Pursuer Error: tensor([[17.5759]]), Evader Error: tensor([[-17.5759]]), Distance between pursuer and evader: 8.936501502990723
-[INFO] Epoch: 18, Pursuer Error: tensor([[15.8126]]), Evader Error: tensor([[-15.8126]]), Distance between pursuer and evader: 8.477544784545898
-[INFO] Epoch: 19, Pursuer Error: tensor([[14.0755]]), Evader Error: tensor([[-14.0755]]), Distance between pursuer and evader: 7.973372936248779
-[INFO] Epoch: 20, Pursuer Error: tensor([[12.3955]]), Evader Error: tensor([[-12.3955]]), Distance between pursuer and evader: 7.423996925354004
-[INFO] Epoch: 21, Pursuer Error: tensor([[10.8202]]), Evader Error: tensor([[-10.8202]]), Distance between pursuer and evader: 6.829431533813477
-[INFO] Epoch: 22, Pursuer Error: tensor([[9.3520]]), Evader Error: tensor([[-9.3520]]), Distance between pursuer and evader: 6.189958572387695
-[INFO] Epoch: 23, Pursuer Error: tensor([[7.9225]]), Evader Error: tensor([[-7.9225]]), Distance between pursuer and evader: 5.50852108001709
-[INFO] Epoch: 24, Pursuer Error: tensor([[6.5664]]), Evader Error: tensor([[-6.5664]]), Distance between pursuer and evader: 4.800764560699463
-[INFO] Epoch: 25, Pursuer Error: tensor([[5.3477]]), Evader Error: tensor([[-5.3477]]), Distance between pursuer and evader: 4.086137771606445
-[INFO] Epoch: 26, Pursuer Error: tensor([[4.4489]]), Evader Error: tensor([[-4.4489]]), Distance between pursuer and evader: 3.3713672161102295
-[INFO] Epoch: 27, Pursuer Error: tensor([[3.8463]]), Evader Error: tensor([[-3.8463]]), Distance between pursuer and evader: 2.656723737716675
-[INFO] Epoch: 28, Pursuer Error: tensor([[3.4990]]), Evader Error: tensor([[-3.4990]]), Distance between pursuer and evader: 1.9423472881317139
-[INFO] Epoch: 29, Pursuer Error: tensor([[3.4413]]), Evader Error: tensor([[-3.4413]]), Distance between pursuer and evader: 1.2287046909332275
-[INFO] Epoch: 30, Pursuer Error: tensor([[3.6421]]), Evader Error: tensor([[-3.6421]]), Distance between pursuer and evader: 0.5188315510749817
-[INFO] Evader Caught by Pursuer
-[INFO] MovieWriter._run: running command: 'C:\Users\Avvienash\Documents\ffmpeg-6.1-essentials_build\ffmpeg-6.1-essentials_build\bin\ffmpeg.exe' -f rawvideo -vcodec rawvideo -s 500x500 -pix_fmt rgba -r 10 -loglevel error -i pipe: -vcodec h264 -pix_fmt yuv420p -metadata title=demo -metadata artist=avvienash -y testing_animations/animation_v3.mp4
-[INFO] Animation Frame: 0
-[INFO] Animation Frame: 1
-[INFO] Animation Frame: 2
-[INFO] Animation Frame: 3
-[INFO] Animation Frame: 4
-[INFO] Animation Frame: 5
-[INFO] Animation Frame: 6
-[INFO] Animation Frame: 7
-[INFO] Animation Frame: 8
-[INFO] Animation Frame: 9
-[INFO] Animation Frame: 10
-[INFO] Animation Frame: 11
-[INFO] Animation Frame: 12
-[INFO] Animation Frame: 13
-[INFO] Animation Frame: 14
-[INFO] Animation Frame: 15
-[INFO] Animation Frame: 16
-[INFO] Animation Frame: 17
-[INFO] Animation Frame: 18
-[INFO] Animation Frame: 19
-[INFO] Animation Frame: 20
-[INFO] Animation Frame: 21
-[INFO] Animation Frame: 22
-[INFO] Animation Frame: 23
-[INFO] Animation Frame: 24
-[INFO] Animation Frame: 25
-[INFO] Animation Frame: 26
-[INFO] Animation Frame: 27
-[INFO] Animation Frame: 28
-[INFO] Animation Frame: 29
-[INFO] Animation Frame: 30
+[INFO] Training Player Trajectory Generator Pytorch Model...
+[INFO] Pursuer Initial State: tensor([-10.4780,  -0.2745,   1.3240,  -4.5827], device='cuda:0')
+[INFO] Evader Initial State: tensor([ 1.4619, -6.3172,  3.7005, -2.4031], device='cuda:0')
+[INFO] Epoch: 0, Pursuer Error: [17.56326294], Evader Error: [-17.56326294], Distance between pursuer and evader: 7.907326698303223
+[INFO] Epoch: 1, Pursuer Error: [17.49905205], Evader Error: [-17.49905205], Distance between pursuer and evader: 7.785706996917725
+[INFO] Epoch: 2, Pursuer Error: [16.61479187], Evader Error: [-16.61479187], Distance between pursuer and evader: 7.544410228729248
+[INFO] Epoch: 3, Pursuer Error: [15.20926189], Evader Error: [-15.20926189], Distance between pursuer and evader: 7.235249042510986
+[INFO] Epoch: 4, Pursuer Error: [13.81570339], Evader Error: [-13.81570339], Distance between pursuer and evader: 6.982893466949463
+[INFO] Epoch: 5, Pursuer Error: [12.66595936], Evader Error: [-12.66595936], Distance between pursuer and evader: 6.748981952667236
+[INFO] Epoch: 6, Pursuer Error: [11.67689705], Evader Error: [-11.67689705], Distance between pursuer and evader: 6.53277587890625
+[INFO] Epoch: 7, Pursuer Error: [10.84376717], Evader Error: [-10.84376717], Distance between pursuer and evader: 6.334577560424805
+[INFO] Epoch: 8, Pursuer Error: [10.14708996], Evader Error: [-10.14708996], Distance between pursuer and evader: 6.154934883117676
+[INFO] Epoch: 9, Pursuer Error: [9.56499481], Evader Error: [-9.56499481], Distance between pursuer and evader: 5.995364189147949
+[INFO] Epoch: 10, Pursuer Error: [9.08964348], Evader Error: [-9.08964348], Distance between pursuer and evader: 5.856015205383301
+[INFO] Epoch: 11, Pursuer Error: [8.71837616], Evader Error: [-8.71837616], Distance between pursuer and evader: 5.738312721252441
+[INFO] Epoch: 12, Pursuer Error: [8.43570232], Evader Error: [-8.43570232], Distance between pursuer and evader: 5.6446003913879395
+[INFO] Epoch: 13, Pursuer Error: [8.2441082], Evader Error: [-8.2441082], Distance between pursuer and evader: 5.57579231262207
+[INFO] Epoch: 14, Pursuer Error: [8.14929676], Evader Error: [-8.14929676], Distance between pursuer and evader: 5.533905506134033
+[INFO] Epoch: 15, Pursuer Error: [8.10764313], Evader Error: [-8.10764313], Distance between pursuer and evader: 5.5156097412109375
+[INFO] Epoch: 16, Pursuer Error: [8.09898376], Evader Error: [-8.09898376], Distance between pursuer and evader: 5.5137810707092285
+[INFO] Epoch: 17, Pursuer Error: [8.10901928], Evader Error: [-8.10901928], Distance between pursuer and evader: 5.52573299407959
+[INFO] Epoch: 18, Pursuer Error: [8.17750549], Evader Error: [-8.17750549], Distance between pursuer and evader: 5.547564506530762
+[INFO] Epoch: 19, Pursuer Error: [8.20704651], Evader Error: [-8.20704651], Distance between pursuer and evader: 5.5766777992248535
+[INFO] MovieWriter._run: running command: 'C:\Users\Avvienash\Documents\ffmpeg-6.1-essentials_build\ffmpeg-6.1-essentials_build\bin\ffmpeg.exe' -f rawvideo -vcodec rawvideo -s 1000x500 -pix_fmt rgba -r 10 -loglevel error -i pipe: -vcodec h264 -pix_fmt yuv420p -metadata title=demo -metadata artist=avvienash -y training_animations/animation_v4.mp4
+[INFO] Animation Frame 0 with distance 0
+[INFO] Animation Frame 1 with distance 1
+[INFO] Animation Frame 2 with distance 2
+[INFO] Animation Frame 3 with distance 3
+[INFO] Animation Frame 4 with distance 4
+[INFO] Animation Frame 5 with distance 5
+[INFO] Animation Frame 6 with distance 6
+[INFO] Animation Frame 7 with distance 7
+[INFO] Animation Frame 8 with distance 8
+[INFO] Animation Frame 9 with distance 9
+[INFO] Animation Frame 10 with distance 10
+[INFO] Animation Frame 11 with distance 11
+[INFO] Animation Frame 12 with distance 12
+[INFO] Animation Frame 13 with distance 13
+[INFO] Animation Frame 14 with distance 14
+[INFO] Animation Frame 15 with distance 15
+[INFO] Animation Frame 16 with distance 16
+[INFO] Animation Frame 17 with distance 17
+[INFO] Animation Frame 18 with distance 18
+[INFO] Animation Frame 19 with distance 19

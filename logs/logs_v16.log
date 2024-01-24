@@ -1,0 +1,68 @@
+[INFO] Initializing Player Trajectory Generator Pytorch Model...
+[INFO] Mag Vector Shape: torch.Size([1, 150])
+[INFO] Initializing Player Trajectory Generator Pytorch Model...
+[INFO] Mag Vector Shape: torch.Size([1, 150])
+[INFO] Training Player Trajectory Generator Pytorch Model...
+[INFO] Pursuer Initial State: tensor([ 1.8138, -4.1195,  0.4784,  1.2862], device='cuda:0')
+[INFO] Evader Initial State: tensor([ 4.4510, -1.3277, -0.0848,  0.6929], device='cuda:0')
+[INFO] Epoch: 0, Pursuer Error: [2.96306896], Evader Error: [-2.96306896], Distance between pursuer and evader: 3.671468734741211
+[INFO] Epoch: 1, Pursuer Error: [2.67197204], Evader Error: [-2.67197204], Distance between pursuer and evader: 3.493497133255005
+[INFO] Epoch: 2, Pursuer Error: [2.39101386], Evader Error: [-2.39101386], Distance between pursuer and evader: 3.309809923171997
+[INFO] Epoch: 3, Pursuer Error: [2.12404132], Evader Error: [-2.12404132], Distance between pursuer and evader: 3.1232690811157227
+[INFO] Epoch: 4, Pursuer Error: [1.87398183], Evader Error: [-1.87398183], Distance between pursuer and evader: 2.936696767807007
+[INFO] Epoch: 5, Pursuer Error: [1.64472032], Evader Error: [-1.64472032], Distance between pursuer and evader: 2.752472400665283
+[INFO] Epoch: 6, Pursuer Error: [1.4349699], Evader Error: [-1.4349699], Distance between pursuer and evader: 2.5721561908721924
+[INFO] Epoch: 7, Pursuer Error: [1.25534689], Evader Error: [-1.25534689], Distance between pursuer and evader: 2.402017593383789
+[INFO] Epoch: 8, Pursuer Error: [1.0904541], Evader Error: [-1.0904541], Distance between pursuer and evader: 2.2415695190429688
+[INFO] Epoch: 9, Pursuer Error: [0.94811547], Evader Error: [-0.94811547], Distance between pursuer and evader: 2.089381456375122
+[INFO] Epoch: 10, Pursuer Error: [0.82901382], Evader Error: [-0.82901382], Distance between pursuer and evader: 1.952189564704895
+[INFO] Epoch: 11, Pursuer Error: [0.72962445], Evader Error: [-0.72962445], Distance between pursuer and evader: 1.8296682834625244
+[INFO] Epoch: 12, Pursuer Error: [0.64302289], Evader Error: [-0.64302289], Distance between pursuer and evader: 1.7141937017440796
+[INFO] Epoch: 13, Pursuer Error: [0.55710602], Evader Error: [-0.55710602], Distance between pursuer and evader: 1.602249026298523
+[INFO] Epoch: 14, Pursuer Error: [0.48454562], Evader Error: [-0.48454562], Distance between pursuer and evader: 1.4917432069778442
+[INFO] Epoch: 15, Pursuer Error: [0.41437352], Evader Error: [-0.41437352], Distance between pursuer and evader: 1.3820912837982178
+[INFO] Epoch: 16, Pursuer Error: [0.35473394], Evader Error: [-0.35473394], Distance between pursuer and evader: 1.277943730354309
+[INFO] Epoch: 17, Pursuer Error: [0.30340734], Evader Error: [-0.30340734], Distance between pursuer and evader: 1.17698335647583
+[INFO] Epoch: 18, Pursuer Error: [0.25477752], Evader Error: [-0.25477749], Distance between pursuer and evader: 1.0764949321746826
+[INFO] Epoch: 19, Pursuer Error: [0.21443596], Evader Error: [-0.21443596], Distance between pursuer and evader: 0.9852112531661987
+[INFO] Epoch: 20, Pursuer Error: [0.18537876], Evader Error: [-0.18537876], Distance between pursuer and evader: 0.9100680351257324
+[INFO] Epoch: 21, Pursuer Error: [0.16317849], Evader Error: [-0.16317849], Distance between pursuer and evader: 0.8488615155220032
+[INFO] Epoch: 22, Pursuer Error: [0.14615969], Evader Error: [-0.14615969], Distance between pursuer and evader: 0.7991881966590881
+[INFO] Epoch: 23, Pursuer Error: [0.13293512], Evader Error: [-0.13293512], Distance between pursuer and evader: 0.7589782476425171
+[INFO] Epoch: 24, Pursuer Error: [0.12259716], Evader Error: [-0.12259716], Distance between pursuer and evader: 0.7263981103897095
+[INFO] Epoch: 25, Pursuer Error: [0.11438532], Evader Error: [-0.11438532], Distance between pursuer and evader: 0.6998249292373657
+[INFO] Epoch: 26, Pursuer Error: [0.10773515], Evader Error: [-0.10773515], Distance between pursuer and evader: 0.6778801679611206
+[INFO] Epoch: 27, Pursuer Error: [0.10223003], Evader Error: [-0.10223003], Distance between pursuer and evader: 0.6594359278678894
+[INFO] Epoch: 28, Pursuer Error: [0.09756565], Evader Error: [-0.09756565], Distance between pursuer and evader: 0.6435992121696472
+[INFO] Epoch: 29, Pursuer Error: [0.0935213], Evader Error: [-0.0935213], Distance between pursuer and evader: 0.6296836137771606
+[INFO] MovieWriter._run: running command: 'C:\Users\Avvienash\Documents\ffmpeg-6.1-essentials_build\ffmpeg-6.1-essentials_build\bin\ffmpeg.exe' -f rawvideo -vcodec rawvideo -s 1000x500 -pix_fmt rgba -r 10 -loglevel error -i pipe: -vcodec h264 -pix_fmt yuv420p -metadata title=demo -metadata artist=avvienash -y training_animations/animation_v15.mp4
+[INFO] Animation Frame 0: Pursuer Position: ([1.8138307332992554], [-4.119479656219482]), Evader Position: ([4.451012134552002], [-1.3276547193527222]), Distance: 3.8404442739381714
+[INFO] Animation Frame 1: Pursuer Position: ([1.8995060920715332], [-3.85726261138916]), Evader Position: ([4.424044609069824], [-1.191481590270996]), Distance: 3.671468803675408
+[INFO] Animation Frame 2: Pursuer Position: ([1.9651814699172974], [-3.587857961654663]), Evader Position: ([4.377077102661133], [-1.0605510473251343]), Distance: 3.4934969275021026
+[INFO] Animation Frame 3: Pursuer Position: ([2.010856866836548], [-3.316434383392334]), Evader Position: ([4.310109615325928], [-0.9356197714805603]), Distance: 3.3098098763718404
+[INFO] Animation Frame 4: Pursuer Position: ([2.036532163619995], [-3.047426223754883]), Evader Position: ([4.223142147064209], [-0.817281186580658]), Distance: 3.1232691377034305
+[INFO] Animation Frame 5: Pursuer Position: ([2.0422074794769287], [-2.784625768661499]), Evader Position: ([4.116174697875977], [-0.7054799199104309]), Distance: 2.9366966958425724
+[INFO] Animation Frame 6: Pursuer Position: ([2.0278828144073486], [-2.531240463256836]), Evader Position: ([3.9892072677612305], [-0.6000981330871582]), Distance: 2.7524723996249403
+[INFO] Animation Frame 7: Pursuer Position: ([1.9935581684112549], [-2.2898802757263184]), Evader Position: ([3.8422396183013916], [-0.5014830827713013]), Distance: 2.5721562205545143
+[INFO] Animation Frame 8: Pursuer Position: ([1.9392335414886475], [-2.0624606609344482]), Evader Position: ([3.681521415710449], [-0.4089425802230835]), Distance: 2.402017710155302
+[INFO] Animation Frame 9: Pursuer Position: ([1.8649088144302368], [-1.8501619100570679]), Evader Position: ([3.5070526599884033], [-0.32438424229621887]), Distance: 2.241569517311988
+[INFO] Animation Frame 10: Pursuer Position: ([1.7709674835205078], [-1.6535848379135132]), Evader Position: ([3.317342519760132], [-0.24850858747959137]), Distance: 2.0893814927481644
+[INFO] Animation Frame 11: Pursuer Position: ([1.6601765155792236], [-1.4728277921676636]), Evader Position: ([3.1206417083740234], [-0.17741850018501282]), Distance: 1.9521894921139558
+[INFO] Animation Frame 12: Pursuer Position: ([1.5380640029907227], [-1.3074604272842407]), Evader Position: ([2.920780658721924], [-0.10921988636255264]), Distance: 1.8296682059719944
+[INFO] Animation Frame 13: Pursuer Position: ([1.414939522743225], [-1.1571216583251953]), Evader Position: ([2.7195188999176025], [-0.04512672871351242]), Distance: 1.7141937098329285
+[INFO] Animation Frame 14: Pursuer Position: ([1.294068694114685], [-1.021478533744812]), Evader Position: ([2.5189735889434814], [0.011386536061763763]), Distance: 1.6022491235142204
+[INFO] Animation Frame 15: Pursuer Position: ([1.1780961751937866], [-0.89963299036026]), Evader Position: ([2.3213393688201904], [0.05864287167787552]), Distance: 1.4917431506589969
+[INFO] Animation Frame 16: Pursuer Position: ([1.0669100284576416], [-0.7867167592048645]), Evader Position: ([2.1294548511505127], [0.0971241146326065]), Distance: 1.3820912381233046
+[INFO] Animation Frame 17: Pursuer Position: ([0.9545209407806396], [-0.6793773770332336]), Evader Position: ([1.945867896080017], [0.12707869708538055]), Distance: 1.2779437332152592
+[INFO] Animation Frame 18: Pursuer Position: ([0.842458963394165], [-0.5792081952095032]), Evader Position: ([1.7680729627609253], [0.1477915495634079]), Distance: 1.1769833918639663
+[INFO] Animation Frame 19: Pursuer Position: ([0.7324807047843933], [-0.4872205853462219]), Evader Position: ([1.593693733215332], [0.15865355730056763]), Distance: 1.0764949087101687
+[INFO] Animation Frame 20: Pursuer Position: ([0.6262622475624084], [-0.40388986468315125]), Evader Position: ([1.4316906929016113], [0.16349557042121887]), Distance: 0.9852112527423247
+[INFO] Animation Frame 21: Pursuer Position: ([0.5251708030700684], [-0.3293147087097168]), Evader Position: ([1.2886253595352173], [0.16602452099323273]), Distance: 0.9100680261772242
+[INFO] Animation Frame 22: Pursuer Position: ([0.4302014708518982], [-0.2632887065410614]), Evader Position: ([1.1620633602142334], [0.16676247119903564]), Distance: 0.8488614966981666
+[INFO] Animation Frame 23: Pursuer Position: ([0.3420090675354004], [-0.20534169673919678]), Evader Position: ([1.0496175289154053], [0.16613119840621948]), Distance: 0.7991882421834641
+[INFO] Animation Frame 24: Pursuer Position: ([0.2609345614910126], [-0.1548401117324829]), Evader Position: ([0.9494785070419312], [0.1644643247127533]), Distance: 0.7589783185891651
+[INFO] Animation Frame 25: Pursuer Position: ([0.18705429136753082], [-0.11107131093740463]), Evader Position: ([0.8601616621017456], [0.16202329099178314]), Distance: 0.7263980961838964
+[INFO] Animation Frame 26: Pursuer Position: ([0.12023741006851196], [-0.07330247759819031]), Evader Position: ([0.7803769707679749], [0.15901337563991547]), Distance: 0.6998249032909796
+[INFO] Animation Frame 27: Pursuer Position: ([0.060201577842235565], [-0.040818843990564346]), Evader Position: ([0.7090026140213013], [0.15559586882591248]), Distance: 0.6778801693203662
+[INFO] Animation Frame 28: Pursuer Position: ([0.006562373135238886], [-0.012947585433721542]), Evader Position: ([0.6450620889663696], [0.15189723670482635]), Distance: 0.6594358971896542
+[INFO] Animation Frame 29: Pursuer Position: ([-0.041125569492578506], [0.010929093696177006]), Evader Position: ([0.5877043008804321], [0.14801621437072754]), Distance: 0.6435991644868537

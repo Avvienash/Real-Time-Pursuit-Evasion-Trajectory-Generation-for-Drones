@@ -1,0 +1,608 @@
+[INFO] Initializing Player Trajectory Generator Pytorch Model...
+[INFO] Mag Vector Shape: torch.Size([1, 150])
+[INFO] Initializing Player Trajectory Generator Pytorch Model...
+[INFO] Mag Vector Shape: torch.Size([1, 150])
+[INFO] Training Player Trajectory Generator Pytorch Model...
+[INFO] Pursuer Initial State: tensor([ 2.3234, -2.4817,  1.5982, -0.2984], device='cuda:0')
+[INFO] Evader Initial State: tensor([ 1.0708, -1.3440, -0.2580, -0.5775], device='cuda:0')
+[INFO] Epoch: 0, Pursuer Error: [2.2746532], Evader Error: [-2.2746532], Distance between pursuer and evader: 1.9485244750976562
+[INFO] Epoch: 1, Pursuer Error: [2.57819605], Evader Error: [-2.57819605], Distance between pursuer and evader: 2.22908353805542
+[INFO] Epoch: 2, Pursuer Error: [2.90122795], Evader Error: [-2.90122795], Distance between pursuer and evader: 2.516881227493286
+[INFO] Epoch: 3, Pursuer Error: [3.23615575], Evader Error: [-3.23615575], Distance between pursuer and evader: 2.8009822368621826
+[INFO] Epoch: 4, Pursuer Error: [3.57462096], Evader Error: [-3.57462096], Distance between pursuer and evader: 3.074453115463257
+[INFO] Epoch: 5, Pursuer Error: [3.90974879], Evader Error: [-3.90974879], Distance between pursuer and evader: 3.3328771591186523
+[INFO] Epoch: 6, Pursuer Error: [4.20801401], Evader Error: [-4.20801353], Distance between pursuer and evader: 3.573369264602661
+[INFO] Epoch: 7, Pursuer Error: [4.61531067], Evader Error: [-4.61531067], Distance between pursuer and evader: 3.796786069869995
+[INFO] Epoch: 8, Pursuer Error: [4.85254431], Evader Error: [-4.85254383], Distance between pursuer and evader: 3.9995529651641846
+[INFO] Epoch: 9, Pursuer Error: [5.04354811], Evader Error: [-5.04354811], Distance between pursuer and evader: 4.176724910736084
+[INFO] Epoch: 10, Pursuer Error: [5.26712084], Evader Error: [-5.26712084], Distance between pursuer and evader: 4.3296589851379395
+[INFO] Epoch: 11, Pursuer Error: [5.44688749], Evader Error: [-5.44688749], Distance between pursuer and evader: 4.459697246551514
+[INFO] Epoch: 12, Pursuer Error: [5.57294559], Evader Error: [-5.57294559], Distance between pursuer and evader: 4.567460060119629
+[INFO] Epoch: 13, Pursuer Error: [5.64781332], Evader Error: [-5.64781332], Distance between pursuer and evader: 4.652648448944092
+[INFO] Epoch: 14, Pursuer Error: [5.67377615], Evader Error: [-5.67377615], Distance between pursuer and evader: 4.714630603790283
+[INFO] Epoch: 15, Pursuer Error: [5.65224838], Evader Error: [-5.65224838], Distance between pursuer and evader: 4.752907752990723
+[INFO] Epoch: 16, Pursuer Error: [5.58390951], Evader Error: [-5.58390951], Distance between pursuer and evader: 4.767305850982666
+[INFO] Epoch: 17, Pursuer Error: [5.52622366], Evader Error: [-5.52622366], Distance between pursuer and evader: 4.761633396148682
+[INFO] Epoch: 18, Pursuer Error: [5.36317015], Evader Error: [-5.36317015], Distance between pursuer and evader: 4.734558582305908
+[INFO] Epoch: 19, Pursuer Error: [5.1789279], Evader Error: [-5.1789279], Distance between pursuer and evader: 4.682445049285889
+[INFO] Epoch: 20, Pursuer Error: [4.95219994], Evader Error: [-4.95219994], Distance between pursuer and evader: 4.607629776000977
+[INFO] Epoch: 21, Pursuer Error: [4.6989665], Evader Error: [-4.6989665], Distance between pursuer and evader: 4.5114569664001465
+[INFO] Epoch: 22, Pursuer Error: [4.41712952], Evader Error: [-4.41712952], Distance between pursuer and evader: 4.394710540771484
+[INFO] Epoch: 23, Pursuer Error: [4.10804319], Evader Error: [-4.10804319], Distance between pursuer and evader: 4.25789737701416
+[INFO] Epoch: 24, Pursuer Error: [3.79588056], Evader Error: [-3.79588056], Distance between pursuer and evader: 4.1040143966674805
+[INFO] Epoch: 25, Pursuer Error: [3.5112083], Evader Error: [-3.5112083], Distance between pursuer and evader: 3.942096471786499
+[INFO] Epoch: 26, Pursuer Error: [3.23006797], Evader Error: [-3.23006797], Distance between pursuer and evader: 3.7791080474853516
+[INFO] Epoch: 27, Pursuer Error: [2.96221089], Evader Error: [-2.96221089], Distance between pursuer and evader: 3.616027593612671
+[INFO] Epoch: 28, Pursuer Error: [2.70151234], Evader Error: [-2.70151234], Distance between pursuer and evader: 3.45267653465271
+[INFO] Epoch: 29, Pursuer Error: [2.44652867], Evader Error: [-2.44652867], Distance between pursuer and evader: 3.2880895137786865
+[INFO] Epoch: 30, Pursuer Error: [2.19898796], Evader Error: [-2.19898796], Distance between pursuer and evader: 3.1216297149658203
+[INFO] Epoch: 31, Pursuer Error: [1.96069264], Evader Error: [-1.96069264], Distance between pursuer and evader: 2.953404664993286
+[INFO] Epoch: 32, Pursuer Error: [1.7342211], Evader Error: [-1.7342211], Distance between pursuer and evader: 2.7841908931732178
+[INFO] Epoch: 33, Pursuer Error: [1.52230656], Evader Error: [-1.52230656], Distance between pursuer and evader: 2.615281105041504
+[INFO] Epoch: 34, Pursuer Error: [1.32720935], Evader Error: [-1.32720935], Distance between pursuer and evader: 2.4482827186584473
+[INFO] Epoch: 35, Pursuer Error: [1.15296257], Evader Error: [-1.15296257], Distance between pursuer and evader: 2.284417152404785
+[INFO] Epoch: 36, Pursuer Error: [0.99557], Evader Error: [-0.99557], Distance between pursuer and evader: 2.1251182556152344
+[INFO] Epoch: 37, Pursuer Error: [0.85621089], Evader Error: [-0.85621089], Distance between pursuer and evader: 1.969313383102417
+[INFO] Epoch: 38, Pursuer Error: [0.72714961], Evader Error: [-0.72714961], Distance between pursuer and evader: 1.816166877746582
+[INFO] Epoch: 39, Pursuer Error: [0.61247367], Evader Error: [-0.61247367], Distance between pursuer and evader: 1.6680301427841187
+[INFO] Epoch: 40, Pursuer Error: [0.51254666], Evader Error: [-0.51254666], Distance between pursuer and evader: 1.5269345045089722
+[INFO] Epoch: 41, Pursuer Error: [0.4269909], Evader Error: [-0.4269909], Distance between pursuer and evader: 1.3945262432098389
+[INFO] Epoch: 42, Pursuer Error: [0.35487315], Evader Error: [-0.35487315], Distance between pursuer and evader: 1.2719963788986206
+[INFO] Epoch: 43, Pursuer Error: [0.29489323], Evader Error: [-0.29489323], Distance between pursuer and evader: 1.1600593328475952
+[INFO] Epoch: 44, Pursuer Error: [0.24556391], Evader Error: [-0.24556391], Distance between pursuer and evader: 1.058980941772461
+[INFO] Epoch: 45, Pursuer Error: [0.20552172], Evader Error: [-0.20552172], Distance between pursuer and evader: 0.9735116362571716
+[INFO] Epoch: 46, Pursuer Error: [0.17851324], Evader Error: [-0.17851326], Distance between pursuer and evader: 0.9014761447906494
+[INFO] Epoch: 47, Pursuer Error: [0.15381627], Evader Error: [-0.15381625], Distance between pursuer and evader: 0.840520977973938
+[INFO] Epoch: 48, Pursuer Error: [0.13740751], Evader Error: [-0.13740751], Distance between pursuer and evader: 0.792589545249939
+[INFO] Epoch: 49, Pursuer Error: [0.1248081], Evader Error: [-0.12480811], Distance between pursuer and evader: 0.7537817358970642
+[INFO] Epoch: 50, Pursuer Error: [0.11487035], Evader Error: [-0.11487035], Distance between pursuer and evader: 0.7217060923576355
+[INFO] Epoch: 51, Pursuer Error: [0.10683804], Evader Error: [-0.10683803], Distance between pursuer and evader: 0.6947600841522217
+[INFO] Epoch: 52, Pursuer Error: [0.10024025], Evader Error: [-0.10024024], Distance between pursuer and evader: 0.6718502640724182
+[INFO] Epoch: 53, Pursuer Error: [0.09480567], Evader Error: [-0.09480567], Distance between pursuer and evader: 0.6522568464279175
+[INFO] Epoch: 54, Pursuer Error: [0.0904174], Evader Error: [-0.0904174], Distance between pursuer and evader: 0.6355023980140686
+[INFO] Epoch: 55, Pursuer Error: [0.0871588], Evader Error: [-0.0871588], Distance between pursuer and evader: 0.620085597038269
+[INFO] Epoch: 56, Pursuer Error: [0.08166778], Evader Error: [-0.08166778], Distance between pursuer and evader: 0.5910423398017883
+[INFO] Epoch: 57, Pursuer Error: [0.06593992], Evader Error: [-0.06593992], Distance between pursuer and evader: 0.5515318512916565
+[INFO] Epoch: 58, Pursuer Error: [0.06254034], Evader Error: [-0.06254034], Distance between pursuer and evader: 0.5216978788375854
+[INFO] Epoch: 59, Pursuer Error: [0.05890385], Evader Error: [-0.05890385], Distance between pursuer and evader: 0.5022962093353271
+[INFO] Epoch: 60, Pursuer Error: [0.05701388], Evader Error: [-0.05701388], Distance between pursuer and evader: 0.48948246240615845
+[INFO] Epoch: 61, Pursuer Error: [0.05585921], Evader Error: [-0.05585921], Distance between pursuer and evader: 0.4812506139278412
+[INFO] Epoch: 62, Pursuer Error: [0.05525741], Evader Error: [-0.05525741], Distance between pursuer and evader: 0.4761875569820404
+[INFO] Epoch: 63, Pursuer Error: [0.05503654], Evader Error: [-0.05503654], Distance between pursuer and evader: 0.4733162820339203
+[INFO] Epoch: 64, Pursuer Error: [0.05509009], Evader Error: [-0.05509009], Distance between pursuer and evader: 0.4719714820384979
+[INFO] Epoch: 65, Pursuer Error: [0.05535068], Evader Error: [-0.05535068], Distance between pursuer and evader: 0.4717142879962921
+[INFO] Epoch: 66, Pursuer Error: [0.05577364], Evader Error: [-0.05577364], Distance between pursuer and evader: 0.4722655415534973
+[INFO] Epoch: 67, Pursuer Error: [0.05632759], Evader Error: [-0.05632759], Distance between pursuer and evader: 0.4734523296356201
+[INFO] Epoch: 68, Pursuer Error: [0.05699001], Evader Error: [-0.05699001], Distance between pursuer and evader: 0.4751674234867096
+[INFO] Epoch: 69, Pursuer Error: [0.05774462], Evader Error: [-0.05774462], Distance between pursuer and evader: 0.47734129428863525
+[INFO] Epoch: 70, Pursuer Error: [0.05832085], Evader Error: [-0.05832085], Distance between pursuer and evader: 0.4797114431858063
+[INFO] Epoch: 71, Pursuer Error: [0.05904701], Evader Error: [-0.05904701], Distance between pursuer and evader: 0.4822908639907837
+[INFO] Epoch: 72, Pursuer Error: [0.05990403], Evader Error: [-0.05990403], Distance between pursuer and evader: 0.485247403383255
+[INFO] Epoch: 73, Pursuer Error: [0.06076613], Evader Error: [-0.06076613], Distance between pursuer and evader: 0.4884544312953949
+[INFO] Epoch: 74, Pursuer Error: [0.06157397], Evader Error: [-0.06157397], Distance between pursuer and evader: 0.49172964692115784
+[INFO] Epoch: 75, Pursuer Error: [0.06239168], Evader Error: [-0.06239168], Distance between pursuer and evader: 0.4950658679008484
+[INFO] Epoch: 76, Pursuer Error: [0.06362259], Evader Error: [-0.06362259], Distance between pursuer and evader: 0.4987657070159912
+[INFO] Epoch: 77, Pursuer Error: [0.06534346], Evader Error: [-0.06534346], Distance between pursuer and evader: 0.5032829642295837
+[INFO] Epoch: 78, Pursuer Error: [0.06757505], Evader Error: [-0.06757505], Distance between pursuer and evader: 0.5090324878692627
+[INFO] Epoch: 79, Pursuer Error: [0.07018157], Evader Error: [-0.07018157], Distance between pursuer and evader: 0.5160824060440063
+[INFO] Epoch: 80, Pursuer Error: [0.07303858], Evader Error: [-0.07303858], Distance between pursuer and evader: 0.5243034958839417
+[INFO] Epoch: 81, Pursuer Error: [0.07605205], Evader Error: [-0.07605205], Distance between pursuer and evader: 0.5334671139717102
+[INFO] Epoch: 82, Pursuer Error: [0.0791617], Evader Error: [-0.0791617], Distance between pursuer and evader: 0.5433211326599121
+[INFO] Epoch: 83, Pursuer Error: [0.08232961], Evader Error: [-0.08232961], Distance between pursuer and evader: 0.5536368489265442
+[INFO] Epoch: 84, Pursuer Error: [0.08553069], Evader Error: [-0.08553069], Distance between pursuer and evader: 0.5642274022102356
+[INFO] Epoch: 85, Pursuer Error: [0.08874724], Evader Error: [-0.08874724], Distance between pursuer and evader: 0.574949324131012
+[INFO] Epoch: 86, Pursuer Error: [0.09196667], Evader Error: [-0.09196667], Distance between pursuer and evader: 0.5856962203979492
+[INFO] Epoch: 87, Pursuer Error: [0.09294427], Evader Error: [-0.09294427], Distance between pursuer and evader: 0.5954058170318604
+[INFO] Epoch: 88, Pursuer Error: [0.09716318], Evader Error: [-0.09716318], Distance between pursuer and evader: 0.6046478152275085
+[INFO] Epoch: 89, Pursuer Error: [0.09827304], Evader Error: [-0.09827304], Distance between pursuer and evader: 0.6136218309402466
+[INFO] Epoch: 90, Pursuer Error: [0.10229011], Evader Error: [-0.10229011], Distance between pursuer and evader: 0.6223520636558533
+[INFO] Epoch: 91, Pursuer Error: [0.10549452], Evader Error: [-0.10549452], Distance between pursuer and evader: 0.6318842768669128
+[INFO] Epoch: 92, Pursuer Error: [0.1065966], Evader Error: [-0.1065966], Distance between pursuer and evader: 0.6406370997428894
+[INFO] Epoch: 93, Pursuer Error: [0.1106578], Evader Error: [-0.1106578], Distance between pursuer and evader: 0.6490176916122437
+[INFO] Epoch: 94, Pursuer Error: [0.11203603], Evader Error: [-0.11203603], Distance between pursuer and evader: 0.6572672128677368
+[INFO] Epoch: 95, Pursuer Error: [0.11586227], Evader Error: [-0.11586227], Distance between pursuer and evader: 0.6653589606285095
+[INFO] Epoch: 96, Pursuer Error: [0.11890707], Evader Error: [-0.11890707], Distance between pursuer and evader: 0.6741750836372375
+[INFO] Epoch: 97, Pursuer Error: [0.12007934], Evader Error: [-0.12007934], Distance between pursuer and evader: 0.6821711659431458
+[INFO] Epoch: 98, Pursuer Error: [0.1235761], Evader Error: [-0.1235761], Distance between pursuer and evader: 0.6896406412124634
+[INFO] Epoch: 99, Pursuer Error: [0.12636414], Evader Error: [-0.12636414], Distance between pursuer and evader: 0.6976285576820374
+[INFO] Epoch: 100, Pursuer Error: [0.12735771], Evader Error: [-0.12735771], Distance between pursuer and evader: 0.7047322392463684
+[INFO] Epoch: 101, Pursuer Error: [0.13054311], Evader Error: [-0.13054311], Distance between pursuer and evader: 0.7112890481948853
+[INFO] Epoch: 102, Pursuer Error: [0.13306995], Evader Error: [-0.13306995], Distance between pursuer and evader: 0.71834796667099
+[INFO] Epoch: 103, Pursuer Error: [0.13390408], Evader Error: [-0.13390408], Distance between pursuer and evader: 0.7245574593544006
+[INFO] Epoch: 104, Pursuer Error: [0.13675159], Evader Error: [-0.13675159], Distance between pursuer and evader: 0.7302390336990356
+[INFO] Epoch: 105, Pursuer Error: [0.13901198], Evader Error: [-0.13901198], Distance between pursuer and evader: 0.7364067435264587
+[INFO] Epoch: 106, Pursuer Error: [0.13969842], Evader Error: [-0.13969842], Distance between pursuer and evader: 0.7417754530906677
+[INFO] Epoch: 107, Pursuer Error: [0.14220868], Evader Error: [-0.14220868], Distance between pursuer and evader: 0.7466459274291992
+[INFO] Epoch: 108, Pursuer Error: [0.14420877], Evader Error: [-0.14420877], Distance between pursuer and evader: 0.751985490322113
+[INFO] Epoch: 109, Pursuer Error: [0.14475377], Evader Error: [-0.14475377], Distance between pursuer and evader: 0.7565808296203613
+[INFO] Epoch: 110, Pursuer Error: [0.14694642], Evader Error: [-0.14694642], Distance between pursuer and evader: 0.7607133388519287
+[INFO] Epoch: 111, Pursuer Error: [0.14870015], Evader Error: [-0.14870015], Distance between pursuer and evader: 0.7653003931045532
+[INFO] Epoch: 112, Pursuer Error: [0.14910957], Evader Error: [-0.14910957], Distance between pursuer and evader: 0.769197404384613
+[INFO] Epoch: 113, Pursuer Error: [0.15101378], Evader Error: [-0.15101378], Distance between pursuer and evader: 0.7726694345474243
+[INFO] Epoch: 114, Pursuer Error: [0.15254238], Evader Error: [-0.15254238], Distance between pursuer and evader: 0.7765856385231018
+[INFO] Epoch: 115, Pursuer Error: [0.15281953], Evader Error: [-0.15281953], Distance between pursuer and evader: 0.779862105846405
+[INFO] Epoch: 116, Pursuer Error: [0.15447125], Evader Error: [-0.15447125], Distance between pursuer and evader: 0.782750129699707
+[INFO] Epoch: 117, Pursuer Error: [0.15579604], Evader Error: [-0.15579604], Distance between pursuer and evader: 0.7860764861106873
+[INFO] Epoch: 118, Pursuer Error: [0.15710826], Evader Error: [-0.15710826], Distance between pursuer and evader: 0.7895057201385498
+[INFO] Epoch: 119, Pursuer Error: [0.15694919], Evader Error: [-0.15694919], Distance between pursuer and evader: 0.7920997738838196
+[INFO] Epoch: 120, Pursuer Error: [0.15854836], Evader Error: [-0.15854836], Distance between pursuer and evader: 0.7942731976509094
+[INFO] Epoch: 121, Pursuer Error: [0.15964544], Evader Error: [-0.15964544], Distance between pursuer and evader: 0.7969792485237122
+[INFO] Epoch: 122, Pursuer Error: [0.15942369], Evader Error: [-0.15942369], Distance between pursuer and evader: 0.7990562915802002
+[INFO] Epoch: 123, Pursuer Error: [0.16078492], Evader Error: [-0.16078492], Distance between pursuer and evader: 0.8007938861846924
+[INFO] Epoch: 124, Pursuer Error: [0.16172777], Evader Error: [-0.16172777], Distance between pursuer and evader: 0.8030548691749573
+[INFO] Epoch: 125, Pursuer Error: [0.16267431], Evader Error: [-0.16267431], Distance between pursuer and evader: 0.8054575324058533
+[INFO] Epoch: 126, Pursuer Error: [0.16213767], Evader Error: [-0.16213767], Distance between pursuer and evader: 0.8070548176765442
+[INFO] Epoch: 127, Pursuer Error: [0.1634692], Evader Error: [-0.1634692], Distance between pursuer and evader: 0.8082882761955261
+[INFO] Epoch: 128, Pursuer Error: [0.16425101], Evader Error: [-0.16425101], Distance between pursuer and evader: 0.8101176619529724
+[INFO] Epoch: 129, Pursuer Error: [0.16371629], Evader Error: [-0.16371629], Distance between pursuer and evader: 0.8113607168197632
+[INFO] Epoch: 130, Pursuer Error: [0.16485059], Evader Error: [-0.16485059], Distance between pursuer and evader: 0.812319278717041
+[INFO] Epoch: 131, Pursuer Error: [0.16553354], Evader Error: [-0.16553354], Distance between pursuer and evader: 0.8138538002967834
+[INFO] Epoch: 132, Pursuer Error: [0.16623582], Evader Error: [-0.16623582], Distance between pursuer and evader: 0.8155646920204163
+[INFO] Epoch: 133, Pursuer Error: [0.16546996], Evader Error: [-0.16546996], Distance between pursuer and evader: 0.8165146708488464
+[INFO] Epoch: 134, Pursuer Error: [0.16662167], Evader Error: [-0.16662167], Distance between pursuer and evader: 0.8171526193618774
+[INFO] Epoch: 135, Pursuer Error: [0.16720738], Evader Error: [-0.16720738], Distance between pursuer and evader: 0.818426251411438
+[INFO] Epoch: 136, Pursuer Error: [0.16782007], Evader Error: [-0.16782007], Distance between pursuer and evader: 0.8198936581611633
+[INFO] Epoch: 137, Pursuer Error: [0.16686811], Evader Error: [-0.16686811], Distance between pursuer and evader: 0.8205748796463013
+[INFO] Epoch: 138, Pursuer Error: [0.1680346], Evader Error: [-0.1680346], Distance between pursuer and evader: 0.8209580779075623
+[INFO] Epoch: 139, Pursuer Error: [0.16855083], Evader Error: [-0.16855083], Distance between pursuer and evader: 0.8220356106758118
+[INFO] Epoch: 140, Pursuer Error: [0.16768426], Evader Error: [-0.16768426], Distance between pursuer and evader: 0.8225619792938232
+[INFO] Epoch: 141, Pursuer Error: [0.16870125], Evader Error: [-0.16870125], Distance between pursuer and evader: 0.8228631019592285
+[INFO] Epoch: 142, Pursuer Error: [0.16918461], Evader Error: [-0.16918461], Distance between pursuer and evader: 0.8238214254379272
+[INFO] Epoch: 143, Pursuer Error: [0.16970664], Evader Error: [-0.16970664], Distance between pursuer and evader: 0.8250001072883606
+[INFO] Epoch: 144, Pursuer Error: [0.16871606], Evader Error: [-0.16871606], Distance between pursuer and evader: 0.8254495859146118
+[INFO] Epoch: 145, Pursuer Error: [0.16979328], Evader Error: [-0.16979328], Distance between pursuer and evader: 0.8256372809410095
+[INFO] Epoch: 146, Pursuer Error: [0.17025109], Evader Error: [-0.17025109], Distance between pursuer and evader: 0.8265193104743958
+[INFO] Epoch: 147, Pursuer Error: [0.16935702], Evader Error: [-0.16935702], Distance between pursuer and evader: 0.8268881440162659
+[INFO] Epoch: 148, Pursuer Error: [0.17032106], Evader Error: [-0.17032106], Distance between pursuer and evader: 0.8270593881607056
+[INFO] Epoch: 149, Pursuer Error: [0.17077069], Evader Error: [-0.17077069], Distance between pursuer and evader: 0.8278899788856506
+[INFO] Epoch: 150, Pursuer Error: [0.17126358], Evader Error: [-0.17126358], Distance between pursuer and evader: 0.8289533257484436
+[INFO] Epoch: 151, Pursuer Error: [0.17025828], Evader Error: [-0.17025828], Distance between pursuer and evader: 0.8293188810348511
+[INFO] Epoch: 152, Pursuer Error: [0.17131643], Evader Error: [-0.17131643], Distance between pursuer and evader: 0.8294446468353271
+[INFO] Epoch: 153, Pursuer Error: [0.17176449], Evader Error: [-0.17176449], Distance between pursuer and evader: 0.8302661180496216
+[INFO] Epoch: 154, Pursuer Error: [0.17085809], Evader Error: [-0.17085809], Distance between pursuer and evader: 0.8305927515029907
+[INFO] Epoch: 155, Pursuer Error: [0.17182453], Evader Error: [-0.17182453], Distance between pursuer and evader: 0.8307368755340576
+[INFO] Epoch: 156, Pursuer Error: [0.172277], Evader Error: [-0.172277], Distance between pursuer and evader: 0.8315435647964478
+[INFO] Epoch: 157, Pursuer Error: [0.17147036], Evader Error: [-0.17147036], Distance between pursuer and evader: 0.8318970203399658
+[INFO] Epoch: 158, Pursuer Error: [0.17236637], Evader Error: [-0.17236637], Distance between pursuer and evader: 0.832079291343689
+[INFO] Epoch: 159, Pursuer Error: [0.17282489], Evader Error: [-0.17282489], Distance between pursuer and evader: 0.8328840732574463
+[INFO] Epoch: 160, Pursuer Error: [0.17209385], Evader Error: [-0.17209385], Distance between pursuer and evader: 0.8332621455192566
+[INFO] Epoch: 161, Pursuer Error: [0.17293821], Evader Error: [-0.17293821], Distance between pursuer and evader: 0.833476185798645
+[INFO] Epoch: 162, Pursuer Error: [0.17340206], Evader Error: [-0.17340206], Distance between pursuer and evader: 0.8342812657356262
+[INFO] Epoch: 163, Pursuer Error: [0.17272514], Evader Error: [-0.17272514], Distance between pursuer and evader: 0.8346781730651855
+[INFO] Epoch: 164, Pursuer Error: [0.17353332], Evader Error: [-0.17353332], Distance between pursuer and evader: 0.8349160552024841
+[INFO] Epoch: 165, Pursuer Error: [0.17400183], Evader Error: [-0.17400183], Distance between pursuer and evader: 0.8357219099998474
+[INFO] Epoch: 166, Pursuer Error: [0.1733598], Evader Error: [-0.1733598], Distance between pursuer and evader: 0.83613121509552
+[INFO] Epoch: 167, Pursuer Error: [0.17414233], Evader Error: [-0.17414233], Distance between pursuer and evader: 0.836384117603302
+[INFO] Epoch: 168, Pursuer Error: [0.17371574], Evader Error: [-0.17371574], Distance between pursuer and evader: 0.8366613388061523
+[INFO] Epoch: 169, Pursuer Error: [0.17428227], Evader Error: [-0.17428227], Distance between pursuer and evader: 0.8369109034538269
+[INFO] Epoch: 170, Pursuer Error: [0.17473888], Evader Error: [-0.17473888], Distance between pursuer and evader: 0.8376516103744507
+[INFO] Epoch: 171, Pursuer Error: [0.17431937], Evader Error: [-0.17431937], Distance between pursuer and evader: 0.838083803653717
+[INFO] Epoch: 172, Pursuer Error: [0.17491041], Evader Error: [-0.17491041], Distance between pursuer and evader: 0.8383815884590149
+[INFO] Epoch: 173, Pursuer Error: [0.17467165], Evader Error: [-0.17467165], Distance between pursuer and evader: 0.8386905193328857
+[INFO] Epoch: 174, Pursuer Error: [0.17507093], Evader Error: [-0.17507093], Distance between pursuer and evader: 0.838965654373169
+[INFO] Epoch: 175, Pursuer Error: [0.17501], Evader Error: [-0.17501], Distance between pursuer and evader: 0.8392755389213562
+[INFO] Epoch: 176, Pursuer Error: [0.17524341], Evader Error: [-0.17524341], Distance between pursuer and evader: 0.8395599126815796
+[INFO] Epoch: 177, Pursuer Error: [0.17532988], Evader Error: [-0.17532988], Distance between pursuer and evader: 0.839870274066925
+[INFO] Epoch: 178, Pursuer Error: [0.17541824], Evader Error: [-0.17541824], Distance between pursuer and evader: 0.8401532769203186
+[INFO] Epoch: 179, Pursuer Error: [0.17562473], Evader Error: [-0.17562473], Distance between pursuer and evader: 0.8404523730278015
+[INFO] Epoch: 180, Pursuer Error: [0.17558496], Evader Error: [-0.17558496], Distance between pursuer and evader: 0.8407220840454102
+[INFO] Epoch: 181, Pursuer Error: [0.1758884], Evader Error: [-0.1758884], Distance between pursuer and evader: 0.8409992456436157
+[INFO] Epoch: 182, Pursuer Error: [0.176091], Evader Error: [-0.176091], Distance between pursuer and evader: 0.8411938548088074
+[INFO] Epoch: 183, Pursuer Error: [0.17557307], Evader Error: [-0.17557307], Distance between pursuer and evader: 0.8413731455802917
+[INFO] Epoch: 184, Pursuer Error: [0.1762553], Evader Error: [-0.1762553], Distance between pursuer and evader: 0.8415552973747253
+[INFO] Epoch: 185, Pursuer Error: [0.17644583], Evader Error: [-0.17644583], Distance between pursuer and evader: 0.8418276309967041
+[INFO] Epoch: 186, Pursuer Error: [0.17660384], Evader Error: [-0.17660384], Distance between pursuer and evader: 0.8421658873558044
+[INFO] Epoch: 187, Pursuer Error: [0.17537892], Evader Error: [-0.17537892], Distance between pursuer and evader: 0.8421776294708252
+[INFO] Epoch: 188, Pursuer Error: [0.17540215], Evader Error: [-0.17540215], Distance between pursuer and evader: 0.8418382406234741
+[INFO] Epoch: 189, Pursuer Error: [0.17604838], Evader Error: [-0.17604838], Distance between pursuer and evader: 0.8416169285774231
+[INFO] Epoch: 190, Pursuer Error: [0.1762269], Evader Error: [-0.1762269], Distance between pursuer and evader: 0.841628909111023
+[INFO] Epoch: 191, Pursuer Error: [0.17641599], Evader Error: [-0.17641599], Distance between pursuer and evader: 0.8418294787406921
+[INFO] Epoch: 192, Pursuer Error: [0.17642963], Evader Error: [-0.17642963], Distance between pursuer and evader: 0.8420865535736084
+[INFO] Epoch: 193, Pursuer Error: [0.1746399], Evader Error: [-0.1746399], Distance between pursuer and evader: 0.8417447805404663
+[INFO] Epoch: 194, Pursuer Error: [0.17439462], Evader Error: [-0.17439462], Distance between pursuer and evader: 0.8407698273658752
+[INFO] Epoch: 195, Pursuer Error: [0.17473602], Evader Error: [-0.17473602], Distance between pursuer and evader: 0.8398663997650146
+[INFO] Epoch: 196, Pursuer Error: [0.17374606], Evader Error: [-0.17374606], Distance between pursuer and evader: 0.839016854763031
+[INFO] Epoch: 197, Pursuer Error: [0.17411928], Evader Error: [-0.17411928], Distance between pursuer and evader: 0.8382141590118408
+[INFO] Epoch: 198, Pursuer Error: [0.17404482], Evader Error: [-0.17404482], Distance between pursuer and evader: 0.8376384377479553
+[INFO] Epoch: 199, Pursuer Error: [0.17407082], Evader Error: [-0.17407082], Distance between pursuer and evader: 0.8372809886932373
+[INFO] Epoch: 200, Pursuer Error: [0.17236249], Evader Error: [-0.17236249], Distance between pursuer and evader: 0.8365724682807922
+[INFO] Epoch: 201, Pursuer Error: [0.17210482], Evader Error: [-0.17210482], Distance between pursuer and evader: 0.8354071974754333
+[INFO] Epoch: 202, Pursuer Error: [0.17232242], Evader Error: [-0.17232242], Distance between pursuer and evader: 0.834365963935852
+[INFO] Epoch: 203, Pursuer Error: [0.1721428], Evader Error: [-0.1721428], Distance between pursuer and evader: 0.8335524201393127
+[INFO] Epoch: 204, Pursuer Error: [0.17206274], Evader Error: [-0.17206274], Distance between pursuer and evader: 0.8329555988311768
+[INFO] Epoch: 205, Pursuer Error: [0.17042443], Evader Error: [-0.17042443], Distance between pursuer and evader: 0.8320582509040833
+[INFO] Epoch: 206, Pursuer Error: [0.1707515], Evader Error: [-0.1707515], Distance between pursuer and evader: 0.8308756947517395
+[INFO] Epoch: 207, Pursuer Error: [0.16949728], Evader Error: [-0.16949728], Distance between pursuer and evader: 0.8296582698822021
+[INFO] Epoch: 208, Pursuer Error: [0.16966856], Evader Error: [-0.16966856], Distance between pursuer and evader: 0.8283999562263489
+[INFO] Epoch: 209, Pursuer Error: [0.16940439], Evader Error: [-0.16940439], Distance between pursuer and evader: 0.8273708820343018
+[INFO] Epoch: 210, Pursuer Error: [0.16801395], Evader Error: [-0.16801395], Distance between pursuer and evader: 0.8262028694152832
+[INFO] Epoch: 211, Pursuer Error: [0.16819891], Evader Error: [-0.16819891], Distance between pursuer and evader: 0.8249062895774841
+[INFO] Epoch: 212, Pursuer Error: [0.16709855], Evader Error: [-0.16709855], Distance between pursuer and evader: 0.8236442804336548
+[INFO] Epoch: 213, Pursuer Error: [0.16723613], Evader Error: [-0.16723613], Distance between pursuer and evader: 0.822413444519043
+[INFO] Epoch: 214, Pursuer Error: [0.1669793], Evader Error: [-0.1669793], Distance between pursuer and evader: 0.821409285068512
+[INFO] Epoch: 215, Pursuer Error: [0.16682263], Evader Error: [-0.16682263], Distance between pursuer and evader: 0.820624589920044
+[INFO] Epoch: 216, Pursuer Error: [0.16520913], Evader Error: [-0.16520913], Distance between pursuer and evader: 0.8195532560348511
+[INFO] Epoch: 217, Pursuer Error: [0.16494174], Evader Error: [-0.16494174], Distance between pursuer and evader: 0.8181477189064026
+[INFO] Epoch: 218, Pursuer Error: [0.16501823], Evader Error: [-0.16501823], Distance between pursuer and evader: 0.8169246315956116
+[INFO] Epoch: 219, Pursuer Error: [0.16476338], Evader Error: [-0.16476338], Distance between pursuer and evader: 0.8159304261207581
+[INFO] Epoch: 220, Pursuer Error: [0.16460814], Evader Error: [-0.16460814], Distance between pursuer and evader: 0.8151571154594421
+[INFO] Epoch: 221, Pursuer Error: [0.16455518], Evader Error: [-0.16455518], Distance between pursuer and evader: 0.8146066665649414
+[INFO] Epoch: 222, Pursuer Error: [0.16277282], Evader Error: [-0.16277282], Distance between pursuer and evader: 0.8136513233184814
+[INFO] Epoch: 223, Pursuer Error: [0.16248032], Evader Error: [-0.16248032], Distance between pursuer and evader: 0.8122109174728394
+[INFO] Epoch: 224, Pursuer Error: [0.16254294], Evader Error: [-0.16254294], Distance between pursuer and evader: 0.81092768907547
+[INFO] Epoch: 225, Pursuer Error: [0.1622756], Evader Error: [-0.1622756], Distance between pursuer and evader: 0.8098821043968201
+[INFO] Epoch: 226, Pursuer Error: [0.16210996], Evader Error: [-0.16210996], Distance between pursuer and evader: 0.8090652227401733
+[INFO] Epoch: 227, Pursuer Error: [0.16070317], Evader Error: [-0.16070317], Distance between pursuer and evader: 0.8080435991287231
+[INFO] Epoch: 228, Pursuer Error: [0.16093656], Evader Error: [-0.16093656], Distance between pursuer and evader: 0.8068325519561768
+[INFO] Epoch: 229, Pursuer Error: [0.15993385], Evader Error: [-0.15993385], Distance between pursuer and evader: 0.8056721091270447
+[INFO] Epoch: 230, Pursuer Error: [0.16010842], Evader Error: [-0.16010842], Distance between pursuer and evader: 0.8045572638511658
+[INFO] Epoch: 231, Pursuer Error: [0.15991804], Evader Error: [-0.15991804], Distance between pursuer and evader: 0.8036834597587585
+[INFO] Epoch: 232, Pursuer Error: [0.15884084], Evader Error: [-0.15884084], Distance between pursuer and evader: 0.8027583360671997
+[INFO] Epoch: 233, Pursuer Error: [0.15911721], Evader Error: [-0.15911721], Distance between pursuer and evader: 0.8017916679382324
+[INFO] Epoch: 234, Pursuer Error: [0.15899204], Evader Error: [-0.15899204], Distance between pursuer and evader: 0.8010704517364502
+[INFO] Epoch: 235, Pursuer Error: [0.15897207], Evader Error: [-0.15897207], Distance between pursuer and evader: 0.8005872368812561
+[INFO] Epoch: 236, Pursuer Error: [0.15754731], Evader Error: [-0.15754731], Distance between pursuer and evader: 0.7998356819152832
+[INFO] Epoch: 237, Pursuer Error: [0.15790194], Evader Error: [-0.15790194], Distance between pursuer and evader: 0.7988325953483582
+[INFO] Epoch: 238, Pursuer Error: [0.15694736], Evader Error: [-0.15694736], Distance between pursuer and evader: 0.7978692650794983
+[INFO] Epoch: 239, Pursuer Error: [0.15721275], Evader Error: [-0.15721275], Distance between pursuer and evader: 0.7969391942024231
+[INFO] Epoch: 240, Pursuer Error: [0.15710978], Evader Error: [-0.15710978], Distance between pursuer and evader: 0.7962601184844971
+[INFO] Epoch: 241, Pursuer Error: [0.15611349], Evader Error: [-0.15611349], Distance between pursuer and evader: 0.795534074306488
+[INFO] Epoch: 242, Pursuer Error: [0.15648101], Evader Error: [-0.15648101], Distance between pursuer and evader: 0.794771134853363
+[INFO] Epoch: 243, Pursuer Error: [0.15644942], Evader Error: [-0.15644942], Distance between pursuer and evader: 0.7942627668380737
+[INFO] Epoch: 244, Pursuer Error: [0.15544979], Evader Error: [-0.15544979], Distance between pursuer and evader: 0.7936796545982361
+[INFO] Epoch: 245, Pursuer Error: [0.15588143], Evader Error: [-0.15588143], Distance between pursuer and evader: 0.7930323481559753
+[INFO] Epoch: 246, Pursuer Error: [0.1558997], Evader Error: [-0.1558997], Distance between pursuer and evader: 0.7926427721977234
+[INFO] Epoch: 247, Pursuer Error: [0.1549136], Evader Error: [-0.1549136], Distance between pursuer and evader: 0.7921668291091919
+[INFO] Epoch: 248, Pursuer Error: [0.15539363], Evader Error: [-0.15539363], Distance between pursuer and evader: 0.7916149497032166
+[INFO] Epoch: 249, Pursuer Error: [0.15545343], Evader Error: [-0.15545343], Distance between pursuer and evader: 0.7913233041763306
+[INFO] Epoch: 250, Pursuer Error: [0.1544873], Evader Error: [-0.1544873], Distance between pursuer and evader: 0.7909401059150696
+[INFO] Epoch: 251, Pursuer Error: [0.15500978], Evader Error: [-0.15500978], Distance between pursuer and evader: 0.790475606918335
+[INFO] Epoch: 252, Pursuer Error: [0.1551072], Evader Error: [-0.1551072], Distance between pursuer and evader: 0.7902734875679016
+[INFO] Epoch: 253, Pursuer Error: [0.15416272], Evader Error: [-0.15416272], Distance between pursuer and evader: 0.7899765968322754
+[INFO] Epoch: 254, Pursuer Error: [0.15472472], Evader Error: [-0.15472472], Distance between pursuer and evader: 0.7895951867103577
+[INFO] Epoch: 255, Pursuer Error: [0.15410911], Evader Error: [-0.15410911], Distance between pursuer and evader: 0.7893041372299194
+[INFO] Epoch: 256, Pursuer Error: [0.15467307], Evader Error: [-0.15467307], Distance between pursuer and evader: 0.7890990376472473
+[INFO] Epoch: 257, Pursuer Error: [0.15486632], Evader Error: [-0.15486632], Distance between pursuer and evader: 0.7891510128974915
+[INFO] Epoch: 258, Pursuer Error: [0.15516786], Evader Error: [-0.15516786], Distance between pursuer and evader: 0.7894527912139893
+[INFO] Epoch: 259, Pursuer Error: [0.15558071], Evader Error: [-0.15558071], Distance between pursuer and evader: 0.7900062203407288
+[INFO] Epoch: 260, Pursuer Error: [0.15416066], Evader Error: [-0.15416066], Distance between pursuer and evader: 0.7901427745819092
+[INFO] Epoch: 261, Pursuer Error: [0.1542947], Evader Error: [-0.1542947], Distance between pursuer and evader: 0.789760947227478
+[INFO] Epoch: 262, Pursuer Error: [0.15483747], Evader Error: [-0.15483747], Distance between pursuer and evader: 0.7895442247390747
+[INFO] Epoch: 263, Pursuer Error: [0.1550325], Evader Error: [-0.1550325], Distance between pursuer and evader: 0.7895925045013428
+[INFO] Epoch: 264, Pursuer Error: [0.15533732], Evader Error: [-0.15533732], Distance between pursuer and evader: 0.7898939251899719
+[INFO] Epoch: 265, Pursuer Error: [0.15431289], Evader Error: [-0.15431289], Distance between pursuer and evader: 0.7899919152259827
+[INFO] Epoch: 266, Pursuer Error: [0.15506132], Evader Error: [-0.15506132], Distance between pursuer and evader: 0.7899014949798584
+[INFO] Epoch: 267, Pursuer Error: [0.15532051], Evader Error: [-0.15532051], Distance between pursuer and evader: 0.7900830507278442
+[INFO] Epoch: 268, Pursuer Error: [0.15436676], Evader Error: [-0.15436676], Distance between pursuer and evader: 0.7901158928871155
+[INFO] Epoch: 269, Pursuer Error: [0.15508883], Evader Error: [-0.15508883], Distance between pursuer and evader: 0.7900108695030212
+[INFO] Epoch: 270, Pursuer Error: [0.15448456], Evader Error: [-0.15448456], Distance between pursuer and evader: 0.789966344833374
+[INFO] Epoch: 271, Pursuer Error: [0.15516925], Evader Error: [-0.15516925], Distance between pursuer and evader: 0.7899776697158813
+[INFO] Epoch: 272, Pursuer Error: [0.15546064], Evader Error: [-0.15546064], Distance between pursuer and evader: 0.7902535796165466
+[INFO] Epoch: 273, Pursuer Error: [0.15586297], Evader Error: [-0.15586297], Distance between pursuer and evader: 0.7907851934432983
+[INFO] Epoch: 274, Pursuer Error: [0.15478761], Evader Error: [-0.15478761], Distance between pursuer and evader: 0.79106205701828
+[INFO] Epoch: 275, Pursuer Error: [0.15562597], Evader Error: [-0.15562597], Distance between pursuer and evader: 0.7911000847816467
+[INFO] Epoch: 276, Pursuer Error: [0.15496166], Evader Error: [-0.15496166], Distance between pursuer and evader: 0.7911555767059326
+[INFO] Epoch: 277, Pursuer Error: [0.1556987], Evader Error: [-0.1556987], Distance between pursuer and evader: 0.7912231087684631
+[INFO] Epoch: 278, Pursuer Error: [0.15601949], Evader Error: [-0.15601949], Distance between pursuer and evader: 0.7915600538253784
+[INFO] Epoch: 279, Pursuer Error: [0.15645304], Evader Error: [-0.15645304], Distance between pursuer and evader: 0.7921563982963562
+[INFO] Epoch: 280, Pursuer Error: [0.15532713], Evader Error: [-0.15532713], Distance between pursuer and evader: 0.7924716472625732
+[INFO] Epoch: 281, Pursuer Error: [0.15619266], Evader Error: [-0.15619266], Distance between pursuer and evader: 0.7925218939781189
+[INFO] Epoch: 282, Pursuer Error: [0.15548928], Evader Error: [-0.15548928], Distance between pursuer and evader: 0.792574942111969
+[INFO] Epoch: 283, Pursuer Error: [0.15623419], Evader Error: [-0.15623419], Distance between pursuer and evader: 0.7926256060600281
+[INFO] Epoch: 284, Pursuer Error: [0.15655616], Evader Error: [-0.15655616], Distance between pursuer and evader: 0.7929509878158569
+[INFO] Epoch: 285, Pursuer Error: [0.15573311], Evader Error: [-0.15573311], Distance between pursuer and evader: 0.7931708693504333
+[INFO] Epoch: 286, Pursuer Error: [0.15655619], Evader Error: [-0.15655619], Distance between pursuer and evader: 0.7932963967323303
+[INFO] Epoch: 287, Pursuer Error: [0.15691304], Evader Error: [-0.15691304], Distance between pursuer and evader: 0.7936999797821045
+[INFO] Epoch: 288, Pursuer Error: [0.15602104], Evader Error: [-0.15602104], Distance between pursuer and evader: 0.793959379196167
+[INFO] Epoch: 289, Pursuer Error: [0.15686902], Evader Error: [-0.15686902], Distance between pursuer and evader: 0.794086217880249
+[INFO] Epoch: 290, Pursuer Error: [0.15723136], Evader Error: [-0.15723136], Distance between pursuer and evader: 0.7944951057434082
+[INFO] Epoch: 291, Pursuer Error: [0.15629314], Evader Error: [-0.15629314], Distance between pursuer and evader: 0.7947418093681335
+[INFO] Epoch: 292, Pursuer Error: [0.15714221], Evader Error: [-0.15714221], Distance between pursuer and evader: 0.7948384881019592
+[INFO] Epoch: 293, Pursuer Error: [0.15649728], Evader Error: [-0.15649728], Distance between pursuer and evader: 0.7949592471122742
+[INFO] Epoch: 294, Pursuer Error: [0.15728734], Evader Error: [-0.15728734], Distance between pursuer and evader: 0.7951017618179321
+[INFO] Epoch: 295, Pursuer Error: [0.15765606], Evader Error: [-0.15765606], Distance between pursuer and evader: 0.7955273389816284
+[INFO] Epoch: 296, Pursuer Error: [0.15801477], Evader Error: [-0.15801477], Distance between pursuer and evader: 0.7961772084236145
+[INFO] Epoch: 297, Pursuer Error: [0.15691178], Evader Error: [-0.15691178], Distance between pursuer and evader: 0.7965062260627747
+[INFO] Epoch: 298, Pursuer Error: [0.15781468], Evader Error: [-0.15781468], Distance between pursuer and evader: 0.7965795993804932
+[INFO] Resetting the states afteer 1000 steps of evader not being caught by pursuer
+[INFO] MovieWriter._run: running command: 'C:\Users\Avvienash\Documents\ffmpeg-6.1-essentials_build\ffmpeg-6.1-essentials_build\bin\ffmpeg.exe' -f rawvideo -vcodec rawvideo -s 1000x500 -pix_fmt rgba -r 10 -loglevel error -i pipe: -vcodec h264 -pix_fmt yuv420p -metadata title=demo -metadata artist=avvienash -y training_animations/animation_v16.mp4
+[INFO] Animation Frame 0:, Distance: 1.692154402920049
+[INFO] Animation Frame 1:, Distance: 1.9485244099087433
+[INFO] Animation Frame 2:, Distance: 2.2290835980394776
+[INFO] Animation Frame 3:, Distance: 2.5168813730703663
+[INFO] Animation Frame 4:, Distance: 2.800982320140236
+[INFO] Animation Frame 5:, Distance: 3.0744530524567435
+[INFO] Animation Frame 6:, Distance: 3.332877229476181
+[INFO] Animation Frame 7:, Distance: 3.5733693910133217
+[INFO] Animation Frame 8:, Distance: 3.7967860241887936
+[INFO] Animation Frame 9:, Distance: 3.9995528897967825
+[INFO] Animation Frame 10:, Distance: 4.176725038884062
+[INFO] Animation Frame 11:, Distance: 4.32965897332177
+[INFO] Animation Frame 12:, Distance: 4.459697242372987
+[INFO] Animation Frame 13:, Distance: 4.567459912400062
+[INFO] Animation Frame 14:, Distance: 4.652648329850092
+[INFO] Animation Frame 15:, Distance: 4.714630361359418
+[INFO] Animation Frame 16:, Distance: 4.75290738766064
+[INFO] Animation Frame 17:, Distance: 4.7673060657015
+[INFO] Animation Frame 18:, Distance: 4.761633620837313
+[INFO] Animation Frame 19:, Distance: 4.7345583931256945
+[INFO] Animation Frame 20:, Distance: 4.6824455368346
+[INFO] Animation Frame 21:, Distance: 4.60763001468309
+[INFO] Animation Frame 22:, Distance: 4.511456699979998
+[INFO] Animation Frame 23:, Distance: 4.394710537475223
+[INFO] Animation Frame 24:, Distance: 4.257897324656176
+[INFO] Animation Frame 25:, Distance: 4.104014602121217
+[INFO] Animation Frame 26:, Distance: 3.942096483169008
+[INFO] Animation Frame 27:, Distance: 3.7791080491305724
+[INFO] Animation Frame 28:, Distance: 3.616027600018333
+[INFO] Animation Frame 29:, Distance: 3.4526764002935684
+[INFO] Animation Frame 30:, Distance: 3.288089661690185
+[INFO] Animation Frame 31:, Distance: 3.1216297468464105
+[INFO] Animation Frame 32:, Distance: 2.9534045454236373
+[INFO] Animation Frame 33:, Distance: 2.784190864511745
+[INFO] Animation Frame 34:, Distance: 2.615281091835392
+[INFO] Animation Frame 35:, Distance: 2.448282766939402
+[INFO] Animation Frame 36:, Distance: 2.2844171861801263
+[INFO] Animation Frame 37:, Distance: 2.125118256401496
+[INFO] Animation Frame 38:, Distance: 1.9693134445715295
+[INFO] Animation Frame 39:, Distance: 1.8161668503154969
+[INFO] Animation Frame 40:, Distance: 1.6680301470450536
+[INFO] Animation Frame 41:, Distance: 1.5269345279904494
+[INFO] Animation Frame 42:, Distance: 1.3945262291328713
+[INFO] Animation Frame 43:, Distance: 1.2719964526945866
+[INFO] Animation Frame 44:, Distance: 1.16005929856549
+[INFO] Animation Frame 45:, Distance: 1.0589809591076647
+[INFO] Animation Frame 46:, Distance: 0.9735116390557562
+[INFO] Animation Frame 47:, Distance: 0.9014761961022673
+[INFO] Animation Frame 48:, Distance: 0.8405209973920295
+[INFO] Animation Frame 49:, Distance: 0.7925895611512555
+[INFO] Animation Frame 50:, Distance: 0.7537817367583542
+[INFO] Animation Frame 51:, Distance: 0.7217060888814013
+[INFO] Animation Frame 52:, Distance: 0.6947600963419678
+[INFO] Animation Frame 53:, Distance: 0.6718502923515441
+[INFO] Animation Frame 54:, Distance: 0.6522568332777395
+[INFO] Animation Frame 55:, Distance: 0.6355024145817844
+[INFO] Animation Frame 56:, Distance: 0.6200856022554438
+[INFO] Animation Frame 57:, Distance: 0.5910423821251943
+[INFO] Animation Frame 58:, Distance: 0.5515318383859488
+[INFO] Animation Frame 59:, Distance: 0.5216978580323993
+[INFO] Animation Frame 60:, Distance: 0.5022961971660546
+[INFO] Animation Frame 61:, Distance: 0.4894824651415196
+[INFO] Animation Frame 62:, Distance: 0.48125060951600135
+[INFO] Animation Frame 63:, Distance: 0.4761875416712834
+[INFO] Animation Frame 64:, Distance: 0.4733162716594979
+[INFO] Animation Frame 65:, Distance: 0.4719714608923955
+[INFO] Animation Frame 66:, Distance: 0.47171427427999046
+[INFO] Animation Frame 67:, Distance: 0.47226553606361327
+[INFO] Animation Frame 68:, Distance: 0.47345232230662476
+[INFO] Animation Frame 69:, Distance: 0.4751674076639338
+[INFO] Animation Frame 70:, Distance: 0.4773412869836108
+[INFO] Animation Frame 71:, Distance: 0.47971141354821095
+[INFO] Animation Frame 72:, Distance: 0.4822908756623279
+[INFO] Animation Frame 73:, Distance: 0.4852474034834095
+[INFO] Animation Frame 74:, Distance: 0.4884544411999883
+[INFO] Animation Frame 75:, Distance: 0.4917296328882148
+[INFO] Animation Frame 76:, Distance: 0.4950658596547245
+[INFO] Animation Frame 77:, Distance: 0.49876571531715036
+[INFO] Animation Frame 78:, Distance: 0.503282976707287
+[INFO] Animation Frame 79:, Distance: 0.5090325035398093
+[INFO] Animation Frame 80:, Distance: 0.5160823770741685
+[INFO] Animation Frame 81:, Distance: 0.5243034743797317
+[INFO] Animation Frame 82:, Distance: 0.5334671018355308
+[INFO] Animation Frame 83:, Distance: 0.543321131765903
+[INFO] Animation Frame 84:, Distance: 0.5536368389780768
+[INFO] Animation Frame 85:, Distance: 0.5642274192622957
+[INFO] Animation Frame 86:, Distance: 0.5749492842559422
+[INFO] Animation Frame 87:, Distance: 0.5856962366635344
+[INFO] Animation Frame 88:, Distance: 0.5954057981414692
+[INFO] Animation Frame 89:, Distance: 0.6046478299598224
+[INFO] Animation Frame 90:, Distance: 0.6136218835224214
+[INFO] Animation Frame 91:, Distance: 0.6223520469186461
+[INFO] Animation Frame 92:, Distance: 0.6318842587383531
+[INFO] Animation Frame 93:, Distance: 0.6406371154166004
+[INFO] Animation Frame 94:, Distance: 0.6490176737470494
+[INFO] Animation Frame 95:, Distance: 0.657267192475049
+[INFO] Animation Frame 96:, Distance: 0.6653589401922544
+[INFO] Animation Frame 97:, Distance: 0.6741750534891294
+[INFO] Animation Frame 98:, Distance: 0.6821711419919557
+[INFO] Animation Frame 99:, Distance: 0.6896406593678993
+[INFO] Animation Frame 100:, Distance: 0.6976285922734169
+[INFO] Animation Frame 101:, Distance: 0.7047322328382473
+[INFO] Animation Frame 102:, Distance: 0.7112890371525847
+[INFO] Animation Frame 103:, Distance: 0.7183479377135839
+[INFO] Animation Frame 104:, Distance: 0.7245574784323334
+[INFO] Animation Frame 105:, Distance: 0.7302390362030018
+[INFO] Animation Frame 106:, Distance: 0.7364067890049111
+[INFO] Animation Frame 107:, Distance: 0.7417754071041415
+[INFO] Animation Frame 108:, Distance: 0.7466459051254123
+[INFO] Animation Frame 109:, Distance: 0.7519854857044463
+[INFO] Animation Frame 110:, Distance: 0.756580774536071
+[INFO] Animation Frame 111:, Distance: 0.7607133720872561
+[INFO] Animation Frame 112:, Distance: 0.7653003770785002
+[INFO] Animation Frame 113:, Distance: 0.7691974421203934
+[INFO] Animation Frame 114:, Distance: 0.7726694752736987
+[INFO] Animation Frame 115:, Distance: 0.7765856088598091
+[INFO] Animation Frame 116:, Distance: 0.7798620572575266
+[INFO] Animation Frame 117:, Distance: 0.7827501439290595
+[INFO] Animation Frame 118:, Distance: 0.7860764500651357
+[INFO] Animation Frame 119:, Distance: 0.7895057192706704
+[INFO] Animation Frame 120:, Distance: 0.7920997565348212
+[INFO] Animation Frame 121:, Distance: 0.7942731847777807
+[INFO] Animation Frame 122:, Distance: 0.7969792638951955
+[INFO] Animation Frame 123:, Distance: 0.7990562507032668
+[INFO] Animation Frame 124:, Distance: 0.8007938839292119
+[INFO] Animation Frame 125:, Distance: 0.8030548758788426
+[INFO] Animation Frame 126:, Distance: 0.8054575408623271
+[INFO] Animation Frame 127:, Distance: 0.8070548303982829
+[INFO] Animation Frame 128:, Distance: 0.8082882442250477
+[INFO] Animation Frame 129:, Distance: 0.8101176814182947
+[INFO] Animation Frame 130:, Distance: 0.8113607418362947
+[INFO] Animation Frame 131:, Distance: 0.8123192495578805
+[INFO] Animation Frame 132:, Distance: 0.8138538052979112
+[INFO] Animation Frame 133:, Distance: 0.8155646941394713
+[INFO] Animation Frame 134:, Distance: 0.8165147149269646
+[INFO] Animation Frame 135:, Distance: 0.8171526019864045
+[INFO] Animation Frame 136:, Distance: 0.8184262052329913
+[INFO] Animation Frame 137:, Distance: 0.8198936431319944
+[INFO] Animation Frame 138:, Distance: 0.8205749049650697
+[INFO] Animation Frame 139:, Distance: 0.8209580906709878
+[INFO] Animation Frame 140:, Distance: 0.82203559791158
+[INFO] Animation Frame 141:, Distance: 0.8225619918997112
+[INFO] Animation Frame 142:, Distance: 0.8228630979342287
+[INFO] Animation Frame 143:, Distance: 0.8238214378328069
+[INFO] Animation Frame 144:, Distance: 0.8250000935563364
+[INFO] Animation Frame 145:, Distance: 0.8254495335358514
+[INFO] Animation Frame 146:, Distance: 0.8256372706402462
+[INFO] Animation Frame 147:, Distance: 0.8265193240313019
+[INFO] Animation Frame 148:, Distance: 0.8268880997326854
+[INFO] Animation Frame 149:, Distance: 0.8270593964167628
+[INFO] Animation Frame 150:, Distance: 0.8278899480771694
+[INFO] Animation Frame 151:, Distance: 0.8289533046163886
+[INFO] Animation Frame 152:, Distance: 0.8293189180343091
+[INFO] Animation Frame 153:, Distance: 0.8294446069509654
+[INFO] Animation Frame 154:, Distance: 0.8302661394489924
+[INFO] Animation Frame 155:, Distance: 0.8305927385600474
+[INFO] Animation Frame 156:, Distance: 0.8307369025297946
+[INFO] Animation Frame 157:, Distance: 0.8315435950390958
+[INFO] Animation Frame 158:, Distance: 0.8318970282698422
+[INFO] Animation Frame 159:, Distance: 0.832079341406217
+[INFO] Animation Frame 160:, Distance: 0.8328840794379637
+[INFO] Animation Frame 161:, Distance: 0.8332621845843979
+[INFO] Animation Frame 162:, Distance: 0.833476243392319
+[INFO] Animation Frame 163:, Distance: 0.834281315247022
+[INFO] Animation Frame 164:, Distance: 0.8346781988429912
+[INFO] Animation Frame 165:, Distance: 0.8349161039496207
+[INFO] Animation Frame 166:, Distance: 0.8357218863811994
+[INFO] Animation Frame 167:, Distance: 0.8361312305425119
+[INFO] Animation Frame 168:, Distance: 0.8363840827455681
+[INFO] Animation Frame 169:, Distance: 0.8366613271680762
+[INFO] Animation Frame 170:, Distance: 0.8369108935559366
+[INFO] Animation Frame 171:, Distance: 0.8376515928236635
+[INFO] Animation Frame 172:, Distance: 0.8380838115772969
+[INFO] Animation Frame 173:, Distance: 0.838381609706957
+[INFO] Animation Frame 174:, Distance: 0.8386905146061577
+[INFO] Animation Frame 175:, Distance: 0.8389656370261798
+[INFO] Animation Frame 176:, Distance: 0.8392755450187155
+[INFO] Animation Frame 177:, Distance: 0.8395599077199772
+[INFO] Animation Frame 178:, Distance: 0.8398702592249876
+[INFO] Animation Frame 179:, Distance: 0.840153327078722
+[INFO] Animation Frame 180:, Distance: 0.8404523944336081
+[INFO] Animation Frame 181:, Distance: 0.8407220340192778
+[INFO] Animation Frame 182:, Distance: 0.8409992682299068
+[INFO] Animation Frame 183:, Distance: 0.8411938217580004
+[INFO] Animation Frame 184:, Distance: 0.8413731047726098
+[INFO] Animation Frame 185:, Distance: 0.8415553060255864
+[INFO] Animation Frame 186:, Distance: 0.8418276098193671
+[INFO] Animation Frame 187:, Distance: 0.8421659198525748
+[INFO] Animation Frame 188:, Distance: 0.8421776846048266
+[INFO] Animation Frame 189:, Distance: 0.8418382247530061
+[INFO] Animation Frame 190:, Distance: 0.8416169006080892
+[INFO] Animation Frame 191:, Distance: 0.8416289096118825
+[INFO] Animation Frame 192:, Distance: 0.8418294697176039
+[INFO] Animation Frame 193:, Distance: 0.8420866097614284
+[INFO] Animation Frame 194:, Distance: 0.8417447091408468
+[INFO] Animation Frame 195:, Distance: 0.8407698668333656
+[INFO] Animation Frame 196:, Distance: 0.8398663686847818
+[INFO] Animation Frame 197:, Distance: 0.8390168650606759
+[INFO] Animation Frame 198:, Distance: 0.8382141516171552
+[INFO] Animation Frame 199:, Distance: 0.8376384073978386
+[INFO] Animation Frame 200:, Distance: 0.8372810233672683
+[INFO] Animation Frame 201:, Distance: 0.8365725040815918
+[INFO] Animation Frame 202:, Distance: 0.835407241764994
+[INFO] Animation Frame 203:, Distance: 0.8343659854516658
+[INFO] Animation Frame 204:, Distance: 0.8335524396664031
+[INFO] Animation Frame 205:, Distance: 0.8329556453275924
+[INFO] Animation Frame 206:, Distance: 0.8320582593605096
+[INFO] Animation Frame 207:, Distance: 0.8308757188712621
+[INFO] Animation Frame 208:, Distance: 0.8296582714614559
+[INFO] Animation Frame 209:, Distance: 0.8283999899511891
+[INFO] Animation Frame 210:, Distance: 0.827370883575645
+[INFO] Animation Frame 211:, Distance: 0.8262028744088539
+[INFO] Animation Frame 212:, Distance: 0.8249062827435379
+[INFO] Animation Frame 213:, Distance: 0.8236442814466668
+[INFO] Animation Frame 214:, Distance: 0.8224134120357466
+[INFO] Animation Frame 215:, Distance: 0.821409295836496
+[INFO] Animation Frame 216:, Distance: 0.8206245796093182
+[INFO] Animation Frame 217:, Distance: 0.8195532400259854
+[INFO] Animation Frame 218:, Distance: 0.8181477276524257
+[INFO] Animation Frame 219:, Distance: 0.8169245982974552
+[INFO] Animation Frame 220:, Distance: 0.8159304475202657
+[INFO] Animation Frame 221:, Distance: 0.815157068977298
+[INFO] Animation Frame 222:, Distance: 0.814606659589763
+[INFO] Animation Frame 223:, Distance: 0.8136513397200322
+[INFO] Animation Frame 224:, Distance: 0.8122108894381039
+[INFO] Animation Frame 225:, Distance: 0.8109277190855173
+[INFO] Animation Frame 226:, Distance: 0.8098820949358552
+[INFO] Animation Frame 227:, Distance: 0.8090652105455557
+[INFO] Animation Frame 228:, Distance: 0.8080436255420693
+[INFO] Animation Frame 229:, Distance: 0.8068326175893042
+[INFO] Animation Frame 230:, Distance: 0.8056721138259568
+[INFO] Animation Frame 231:, Distance: 0.8045572829280259
+[INFO] Animation Frame 232:, Distance: 0.8036834955538712
+[INFO] Animation Frame 233:, Distance: 0.8027583360771157
+[INFO] Animation Frame 234:, Distance: 0.8017916639988624
+[INFO] Animation Frame 235:, Distance: 0.8010704312715343
+[INFO] Animation Frame 236:, Distance: 0.8005872309828611
+[INFO] Animation Frame 237:, Distance: 0.7998356807076468
+[INFO] Animation Frame 238:, Distance: 0.7988325933358001
+[INFO] Animation Frame 239:, Distance: 0.797869250352683
+[INFO] Animation Frame 240:, Distance: 0.7969392278032478
+[INFO] Animation Frame 241:, Distance: 0.7962601218837518
+[INFO] Animation Frame 242:, Distance: 0.7955340761020407
+[INFO] Animation Frame 243:, Distance: 0.7947711600600543
+[INFO] Animation Frame 244:, Distance: 0.7942627591854939
+[INFO] Animation Frame 245:, Distance: 0.7936796671575218
+[INFO] Animation Frame 246:, Distance: 0.7930323595305186
+[INFO] Animation Frame 247:, Distance: 0.7926428037777404
+[INFO] Animation Frame 248:, Distance: 0.792166840767321
+[INFO] Animation Frame 249:, Distance: 0.791614962868554
+[INFO] Animation Frame 250:, Distance: 0.7913233338570009
+[INFO] Animation Frame 251:, Distance: 0.7909401111541632
+[INFO] Animation Frame 252:, Distance: 0.7904756305658839
+[INFO] Animation Frame 253:, Distance: 0.7902735187168718
+[INFO] Animation Frame 254:, Distance: 0.7899765812092854
+[INFO] Animation Frame 255:, Distance: 0.7895952050506908
+[INFO] Animation Frame 256:, Distance: 0.7893041007130566
+[INFO] Animation Frame 257:, Distance: 0.7890990563689168
+[INFO] Animation Frame 258:, Distance: 0.7891510602996941
+[INFO] Animation Frame 259:, Distance: 0.7894527921190544
+[INFO] Animation Frame 260:, Distance: 0.7900062704032392
+[INFO] Animation Frame 261:, Distance: 0.7901428112040081
+[INFO] Animation Frame 262:, Distance: 0.7897609662389763
+[INFO] Animation Frame 263:, Distance: 0.7895442958567059
+[INFO] Animation Frame 264:, Distance: 0.7895925017760165
+[INFO] Animation Frame 265:, Distance: 0.789893926762983
+[INFO] Animation Frame 266:, Distance: 0.7899919081037847
+[INFO] Animation Frame 267:, Distance: 0.7899014940477257
+[INFO] Animation Frame 268:, Distance: 0.7900830607740913
+[INFO] Animation Frame 269:, Distance: 0.7901159111784868
+[INFO] Animation Frame 270:, Distance: 0.7900108355957941
+[INFO] Animation Frame 271:, Distance: 0.7899663781393328
+[INFO] Animation Frame 272:, Distance: 0.789977629822793
+[INFO] Animation Frame 273:, Distance: 0.7902536155923441
+[INFO] Animation Frame 274:, Distance: 0.790785175239584
+[INFO] Animation Frame 275:, Distance: 0.7910620073649816
+[INFO] Animation Frame 276:, Distance: 0.7911000702076577
+[INFO] Animation Frame 277:, Distance: 0.791155606290527
+[INFO] Animation Frame 278:, Distance: 0.7912231019615467
+[INFO] Animation Frame 279:, Distance: 0.7915600696184155
+[INFO] Animation Frame 280:, Distance: 0.7921564145699573
+[INFO] Animation Frame 281:, Distance: 0.792471623779953
+[INFO] Animation Frame 282:, Distance: 0.7925218696417815
+[INFO] Animation Frame 283:, Distance: 0.7925749717181911
+[INFO] Animation Frame 284:, Distance: 0.7926256391333198
+[INFO] Animation Frame 285:, Distance: 0.7929509649122957
+[INFO] Animation Frame 286:, Distance: 0.7931708911397057
+[INFO] Animation Frame 287:, Distance: 0.7932964195664439
+[INFO] Animation Frame 288:, Distance: 0.7937000051935577
+[INFO] Animation Frame 289:, Distance: 0.7939593604553117
+[INFO] Animation Frame 290:, Distance: 0.7940862005475177
+[INFO] Animation Frame 291:, Distance: 0.7944950757554856
+[INFO] Animation Frame 292:, Distance: 0.7947418269233415
+[INFO] Animation Frame 293:, Distance: 0.794838485269751
+[INFO] Animation Frame 294:, Distance: 0.7949592436723898
+[INFO] Animation Frame 295:, Distance: 0.7951017273289953
+[INFO] Animation Frame 296:, Distance: 0.7955273496455649
+[INFO] Animation Frame 297:, Distance: 0.7961771742530476
+[INFO] Animation Frame 298:, Distance: 0.7965062717903131
+[INFO] Animation Frame 299:, Distance: 0.7965796377361217

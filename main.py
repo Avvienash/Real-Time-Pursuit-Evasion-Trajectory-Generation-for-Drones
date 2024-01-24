@@ -62,7 +62,6 @@ class Genarator_NN(nn.Module):
        
         # Define the Mag vector for scaling
         self.mag_vector = torch.tensor(limits).repeat(1,self.num_traj*self.n_steps).to(self.device)
-        
         logging.info("Mag Vector Shape: %s", self.mag_vector.shape)
         
         # Define the model
@@ -96,7 +95,9 @@ class PlayerTrajectoryGenerator:
                  input_dim,
                  n_steps,
                  dt,
-                 limits,
+                 pursuer_limits,
+                 evader_limits,
+                 catch_radius,
                  hidden_layer_num,
                  solver_max_iter,
                  device,
@@ -110,7 +111,9 @@ class PlayerTrajectoryGenerator:
         self.dt = dt
         self.state_dim = state_dim
         self.input_dim = input_dim
-        self.limits = limits
+        self.pursuer_limits = pursuer_limits
+        self.evader_limits = evader_limits
+        self.catch_radius = catch_radius
         self.hidden_layer_num = hidden_layer_num
         self.solver_args =  {
                             "max_iters": solver_max_iter,
@@ -124,7 +127,7 @@ class PlayerTrajectoryGenerator:
                                   state_dim,
                                   input_dim,
                                   n_steps,
-                                  limits,
+                                  pursuer_limits,
                                   hidden_layer_num,
                                   device).to(self.device)
         
@@ -132,11 +135,11 @@ class PlayerTrajectoryGenerator:
                                   state_dim,
                                   input_dim,
                                   n_steps,
-                                  limits,
+                                  evader_limits,
                                   hidden_layer_num,
                                   device).to(self.device)
         
-    def contruct_optimization_problem(self):
+    def contruct_optimization_problem(self,limits):
         
         # dynamics 
         A = np.array([[1, 0, self.dt, 0],
@@ -166,36 +169,35 @@ class PlayerTrajectoryGenerator:
         # define constraints
         constraints = [state_var[0,:] == A @ init_state_var + B @ input_var[0,:]]
         
-        constraints += [state_var[0] <= self.limits[0]]
-        constraints += [state_var[1] <= self.limits[1]]
-        constraints += [state_var[2] <= self.limits[2]]
-        constraints += [state_var[3] <= self.limits[3]]
+        constraints += [init_state_var[0] == current_state_param[0]]
+        constraints += [init_state_var[1] == current_state_param[1]]
         
-        constraints += [state_var[0] >= -1*self.limits[0]]
-        constraints += [state_var[1] >= -1*self.limits[1]]
-        constraints += [state_var[2] >= -1*self.limits[2]]
-        constraints += [state_var[3] >= -1*self.limits[3]]
+        constraints += [init_state_var[2] <= limits[2]]
+        constraints += [init_state_var[3] <= limits[3]]
+        
+        constraints += [init_state_var[2] >= -1*limits[2]]
+        constraints += [init_state_var[3] >= -1*limits[3]]
         
         for i in range(self.n_steps):
             
             if i > 0:
                 constraints += [state_var[i,:] == A @ state_var[i-1,:] + B @ input_var[i,:]]
         
-            constraints += [state_var[i,0] <= self.limits[0]]
-            constraints += [state_var[i,1] <= self.limits[1]]
-            constraints += [state_var[i,2] <= self.limits[2]]
-            constraints += [state_var[i,3] <= self.limits[3]]
+            constraints += [state_var[i,0] <= limits[0]]
+            constraints += [state_var[i,1] <= limits[1]]
+            constraints += [state_var[i,2] <= limits[2]]
+            constraints += [state_var[i,3] <= limits[3]]
             
-            constraints += [state_var[i,0] >= -1*self.limits[0]]
-            constraints += [state_var[i,1] >= -1*self.limits[1]]
-            constraints += [state_var[i,2] >= -1*self.limits[2]]
-            constraints += [state_var[i,3] >= -1*self.limits[3]]
+            constraints += [state_var[i,0] >= -1*limits[0]]
+            constraints += [state_var[i,1] >= -1*limits[1]]
+            constraints += [state_var[i,2] >= -1*limits[2]]
+            constraints += [state_var[i,3] >= -1*limits[3]]
             
-            constraints += [input_var[i,0] <= self.limits[4]]
-            constraints += [input_var[i,1] <= self.limits[5]]
+            constraints += [input_var[i,0] <= limits[4]]
+            constraints += [input_var[i,1] <= limits[5]]
             
-            constraints += [input_var[i,0] >= -1*self.limits[4]]
-            constraints += [input_var[i,1] >= -1*self.limits[5]]
+            constraints += [input_var[i,0] >= -1*limits[4]]
+            constraints += [input_var[i,1] >= -1*limits[5]]
 
             
         problem = cp.Problem(cp.Minimize(objective), constraints)
@@ -228,7 +230,7 @@ class PlayerTrajectoryGenerator:
         
         return optimized_init_state, optimzed_states, optimized_inputs
     
-    def generate_trajectories(self, pursuer_current_state, evader_current_state, optimization_layer):
+    def generate_trajectories(self, pursuer_current_state, evader_current_state, optimization_layer_pusuer, optimization_layer_evader):
         
         # Initial Input
         pursuer_input = torch.cat((pursuer_current_state, evader_current_state), dim=0).float()
@@ -249,11 +251,11 @@ class PlayerTrajectoryGenerator:
         
         pursuer_output_optimized_init_state, pursuer_output_optimized_states, pursuer_output_optimized_inputs = self.convex_optimization_pass(traj = pursuer_output, 
                                                                                                                                               current_state = pursuer_current_state,
-                                                                                                                                              optimization_layer = optimization_layer)
+                                                                                                                                              optimization_layer = optimization_layer_pusuer)
         
         evader_output_optimized_init_state, evader_output_optimized_states, evader_output_optimized_inputs = self.convex_optimization_pass(traj = evader_output, 
                                                                                                                                               current_state = evader_current_state,
-                                                                                                                                              optimization_layer = optimization_layer)
+                                                                                                                                              optimization_layer = optimization_layer_evader)
 
         logging.debug("Pursuer Output Optimized Init State: %s", pursuer_output_optimized_init_state)
         logging.debug("Pusuer Output Optimized States: %s", pursuer_output_optimized_states)
@@ -327,16 +329,19 @@ class PlayerTrajectoryGenerator:
         
         return pursuer_final_states, evader_final_states, pursuer_error, evader_error
     
-    def train(self,P_LR, E_LR, num_epochs, save_model = True, reset_n_step = 1000):
+    def train(self,P_LR, E_LR, num_epochs, save_model = True, load_model = True, reset_n_step = 1000):
         
         logging.info("Training Player Trajectory Generator Pytorch Model...")
+        
+        if load_model:
+            logging.info("Loading the latest model...")
+            self.load_model(get_latest_version('models','pursuer_model_v'))
         
         pursuer_optimizer = optim.SGD(self.pursuer_model.parameters(), lr=P_LR) # create the pursuer optimizer
         evader_optimizer = optim.SGD(self.evader_model.parameters(), lr=E_LR)
         
-        optimization_layer = self.contruct_optimization_problem()
-        
-        logging.debug("Optimization Layer: %s", optimization_layer)
+        optimization_layer_pusuer = self.contruct_optimization_problem(self.pursuer_limits)
+        optimization_layer_evader = self.contruct_optimization_problem(self.evader_limits)
         
         # Initialize the states_for sim
         pursuer_error_sim = np.zeros((num_epochs,1))
@@ -347,8 +352,8 @@ class PlayerTrajectoryGenerator:
         evader_trajectories_sim = np.zeros((num_epochs, self.n_steps, self.state_dim))
         
         
-        pursuer_init_state = torch.randn(self.state_dim).mul(torch.tensor(self.limits[:self.state_dim])).to(self.device)
-        evader_init_state = torch.randn(self.state_dim).mul(torch.tensor(self.limits[:self.state_dim])).to(self.device)
+        pursuer_init_state = (2*torch.rand(self.state_dim)-1).mul(torch.tensor(self.pursuer_limits[:self.state_dim])).to(self.device)
+        evader_init_state = (2*torch.rand(self.state_dim)-1).mul(torch.tensor(self.evader_limits[:self.state_dim])).to(self.device)
         
         logging.info("Pursuer Initial State: %s", pursuer_init_state)
         logging.info("Evader Initial State: %s", evader_init_state)
@@ -360,7 +365,7 @@ class PlayerTrajectoryGenerator:
         
         for epoch in range(num_epochs):
             
-            pursuer_final_states, evader_final_states, pursuer_error, evader_error = self.generate_trajectories(pursuer_init_state, evader_init_state, optimization_layer)
+            pursuer_final_states, evader_final_states, pursuer_error, evader_error = self.generate_trajectories(pursuer_init_state, evader_init_state, optimization_layer_pusuer, optimization_layer_evader)
             
             pursuer_optimizer.zero_grad() # zero the gradients
             pursuer_error.backward()
@@ -378,27 +383,29 @@ class PlayerTrajectoryGenerator:
             pursuer_trajectories_sim[epoch,:,:] = pursuer_final_states.clone().detach().cpu().numpy()
             evader_trajectories_sim[epoch,:,:] = evader_final_states.clone().detach().cpu().numpy()
             
-            
-            pursuer_init_state = pursuer_final_states[0,:].clone().detach()
-            evader_init_state = evader_final_states[0,:].clone().detach()
-            
-            
             # check if evader caught by pursuer
-            if torch.norm(pursuer_init_state[:2] - evader_init_state[:2]) < 0.4:
+            if torch.norm(pursuer_init_state[:2] - evader_init_state[:2]) < self.catch_radius:
                 
                 logging.info("Evader Caught by Pursuer")
-                pursuer_init_state = torch.randn(self.state_dim).mul(torch.tensor(self.limits[:self.state_dim])).to(self.device)
-                evader_init_state = torch.randn(self.state_dim).mul(torch.tensor(self.limits[:self.state_dim])).to(self.device)
+                pursuer_init_state = (2*torch.rand(self.state_dim)-1).mul(torch.tensor(self.pursuer_limits[:self.state_dim])).to(self.device)
+                evader_init_state = (2*torch.rand(self.state_dim)-1).mul(torch.tensor(self.evader_limits[:self.state_dim])).to(self.device)
                 reset_counter = 0
+                
+                continue
 
             # reset the states after 1000 epochs
             reset_counter += 1
             if reset_counter == reset_n_step:
                 logging.info("Resetting the states afteer 1000 steps of evader not being caught by pursuer")
-                pursuer_init_state = torch.randn(self.state_dim).mul(torch.tensor(self.limits[:self.state_dim])).to(self.device)
-                evader_init_state = torch.randn(self.state_dim).mul(torch.tensor(self.limits[:self.state_dim])).to(self.device)
+                pursuer_init_state = (2*torch.rand(self.state_dim)-1).mul(torch.tensor(self.pursuer_limits[:self.state_dim])).to(self.device)
+                evader_init_state = (2*torch.rand(self.state_dim)-1).mul(torch.tensor(self.evader_limits[:self.state_dim])).to(self.device)
                 reset_counter = 0
+                
+                continue
             
+            # update the states
+            pursuer_init_state = pursuer_final_states[0,:].clone().detach()
+            evader_init_state = evader_final_states[0,:].clone().detach()
             
             logging.info("Epoch: %s, Pursuer Error: %s, Evader Error: %s, Distance between pursuer and evader: %s",
                         epoch, pursuer_error_sim[epoch], evader_error_sim[epoch],
@@ -422,7 +429,8 @@ class PlayerTrajectoryGenerator:
                 'input_dim': self.input_dim,
                 'n_steps': self.n_steps,
                 'dt': self.dt,
-                'limits': self.limits,
+                'pusuer_limits': self.pursuer_limits,
+                'evader_limits': self.evader_limits,
                 'hidden_layer_num': self.hidden_layer_num,
                 'solver_max_iter': self.solver_args['max_iters'],
                 'device': self.device,
@@ -440,15 +448,20 @@ class PlayerTrajectoryGenerator:
         
         logging.info("Testing Player Trajectory Generator Pytorch Model...")
         
-        optimization_layer = self.contruct_optimization_problem()
+        optimization_layer_pusuer = self.contruct_optimization_problem(self.pursuer_limits)
+        optimization_layer_evader = self.contruct_optimization_problem(self.evader_limits)
         
         logging.info("Pursuer Initial State: %s", pursuer_init_state)
         logging.info("Evader Initial State: %s", evader_init_state)
         
+        
+        # record the information
         pursuer_states_sim = np.zeros((num_epochs, self.state_dim))
         evader_states_sim = np.zeros((num_epochs, self.state_dim))
         pursuer_trajectories_sim = np.zeros((num_epochs, self.n_steps, self.state_dim))
         evader_trajectories_sim = np.zeros((num_epochs, self.n_steps, self.state_dim))
+        distance_sim = np.zeros((num_epochs,1))
+        caught = False
         
         self.pursuer_model.eval()
         self.evader_model.eval()
@@ -456,34 +469,38 @@ class PlayerTrajectoryGenerator:
         for epoch in range(num_epochs):
             
             with torch.no_grad():
-                pursuer_final_states, evader_final_states, pursuer_error, evader_error = self.generate_trajectories(pursuer_init_state, evader_init_state, optimization_layer)
+                pursuer_final_states, evader_final_states, pursuer_error, evader_error = self.generate_trajectories(pursuer_init_state, evader_init_state, optimization_layer_pusuer, optimization_layer_evader)
             
             # Update the states
             pursuer_states_sim[epoch,:] = pursuer_init_state.clone().detach().cpu().numpy()
             evader_states_sim[epoch,:] = evader_init_state.clone().detach().cpu().numpy()
             pursuer_trajectories_sim[epoch,:,:] = pursuer_final_states.clone().detach().cpu().numpy()
             evader_trajectories_sim[epoch,:,:] = evader_final_states.clone().detach().cpu().numpy()
+            distance_sim[epoch] = torch.norm(pursuer_init_state[:2] - evader_init_state[:2]).item()
             
             # check if evader caught by pursuer
             pursuer_init_state = pursuer_final_states[0,:].clone().detach()
             evader_init_state = evader_final_states[0,:].clone().detach()
             
-            if torch.norm(pursuer_init_state[:2] - evader_init_state[:2]) < 0.4:
+            if distance_sim[epoch] < self.catch_radius:
                 
                 logging.info("Evader Caught by Pursuer")
+                caught = True
                 # remove remaining states
                 pursuer_states_sim = pursuer_states_sim[:epoch,:]
                 evader_states_sim = evader_states_sim[:epoch,:]
                 pursuer_trajectories_sim = pursuer_trajectories_sim[:epoch,:,:]
                 evader_trajectories_sim = evader_trajectories_sim[:epoch,:,:]
-                break
+                distance_sim = distance_sim[:epoch]
+                
+                return caught, pursuer_states_sim, evader_states_sim, pursuer_trajectories_sim, evader_trajectories_sim, distance_sim
 
             
             logging.info("Epoch: %s, Pursuer Error: %s, Evader Error: %s, Distance between pursuer and evader: %s",
                         epoch, pursuer_error, evader_error,
                         torch.norm(pursuer_init_state[:2] - evader_init_state[:2]).item())
         
-        return pursuer_states_sim, evader_states_sim, pursuer_trajectories_sim, evader_trajectories_sim
+        return caught, pursuer_states_sim, evader_states_sim, pursuer_trajectories_sim, evader_trajectories_sim, distance_sim
     
     def load_model(self, version):
         
@@ -523,57 +540,80 @@ class PlayerTrajectoryGenerator:
 
         fps = 10
 
-        fig = plt.figure(figsize=(5, 5))
-        pursuer_pos_plot, = plt.plot([], [], 'ro', markersize=8)
-        pursuer_traj_plot, = plt.plot([], [], 'r-')
-
-        evader_pos_plot, = plt.plot([], [], 'bo',markersize=8)
-        evader_traj_plot, = plt.plot([], [], 'b-')
+        fig, axs = plt.subplots(1, 2, figsize=(10, 5))
         
+        distances = np.linalg.norm(pursuer_states[:,:2] - evader_states[:,:2], axis=1)
+        distance_start_index = 0
+
+        # Left subplot: Top-down simulation
+        pursuer_pos_plot, = axs[0].plot([], [], 'ro', markersize=8)
+        pursuer_traj_plot, = axs[0].plot([], [], 'r-')
+        evader_pos_plot, = axs[0].plot([], [], 'bo', markersize=8)
+        evader_traj_plot, = axs[0].plot([], [], 'b-')
+
         # Plot a border at xy limits of -5 to 5
         border_x = [-5, 5, 5, -5, -5]
         border_y = [-5, -5, 5, 5, -5]
-        plt.plot(border_x, border_y, 'k-', linewidth=1)
+        axs[0].plot(border_x, border_y, 'k-', linewidth=1)
 
-        plt.xlabel('x position')
-        plt.ylabel('y position')
-        plt.title('Top Down Simulation')
-        plt.xlim(-6, 6)
-        plt.ylim(-6, 6)
+        axs[0].set_xlabel('x position')
+        axs[0].set_ylabel('y position')
+        axs[0].set_title('Top Down Simulation')
+        axs[0].set_xlim(-6, 6)
+        axs[0].set_ylim(-6, 6)
 
+        # Right subplot: Distance plot against epochs
+        distance_plot, = axs[1].plot([], [], 'g-')
+
+        axs[1].set_xlabel('Epochs')
+        axs[1].set_ylabel('Distance')
+        axs[1].set_title('Distance Plot')
         
+
         metadata = dict(title='demo', artist='avvienash')
-        writer = FFMpegWriter(fps=fps, metadata=metadata)      
+        writer = FFMpegWriter(fps=fps, metadata=metadata)
 
         with writer.saving(fig, name, 100):
-            
             for i in range(evader_states.shape[0]):
 
-                pursuer_traj_plot_x = pursuer_trajectories[i,:,0]
-                pursuer_traj_plot_y = pursuer_trajectories[i,:,1]
+                pursuer_traj_plot_x = pursuer_trajectories[i, :, 0]
+                pursuer_traj_plot_y = pursuer_trajectories[i, :, 1]
                 pursuer_traj_plot.set_data(pursuer_traj_plot_x, pursuer_traj_plot_y)
-                
-                evader_traj_plot_x = evader_trajectories[i,:,0]
-                evader_traj_plot_y = evader_trajectories[i,:,1]
+
+                evader_traj_plot_x = evader_trajectories[i, :, 0]
+                evader_traj_plot_y = evader_trajectories[i, :, 1]
                 evader_traj_plot.set_data(evader_traj_plot_x, evader_traj_plot_y)
-                
+
                 pursuer_pos_plot_x = pursuer_states[i, 0]
                 pursuer_pos_plot_y = pursuer_states[i, 1]
                 pursuer_pos_plot.set_data([pursuer_pos_plot_x], [pursuer_pos_plot_y])
-                
+
                 evader_pos_plot_x = evader_states[i, 0]
                 evader_pos_plot_y = evader_states[i, 1]
                 evader_pos_plot.set_data([evader_pos_plot_x], [evader_pos_plot_y])
+
+                distance_plot_x = np.arange(distance_start_index,(i + 1))
+                print(distance_plot_x)
+                distance_plot_y = distances[distance_start_index : (i + 1)]
+                axs[1].set_ylim(0,np.max(distance_plot_y) + 0.5)
+                axs[1].set_xlim(distance_start_index,i+1)
+                distance_plot.set_data(distance_plot_x, distance_plot_y)
+                axs[1].set_title(f'Distance Plot: {distance_plot_y[-1]:.2f}')
                 
-                logging.info("Animation Frame: %s", i)
-                
+                if distance_plot_y[-1] < self.catch_radius:
+                    distance_start_index = i + 1
+
+                logging.info("Animation Frame %s:, Distance: %s", i, distance_plot_y[-1])                  
+                      
                 writer.grab_frame()
-    
-        return
+        
+        return 
         
 def main():
     
     logs_version = get_latest_version('logs','logs')
+    
+    
     logs_filename = 'logs/logs_v' + str(logs_version + 1) + '.log'
     logging.basicConfig(level=logging.INFO, 
                         format='[%(levelname)s] %(message)s',
@@ -586,7 +626,9 @@ def main():
                                           input_dim = 2,
                                           n_steps = 5,
                                           dt = 0.2,
-                                          limits = [5,5,5,5,0.5,0.5],
+                                          pursuer_limits = [5,5,2,2,0.5,0.5],
+                                          evader_limits = [5,5,2,2,0.5,0.5],
+                                          catch_radius = 0.4,
                                           hidden_layer_num = 256,
                                           solver_max_iter = 10000,
                                           device = torch.device("cuda" if torch.cuda.is_available() else "cpu"))
@@ -595,8 +637,9 @@ def main():
     pursuer_states_sim, evader_states_sim,\
     pursuer_trajectories_sim, evader_trajectories_sim = generator.train(P_LR = 0.0001,
                                                                         E_LR = 0.0001,
-                                                                        num_epochs = 200000,
+                                                                        num_epochs = 300,
                                                                         save_model = True,
+                                                                        load_model = False,
                                                                         reset_n_step = 300)
 
     generator.plot_losses(pursuer_error_sim, evader_error_sim)
@@ -604,18 +647,21 @@ def main():
     name = "training_animations/animation_v" + str(get_latest_version('training_animations', "animation_v") + 1) + ".mp4"
     generator.animate(pursuer_states_sim, evader_states_sim, pursuer_trajectories_sim, evader_trajectories_sim, name)
     
-    # Test the model
-    generator.load_model(get_latest_version('models','pursuer_model_v'))
     
-    pursuer_init_state = torch.tensor([0,0,0,0]).float()
-    evader_init_state = torch.tensor([4,4,0,0]).float()
     
-    pursuer_states_sim, evader_states_sim, pursuer_trajectories_sim, evader_trajectories_sim = generator.test(pursuer_init_state,
-                                                                                                              evader_init_state,
-                                                                                                              num_epochs = 200)
+    # # Test the model
+    # generator.load_model(get_latest_version('models','pursuer_model_v'))
     
-    name = "testing_animations/animation_v" + str(get_latest_version('testing_animations', "animation_v") + 1) + ".mp4"
-    generator.animate(pursuer_states_sim, evader_states_sim, pursuer_trajectories_sim, evader_trajectories_sim, name)
+    # pursuer_init_state = torch.tensor([0,0,0,0]).float()
+    # evader_init_state = torch.tensor([4,4,0,0]).float()
+    
+
+    # caught, pursuer_states_sim, evader_states_sim, pursuer_trajectories_sim, evader_trajectories_sim, distance_sim = generator.test(pursuer_init_state,
+    #                                                                                                                 evader_init_state,
+    #                                                                                                                 num_epochs = 200)
+    
+    # name = "testing_animations/animation_v" + str(get_latest_version('testing_animations', "animation_v") + 1) + ".mp4"
+    # generator.animate(pursuer_states_sim, evader_states_sim, pursuer_trajectories_sim, evader_trajectories_sim, name)
     
     return
     

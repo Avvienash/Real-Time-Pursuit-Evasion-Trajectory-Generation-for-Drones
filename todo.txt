@@ -1,0 +1,12 @@
+- Dual limits
+- Plot distance for test
+- Plot live distance
+- Print distance
+- plot distance vs caught or not
+- plot speed ratio from 0.9 to 1.1 and caught or not
+
+
+- diffrent shape
+
+- 3d fixes
+- diffrent views

@@ -1,0 +1,48 @@
+[INFO] Initializing Player Trajectory Generator Pytorch Model...
+[INFO] Mag Vector Shape: torch.Size([1, 150])
+[INFO] Initializing Player Trajectory Generator Pytorch Model...
+[INFO] Mag Vector Shape: torch.Size([1, 150])
+[INFO] Training Player Trajectory Generator Pytorch Model...
+[INFO] Pursuer Initial State: tensor([-1.7824,  4.1713, -8.9276,  5.6103], device='cuda:0')
+[INFO] Evader Initial State: tensor([ 7.0285,  3.1650, -3.8931, -8.2125], device='cuda:0')
+[INFO] Epoch: 0, Pursuer Error: [30.84187126], Evader Error: [-30.84187126], Distance between pursuer and evader: 6.181772232055664
+[INFO] Epoch: 1, Pursuer Error: [29.44199181], Evader Error: [-29.44199181], Distance between pursuer and evader: 6.150226593017578
+[INFO] Epoch: 2, Pursuer Error: [29.05410767], Evader Error: [-29.05410767], Distance between pursuer and evader: 6.34095573425293
+[INFO] Epoch: 3, Pursuer Error: [29.54428673], Evader Error: [-29.54428673], Distance between pursuer and evader: 6.718523979187012
+[INFO] Epoch: 4, Pursuer Error: [29.74659157], Evader Error: [-29.74659157], Distance between pursuer and evader: 7.146393299102783
+[INFO] Epoch: 5, Pursuer Error: [27.67484856], Evader Error: [-27.67484856], Distance between pursuer and evader: 7.377998352050781
+[INFO] Epoch: 6, Pursuer Error: [26.19787025], Evader Error: [-26.19787025], Distance between pursuer and evader: 7.617783546447754
+[INFO] Epoch: 7, Pursuer Error: [25.17304993], Evader Error: [-25.17304993], Distance between pursuer and evader: 7.8569488525390625
+[INFO] Epoch: 8, Pursuer Error: [24.50083923], Evader Error: [-24.50083923], Distance between pursuer and evader: 8.091066360473633
+[INFO] Epoch: 9, Pursuer Error: [24.08517838], Evader Error: [-24.08517838], Distance between pursuer and evader: 8.316052436828613
+[INFO] Epoch: 10, Pursuer Error: [23.86458397], Evader Error: [-23.86458397], Distance between pursuer and evader: 8.530204772949219
+[INFO] Epoch: 11, Pursuer Error: [23.79337502], Evader Error: [-23.79337502], Distance between pursuer and evader: 8.733835220336914
+[INFO] Epoch: 12, Pursuer Error: [23.8296032], Evader Error: [-23.8296032], Distance between pursuer and evader: 8.924081802368164
+[INFO] Epoch: 13, Pursuer Error: [23.93480682], Evader Error: [-23.93480682], Distance between pursuer and evader: 9.0977783203125
+[INFO] Epoch: 14, Pursuer Error: [24.03709793], Evader Error: [-24.03709793], Distance between pursuer and evader: 9.251840591430664
+[INFO] Epoch: 15, Pursuer Error: [24.10489464], Evader Error: [-24.10489464], Distance between pursuer and evader: 9.385295867919922
+[INFO] Epoch: 16, Pursuer Error: [24.14120674], Evader Error: [-24.14120674], Distance between pursuer and evader: 9.498078346252441
+[INFO] Epoch: 17, Pursuer Error: [24.09581566], Evader Error: [-24.09581566], Distance between pursuer and evader: 9.600529670715332
+[INFO] Epoch: 18, Pursuer Error: [23.96456909], Evader Error: [-23.96456909], Distance between pursuer and evader: 9.673910140991211
+[INFO] Epoch: 19, Pursuer Error: [23.72966003], Evader Error: [-23.72966003], Distance between pursuer and evader: 9.71562671661377
+[INFO] MovieWriter._run: running command: 'C:\Users\Avvienash\Documents\ffmpeg-6.1-essentials_build\ffmpeg-6.1-essentials_build\bin\ffmpeg.exe' -f rawvideo -vcodec rawvideo -s 1000x500 -pix_fmt rgba -r 10 -loglevel error -i pipe: -vcodec h264 -pix_fmt yuv420p -metadata title=demo -metadata artist=avvienash -y training_animations/animation_v9.mp4
+[INFO] Animation Frame 0 with distance 0
+[INFO] Animation Frame 1 with distance 1
+[INFO] Animation Frame 2 with distance 2
+[INFO] Animation Frame 3 with distance 3
+[INFO] Animation Frame 4 with distance 4
+[INFO] Animation Frame 5 with distance 5
+[INFO] Animation Frame 6 with distance 6
+[INFO] Animation Frame 7 with distance 7
+[INFO] Animation Frame 8 with distance 8
+[INFO] Animation Frame 9 with distance 9
+[INFO] Animation Frame 10 with distance 10
+[INFO] Animation Frame 11 with distance 11
+[INFO] Animation Frame 12 with distance 12
+[INFO] Animation Frame 13 with distance 13
+[INFO] Animation Frame 14 with distance 14
+[INFO] Animation Frame 15 with distance 15
+[INFO] Animation Frame 16 with distance 16
+[INFO] Animation Frame 17 with distance 17
+[INFO] Animation Frame 18 with distance 18
+[INFO] Animation Frame 19 with distance 19

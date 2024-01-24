@@ -38,7 +38,7 @@ def main():
     logging.info('Starting test script')
     
     #load the model and params
-    load_version = get_latest_version('models','pursuer_model_v')
+    load_version = 2 #get_latest_version('models','pursuer_model_v')
     params = {}
     file_path = f'models/model_params_v{load_version}.txt'
     logging.info("File Path: %s", file_path)
