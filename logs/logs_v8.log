@@ -1,0 +1,19 @@
+[INFO] Initializing Player Trajectory Generator Pytorch Model...
+[INFO] Mag Vector Shape: torch.Size([1, 150])
+[INFO] Initializing Player Trajectory Generator Pytorch Model...
+[INFO] Mag Vector Shape: torch.Size([1, 150])
+[INFO] Training Player Trajectory Generator Pytorch Model...
+[INFO] Pursuer Initial State: tensor([-6.0270, -6.3387, 11.6250,  7.2631], device='cuda:0')
+[INFO] Evader Initial State: tensor([ 2.2849,  6.2189, -4.5300,  6.7478], device='cuda:0')
+[INFO] Epoch: 0, Pursuer Error: [33.55989838], Evader Error: [-33.55989838], Distance between pursuer and evader: 9.905991554260254
+[INFO] Epoch: 1, Pursuer Error: [28.56251335], Evader Error: [-28.56251335], Distance between pursuer and evader: 8.346134185791016
+[INFO] Epoch: 2, Pursuer Error: [25.19578362], Evader Error: [-25.19578362], Distance between pursuer and evader: 6.937959671020508
+[INFO] Epoch: 3, Pursuer Error: [23.33507156], Evader Error: [-23.33507156], Distance between pursuer and evader: 5.752634525299072
+[INFO] Epoch: 4, Pursuer Error: [22.86733818], Evader Error: [-22.86733818], Distance between pursuer and evader: 4.9090423583984375
+[INFO] Epoch: 5, Pursuer Error: [23.68800926], Evader Error: [-23.68800926], Distance between pursuer and evader: 4.55522346496582
+[INFO] Epoch: 6, Pursuer Error: [25.69846916], Evader Error: [-25.69846916], Distance between pursuer and evader: 4.760866165161133
+[INFO] Epoch: 7, Pursuer Error: [27.46089745], Evader Error: [-27.46089745], Distance between pursuer and evader: 5.306293964385986
+[INFO] Epoch: 8, Pursuer Error: [26.64607048], Evader Error: [-26.64607048], Distance between pursuer and evader: 5.886629581451416
+[INFO] Epoch: 9, Pursuer Error: [25.08957863], Evader Error: [-25.08957863], Distance between pursuer and evader: 6.348077297210693
+[INFO] Epoch: 10, Pursuer Error: [24.06388474], Evader Error: [-24.06388474], Distance between pursuer and evader: 6.783499717712402
+[INFO] Epoch: 11, Pursuer Error: [23.42837334], Evader Error: [-23.42837334], Distance between pursuer and evader: 7.186947822570801

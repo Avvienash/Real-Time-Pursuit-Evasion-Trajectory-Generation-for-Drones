@@ -166,6 +166,16 @@ class PlayerTrajectoryGenerator:
         # define constraints
         constraints = [state_var[0,:] == A @ init_state_var + B @ input_var[0,:]]
         
+        constraints += [state_var[0] <= self.limits[0]]
+        constraints += [state_var[1] <= self.limits[1]]
+        constraints += [state_var[2] <= self.limits[2]]
+        constraints += [state_var[3] <= self.limits[3]]
+        
+        constraints += [state_var[0] >= -1*self.limits[0]]
+        constraints += [state_var[1] >= -1*self.limits[1]]
+        constraints += [state_var[2] >= -1*self.limits[2]]
+        constraints += [state_var[3] >= -1*self.limits[3]]
+        
         for i in range(self.n_steps):
             
             if i > 0:
@@ -574,18 +584,18 @@ def main():
     generator = PlayerTrajectoryGenerator(num_traj = 5,
                                           state_dim = 4,
                                           input_dim = 2,
-                                          n_steps = 10,
+                                          n_steps = 5,
                                           dt = 0.2,
-                                          limits = [5,5,5,5,0.4,0.4],
-                                          hidden_layer_num = 128,
+                                          limits = [5,5,5,5,0.5,0.5],
+                                          hidden_layer_num = 256,
                                           solver_max_iter = 10000,
                                           device = torch.device("cuda" if torch.cuda.is_available() else "cpu"))
     
     pursuer_error_sim,evader_error_sim,\
     pursuer_states_sim, evader_states_sim,\
-    pursuer_trajectories_sim, evader_trajectories_sim = generator.train(P_LR = 0.01,
-                                                                        E_LR = 0.01,
-                                                                        num_epochs = 10000,
+    pursuer_trajectories_sim, evader_trajectories_sim = generator.train(P_LR = 0.0001,
+                                                                        E_LR = 0.0001,
+                                                                        num_epochs = 200000,
                                                                         save_model = True,
                                                                         reset_n_step = 300)
 
