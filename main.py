@@ -573,7 +573,7 @@ class PlayerTrajectoryGenerator:
         plt.ylabel('Distance')
         plt.legend()
         plt.grid(True)
-        plt.set_ylim(0,np.sqrt((self.pursuer_limits[0]*2)**2 + (self.pursuer_limits[1]*2)**2))
+        plt.ylim(0,np.sqrt((self.pursuer_limits[0]*2)**2 + (self.pursuer_limits[1]*2)**2))
         plot_name = self.save_path + name
         plt.savefig(plot_name)
         
@@ -686,16 +686,18 @@ def main():
     
     
     logging.info("Start Training")
+    logging.info("Training Parameters: %s", generator.__dict__)
     pursuer_error_sim,evader_error_sim,\
     pursuer_states_sim, evader_states_sim,\
     pursuer_trajectories_sim, evader_trajectories_sim = generator.train(P_LR = 0.01,
                                                                         E_LR = 0.01,
-                                                                        num_epochs = 10000,
+                                                                        num_epochs = 100000,
                                                                         save_model = True,
                                                                         load_model = False,
-                                                                        reset_n_step = 1,
+                                                                        reset_n_step = 400,
                                                                         scheduler_step_size = 500,
                                                                         scheduler_gamma = 0.98)
+    logging.info("End Training")
 
     generator.plot_losses(pursuer_error_sim, evader_error_sim)
 

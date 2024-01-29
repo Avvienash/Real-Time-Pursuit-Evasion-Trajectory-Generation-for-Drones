@@ -94,8 +94,8 @@ def main():
         
         logging.info("Test %d / %d", i+1, n)
         
-        pursuer_init_state = (2*torch.rand(generator.state_dim)-1).mul(torch.tensor(generator.pursuer_limits[:generator.state_dim])).to(generator.device)        
-        evader_init_state = (2*torch.rand(generator.state_dim)-1).mul(torch.tensor(generator.evader_limits[:generator.state_dim])).to(generator.device)
+        pursuer_init_state = (2*torch.rand(generator.state_dim)-1).mul(torch.tensor([5,5,0,0])).to(generator.device)        
+        evader_init_state = (2*torch.rand(generator.state_dim)-1).mul(torch.tensor([5,5,0,0])).to(generator.device)
     
         caught, pursuer_states_sim, evader_states_sim, pursuer_trajectories_sim, evader_trajectories_sim, distance_sim = generator.test(pursuer_init_state,
                                                                                                                         evader_init_state,
