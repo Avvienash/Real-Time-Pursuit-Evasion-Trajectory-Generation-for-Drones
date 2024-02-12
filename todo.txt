@@ -1,0 +1,5 @@
+- train diff speeds
+- 3d
+- diffrent shpes
+- diffrent Dynamics
+- Multi Agent
