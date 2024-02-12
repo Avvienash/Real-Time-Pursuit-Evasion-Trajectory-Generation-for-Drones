@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Pursuit Evasion Games</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> >
+</head>
+<body>
+
+    <div id="container">
+
+        <canvas id="canvas1"></canvas>
+
+        <form id="controls">
+            <h1>
+                Mixed Learning Pursuit Evasion Game Demo
+            </h1>
+
+            <div class="name-group">
+                <label for="numberOfBoids">Number of Boids:</label>
+                <input type="number" class="input-sync n_boids" id="numberOfBoidsInput" data-sync="numberOfBoids" min="1" max="800" step="1" value="800">
+            </div>
+
+            <div class="input-group">
+                <input type="range" class="input-sync n_boids" id="numberOfBoids" data-sync="numberOfBoidsInput" min="1" max="800" step="1" value="800">
+            </div>
+
+            <div class="name-group">
+                <label for="spriteRadius">Sprite Radius:</label>
+                <input type="number" class="input-sync" id="spriteRadiusInput" data-sync="spriteRadius" min="5" max="20" step="1" value="10">
+            </div>
+
+            <div class="input-group">
+                <input type="range" class="input-sync" id="spriteRadius" data-sync="spriteRadiusInput" min="5" max="20" step="1" value="10">
+            </div>
+
+            <div class="name-group">
+                <label for="protectedRange">Protected Range:</label>
+                <input type="number" class="input-sync" id="protectedRangeInput" data-sync="protectedRange" min="0" max="500" step="1" value="50">
+            </div>
+    
+            <div class="input-group">
+                <input type="range" class="input-sync" id="protectedRange" data-sync="protectedRangeInput" min="0" max="500" step="1" value="50">
+            </div>
+
+            <div class="name-group">
+                <label for="visualRange">Visual Range:</label>
+                <input type="number" class="input-sync" id="visualRangeInput" data-sync="visualRange" min="0" max="500" step="1" value="100">
+            </div>
+    
+            <div class="input-group">
+                <input type="range" class="input-sync" id="visualRange" data-sync="visualRangeInput" min="0" max="500" step="1" value="100">
+            </div>
+
+            <div class="name-group">
+                <label for="margin">Margin:</label>
+                <input type="number" class="input-sync" id="marginInput" data-sync="margin" min="0" max="500" step="1" value="150">
+            </div>
+    
+            <div class="input-group">
+                <input type="range" class="input-sync" id="margin" data-sync="marginInput" min="0" max="500" step="1" value="150">
+            </div>
+
+            <div class="name-group">
+                <label for="maxSpeed">Max Speed:</label>
+                <input type="number" class="input-sync" id="maxSpeedInput" data-sync="maxSpeed" min="0.1" max="100" step="0.1" value="5">
+            </div>
+    
+            <div class="input-group">
+                <input type="range" class="input-sync" id="maxSpeed" data-sync="maxSpeedInput" min="0.1" max="100" step="0.1" value="5">
+            </div>
+
+            <div class="name-group">
+                <label for="minSpeed">Min Speed:</label>
+                <input type="number" class="input-sync" id="minSpeedInput" data-sync="minSpeed" min="0.1" max="100" step="0.1" value="1">
+            </div>
+    
+            <div class="input-group">
+                <input type="range" class="input-sync" id="minSpeed" data-sync="minSpeedInput" min="0.1" max="100" step="0.1" value="1">
+            </div>
+
+            <div class="name-group">
+                <label for="avoidFactor">Avoid Factor:</label>
+                <input type="number" class="input-sync" id="avoidFactorInput" data-sync="avoidFactor" min="0" max="20" step="0.001" value="0">
+            </div>
+    
+            <div class="input-group">
+                <input type="range" class="input-sync" id="avoidFactor" data-sync="avoidFactorInput" min="0" max="20" step="0.001" value="0">
+            </div>
+
+            <div class="name-group">
+                <label for="turnFactor">Turn Factor:</label>
+                <input type="number" class="input-sync" id="turnFactorInput" data-sync="turnFactor" min="0" max="20" step="0.001" value="5">
+            </div>
+    
+            <div class="input-group">
+                <input type="range" class="input-sync" id="turnFactor" data-sync="turnFactorInput" min="0" max="20" step="0.001" value="5">
+            </div>
+
+            <div class="name-group">
+                <label for="matchingFactor">Matching Factor:</label>
+                <input type="number" class="input-sync" id="matchingFactorInput" data-sync="matchingFactor" min="0" max="20" step="0.01" value="0">
+            </div>
+    
+            <div class="input-group">
+                <input type="range" class="input-sync" id="matchingFactor" data-sync="matchingFactorInput" min="0" max="20" step="0.01" value="0">
+            </div>
+
+            <div class="name-group">
+                <label for="centeringFactor">Centering Factor:</label>
+                <input type="number" class="input-sync" id="centeringFactorInput" data-sync="centeringFactor" min="0" max="20" step="0.01" value="0">
+            </div>
+    
+            <div class="input-group">
+                <input type="range" class="input-sync" id="centeringFactor" data-sync="centeringFactorInput" min="0" max="20" step="0.01" value="0">
+            </div>
+
+            <div class="name-group">
+                <label for="setFps">Set FPS (0 for max):</label>
+                <input type="number" class="input-sync" id="setFpsInput" data-sync="setFps" min="0" max="150" step="1" value="0">
+            </div>
+    
+            <div class="input-group">
+                <input type="range" class="input-sync" id="setFps" data-sync="setFpsInput" min="0" max="150" step="1" value="0">
+            </div>
+
+            <div id="fpsDisplay">FPS: <span id="fpsValue">0</span></div>
+            <button type="button" id="reloadButton">Reset</button>
+            <button type="button" id="pauseButton">Pause/Play</button>
+            
+        </form>
+            
+    </div>
+    <script src="{{ url_for('static', filename='script_boids_v1.js') }}"></script>
+
+    <script>
+        // Get all elements with the "input-sync" class
+        const inputs = document.querySelectorAll('.input-sync');
+    
+        // Iterate through each input and add event listeners
+        inputs.forEach(input => {
+            const syncId = input.getAttribute('data-sync');
+            const syncInput = document.getElementById(syncId);
+    
+            input.addEventListener('input', () => {
+                syncInput.value = input.value;
+            });
+    
+            syncInput.addEventListener('input', () => {
+                input.value = syncInput.value;
+            });
+        });
+    </script>
+</body>
+
+</html>
+

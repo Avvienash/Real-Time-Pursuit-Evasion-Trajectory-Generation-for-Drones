@@ -1,0 +1,111 @@
+body {
+    background-color: #537692;
+    text-align: center;
+    /* font-family: Georgia, 'Times New Roman', Times, serif; */
+}
+
+#container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+#canvas1 {
+    width: 70%;
+    height: 95vh;
+    background-color: #537692;
+    /*border: 4px solid #1d3f58; */
+}
+
+#controls {
+    width: 28%;
+}
+
+.name-group{
+    text-align: left;
+    color: #1d3f58;
+    font-weight: bold;
+}
+
+.name-group input{
+    background: none;
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    width: 20%;
+    box-sizing: border-box;
+    border: 1px solid #1d3f58;
+    border-radius: 4px;
+    outline: none;
+}
+
+.input-group{
+    align-items: center;
+    margin-bottom: 2%;
+}
+
+/* Remove default styling for range input */
+input[type="range"]{
+    -webkit-appearance: none;
+    width: 90%;
+    height: 5px;
+    background: none;
+    outline: none;
+    border: 3px solid #1d3f58;
+    border-radius: 8px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+  
+  
+  /* for chrome/safari */
+input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 25px;
+    background: #1d3f58;
+    cursor: pointer;
+    border-radius: 3px;
+}
+  
+button {
+    background-color: #537692; /* Change this to your desired color */
+    color: #163145; /* Change this to your desired text color */
+    font-weight: bold;
+    border: 3px solid #1d3f58;
+    border-radius: 5px;
+    cursor: pointer;
+    
+}
+
+/* Optional: Hover effect for buttons */
+button:hover {
+    background-color: #1d3f58; /* Change this to your desired hover color */
+    color: #537692; /* Change this to your desired text color */
+
+}
+
+button:active {
+    background-color: #537692; /* Change this to your desired color */
+    color: #163145;
+}
+
+@media (max-width: 1000px) {
+    #container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #canvas1{
+        width: 100%;
+        max-width: none;
+        }
+
+    #controls {
+        width: 100%;
+        max-width: none;
+        margin-top: 50px;
+    }
+}
