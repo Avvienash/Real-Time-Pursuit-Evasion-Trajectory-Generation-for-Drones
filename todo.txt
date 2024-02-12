@@ -4,5 +4,5 @@
 
 - diffrent shape
 
-- 3d fixes
+- 3d fixes hgvh
 - diffrent views
