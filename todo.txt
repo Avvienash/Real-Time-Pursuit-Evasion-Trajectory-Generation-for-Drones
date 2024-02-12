@@ -1,8 +1,0 @@
-- plot distance vs caught or not
-- plot speed ratio from 0.9 to 1.1 and caught or not
-
-
-- diffrent shape
-
-- 3d fixes hgvh
-- diffrent views
