@@ -96,8 +96,7 @@ def main():
     
     # Test the model    
     pursuer_init_state, evader_init_state = generator.generate_init_states()
-    evader_init_state = torch.tensor([0,2,0,0], dtype=torch.float32).to(generator.device)
-    pursuer_init_state = torch.tensor([0,0,0,0], dtype=torch.float32).to(generator.device)
+
     logging.info("Pursuer Initial State: %s", pursuer_init_state)
     logging.info("Evader Initial State: %s", evader_init_state)
             

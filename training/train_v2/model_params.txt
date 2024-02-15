@@ -1,0 +1,17 @@
+num_traj: 4
+state_dim: 4
+input_dim: 2
+n_steps: 10
+dt: 0.2
+pursuer_limits: [2, 2, 0.5, 0.5, 0.5, 0.5]
+evader_limits: [2, 2, 1, 1, 0.5, 0.5]
+hidden_layer_num: 100
+solver_max_iter: 1000
+device: cuda
+catch_radius: 0.1
+save_path: training/train_v2
+verbose: False
+solve_method: ECOS
+enviroment: pentagon
+margin: 0.1
+bounds_type: hard

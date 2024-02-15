@@ -416,7 +416,7 @@ class PlayerTrajectoryGenerator:
         
         return feasible_p, feasible_e, pursuer_final_states, evader_final_states, pursuer_final_controls, evader_final_controls, pursuer_error, evader_error
     
-    def generate_init_states(self, zero_vel = True):
+    def generate_init_states(self, zero_vel = True, check_feasible = True):
         
         logging.info("Generating Initial States...")
         optimization_layer_pusuer = self.contruct_optimization_problem(self.pursuer_limits, self.bounds_type)
@@ -488,11 +488,16 @@ class PlayerTrajectoryGenerator:
                 if zero_vel:
                     pursuer_init_state[2:] = 0
                     evader_init_state[2:] = 0
-
-                feasible_p, feasible_e, pursuer_final_states, evader_final_states, pursuer_final_controls, evader_final_controls, pursuer_error, evader_error = self.generate_trajectories(pursuer_init_state, evader_init_state, optimization_layer_pusuer, optimization_layer_evader)
-                if feasible_p and feasible_e:
+                
+                if check_feasible:
+                    feasible_p, feasible_e, pursuer_final_states, evader_final_states, pursuer_final_controls, evader_final_controls, pursuer_error, evader_error = self.generate_trajectories(pursuer_init_state, evader_init_state, optimization_layer_pusuer, optimization_layer_evader)
+                    if feasible_p and feasible_e:
+                        non_feasible = False
+                        continue
+                    logging.info("Generated State not Feasible, Trying Again...")
+                else:
                     non_feasible = False
-                logging.info("Generated State not Feasible, Trying Again...")
+                    continue
         
 
         logging.info("Pursuer Init State: %s", pursuer_init_state)
@@ -528,6 +533,7 @@ class PlayerTrajectoryGenerator:
         evader_controls_sim = np.zeros((num_epochs,  self.n_steps, self.input_dim))
         pursuer_trajectories_sim = np.zeros((num_epochs, self.n_steps, self.state_dim))
         evader_trajectories_sim = np.zeros((num_epochs, self.n_steps, self.state_dim))
+        avg_distance = np.zeros((num_epochs,1))
         
         
         pursuer_init_state, evader_init_state = self.generate_init_states()
@@ -542,30 +548,183 @@ class PlayerTrajectoryGenerator:
         
         for epoch in range(num_epochs):
             
-            feasible_p, feasible_e, pursuer_final_states, evader_final_states, pursuer_final_controls, evader_final_controls, pursuer_error, evader_error = self.generate_trajectories(pursuer_init_state, evader_init_state, optimization_layer_pusuer, optimization_layer_evader)
+            logging.info("Resetting the states")
+            pursuer_init_state, evader_init_state = self.generate_init_states()
             
-            if not feasible_p:
+            for t in range(reset_n_step):
+                
+                feasible_p, feasible_e, pursuer_final_states, evader_final_states, pursuer_final_controls, evader_final_controls, pursuer_error, evader_error = self.generate_trajectories(pursuer_init_state, evader_init_state, optimization_layer_pusuer, optimization_layer_evader)
+                
+                if not feasible_p:
 
-                logging.error("\n Infeasible Trajectory for Pursuer \n")
+                    logging.error("\n Infeasible Trajectory for Pursuer \n")
+                    
+                    
+                    pursuer_init_state, evader_init_state = self.generate_init_states()
+                    reset_counter = 0
+                    continue
                 
+                if not feasible_e:
+                    logging.error("\n Infeasible Trajectory for Evader \n")
+                    
+                    pursuer_init_state, evader_init_state = self.generate_init_states()
+                    reset_counter = 0
+                    continue
                 
-                pursuer_init_state, evader_init_state = self.generate_init_states()
-                reset_counter = 0
-                continue
+                pursuer_optimizer.zero_grad() # zero the gradients
+                pursuer_error.backward()
+                pursuer_optimizer.step()
+                
+                evader_optimizer.zero_grad() # zero the gradients
+                evader_error.backward()
+                evader_optimizer.step()
+                
+                # Update the learning rate
+                pursuer_scheduler.step()
+                evader_scheduler.step()
+                
+                # Update the states
+                pursuer_error_sim[epoch] = pursuer_error.clone().detach().cpu().numpy()
+                evader_error_sim[epoch] = evader_error.clone().detach().cpu().numpy()
+                
+                # logging
+                logging.info("Epoch: %s / %s, Step: %s / %s, Pursuer Error: %s, Evader Error: %s", epoch, num_epochs, t, reset_n_step, pursuer_error, evader_error)
+                
+                # check if evader caught by pursuer
+                # if torch.norm(pursuer_init_state[:2] - evader_init_state[:2]) < self.catch_radius:
+                    
+                #     logging.info("Evader Caught by Pursuer")
+                #     pursuer_init_state, evader_init_state = self.generate_init_states()
+                #     reset_counter = 0
+                #     continue
+
+                # reset the states after 1000 epochs
+                # reset_counter += 1
+                # if reset_counter == reset_n_step:
+                    
+                #     logging.info("Resetting the states")
+                #     pursuer_init_state, evader_init_state = self.generate_init_states()
+                #     reset_counter = 0
+                #     continue
+                
+                avg_distance[epoch] += torch.norm(pursuer_init_state[:2] - evader_init_state[:2]).item()
+                
+                # update the states
+                pursuer_init_state = pursuer_final_states[0,:].clone().detach()
+                evader_init_state = evader_final_states[0,:].clone().detach()
+                
+
+        # Save the models
+        if save_model:
+                      
+            pursuer_model_name = self.save_path + "/pursuer_model.pth"
+            evader_model_name = self.save_path + "/evader_model.pth"
             
-            if not feasible_e:
-                logging.error("\n Infeasible Trajectory for Evader \n")
+            torch.save(self.pursuer_model.state_dict(), pursuer_model_name) 
+            torch.save(self.evader_model.state_dict(), evader_model_name)
+            
+            # save the params
+            params = {
+                'num_traj': self.num_traj,
+                'state_dim': self.state_dim,
+                'input_dim': self.input_dim,
+                'n_steps': self.n_steps,
+                'dt': self.dt,
+                'pursuer_limits': self.pursuer_limits,
+                'evader_limits': self.evader_limits,
+                'hidden_layer_num': self.hidden_layer_num,
+                'solver_max_iter': self.solver_args['max_iters'],
+                'device': self.device,
+                'catch_radius': self.catch_radius,
+                'save_path': self.save_path,
+                'verbose': False,
+                'solve_method': self.solver_args['solve_method'],
+                'enviroment': self.enviroment,
+                'margin': self.margin,
+                'bounds_type': self.bounds_type
+            }
+            
+            with open(self.save_path + '/model_params.txt', 'w') as f:
+                for key, value in params.items():
+                    f.write(f'{key}: {value}\n')
+        
+        return pursuer_error_sim, evader_error_sim, pursuer_states_sim, evader_states_sim, pursuer_controls_sim, evader_controls_sim, pursuer_trajectories_sim, evader_trajectories_sim, avg_distance
+    
+    def train_batch(self,P_LR, E_LR, num_epochs, save_model, load_model,reset_n_step, batch_num, scheduler_step_size, scheduler_gamma):
+        
+        logging.info("Batch Training Player Trajectory Generator Pytorch Model...")
+        
+        if load_model:
+            logging.info("Loading the latest model...")
+            self.load_model(get_latest_version('training','train_v'))
+        
+        pursuer_optimizer = optim.SGD(self.pursuer_model.parameters(), lr=P_LR) # create the pursuer optimizer
+        evader_optimizer = optim.SGD(self.evader_model.parameters(), lr=E_LR)
+        
+        # Learning rate schedulers
+        pursuer_scheduler = lr_scheduler.StepLR(pursuer_optimizer, step_size=scheduler_step_size, gamma=scheduler_gamma)
+        evader_scheduler = lr_scheduler.StepLR(evader_optimizer, step_size=scheduler_step_size, gamma=scheduler_gamma)
+
+        
+        optimization_layer_pusuer = self.contruct_optimization_problem(self.pursuer_limits, self.bounds_type)
+        optimization_layer_evader = self.contruct_optimization_problem(self.evader_limits, self.bounds_type)
+        
+        
+        # Initialize the states_for sim
+        pursuer_error_sim = np.zeros((num_epochs,1))
+        evader_error_sim = np.zeros((num_epochs,1))
+        pursuer_states_sim = np.zeros((num_epochs, self.state_dim))
+        evader_states_sim = np.zeros((num_epochs, self.state_dim))
+        pursuer_controls_sim = np.zeros((num_epochs,  self.n_steps, self.input_dim))
+        evader_controls_sim = np.zeros((num_epochs,  self.n_steps, self.input_dim))
+        pursuer_trajectories_sim = np.zeros((num_epochs, self.n_steps, self.state_dim))
+        evader_trajectories_sim = np.zeros((num_epochs, self.n_steps, self.state_dim))
+        
+        self.pursuer_model.train()
+        self.evader_model.train()
+        
+        
+        for epoch in range(num_epochs):
+            
+            pursuer_error_batch_avg = 0
+            evader_error_batch_avg = 0
+                       
+            for batch in range(batch_num):
+            
+                pursuer_init_state, evader_init_state = self.generate_init_states(zero_vel=True, check_feasible=True)
+                pursuer_error_avg = 0
+                evader_error_avg = 0
+                logging.info("Epoch: %s / %s, Batch: %s / %s", epoch, num_epochs, batch, batch_num)
                 
-                pursuer_init_state, evader_init_state = self.generate_init_states()
-                reset_counter = 0
-                continue
+                for t in range(reset_n_step):
+                    
+                    feasible_p, feasible_e, pursuer_final_states, evader_final_states, pursuer_final_controls, evader_final_controls, pursuer_error, evader_error = self.generate_trajectories(pursuer_init_state, evader_init_state, optimization_layer_pusuer, optimization_layer_evader)
+                    
+                    if not feasible_p:
+                        logging.error("\n Infeasible Trajectory for Pursuer \n")
+                        pursuer_init_state, evader_init_state = self.generate_init_states()
+                        continue
+                    
+                    elif not feasible_e:
+                        logging.error("\n Infeasible Trajectory for Evader \n")
+                        pursuer_init_state, evader_init_state = self.generate_init_states()
+                        continue
+                    
+                    pursuer_error_avg += pursuer_error
+                    evader_error_avg += evader_error
+                    
+                pursuer_error_batch_avg += pursuer_error_avg/reset_n_step
+                evader_error_batch_avg += evader_error/reset_n_step
+                
+            pursuer_error_batch_avg = pursuer_error_batch_avg / (batch_num)
+            evader_error_batch_avg = evader_error_batch_avg / (batch_num)
             
             pursuer_optimizer.zero_grad() # zero the gradients
-            pursuer_error.backward()
+            pursuer_error_batch_avg.backward()
             pursuer_optimizer.step()
             
             evader_optimizer.zero_grad() # zero the gradients
-            evader_error.backward()
+            evader_error_batch_avg.backward()
             evader_optimizer.step()
             
             # Update the learning rate
@@ -573,40 +732,14 @@ class PlayerTrajectoryGenerator:
             evader_scheduler.step()
             
             # Update the states
-            pursuer_error_sim[epoch] = pursuer_error.clone().detach().cpu().numpy()
-            evader_error_sim[epoch] = evader_error.clone().detach().cpu().numpy()
-            pursuer_states_sim[epoch,:] = pursuer_init_state.clone().detach().cpu().numpy()
-            evader_states_sim[epoch,:] = evader_init_state.clone().detach().cpu().numpy()
-            pursuer_trajectories_sim[epoch,:,:] = pursuer_final_states.clone().detach().cpu().numpy()
-            evader_trajectories_sim[epoch,:,:] = evader_final_states.clone().detach().cpu().numpy()
-            pursuer_controls_sim[epoch,:,:] = pursuer_final_controls.clone().detach().cpu().numpy()
-            evader_controls_sim[epoch,:,:] = evader_final_controls.clone().detach().cpu().numpy()
+            pursuer_error_sim[epoch] = pursuer_error_batch_avg.clone().detach().cpu().numpy()
+            evader_error_sim[epoch] = evader_error_batch_avg.clone().detach().cpu().numpy()
             
             # logging
             logging.info("Epoch: %s / %s, Pursuer Error: %s, Evader Error: %s, Distance between pursuer and evader: %s",
                         epoch, num_epochs, pursuer_error_sim[epoch].item(), evader_error_sim[epoch].item(),
                         torch.norm(pursuer_init_state[:2] - evader_init_state[:2]).item())
             
-            # check if evader caught by pursuer
-            if torch.norm(pursuer_init_state[:2] - evader_init_state[:2]) < self.catch_radius:
-                
-                logging.info("Evader Caught by Pursuer")
-                pursuer_init_state, evader_init_state = self.generate_init_states()
-                reset_counter = 0
-                continue
-
-            # reset the states after 1000 epochs
-            reset_counter += 1
-            if reset_counter == reset_n_step:
-                
-                logging.info("Resetting the states")
-                pursuer_init_state, evader_init_state = self.generate_init_states()
-                reset_counter = 0
-                continue
-            
-            # update the states
-            pursuer_init_state = pursuer_final_states[0,:].clone().detach()
-            evader_init_state = evader_final_states[0,:].clone().detach()
             
 
         # Save the models
@@ -935,13 +1068,13 @@ def main():
 
     
     # Initialize the generator
-    generator = PlayerTrajectoryGenerator(num_traj = 5,
+    generator = PlayerTrajectoryGenerator(num_traj = 4,
                                           state_dim = 4,
                                           input_dim = 2,
                                           n_steps = 10,
                                           dt = 0.2,
-                                          pursuer_limits = [2,2,0.5,0.5,0.5,0.5],
-                                          evader_limits = [2,2,0.5,0.5,0.5,0.5],
+                                          pursuer_limits = [2,2,0.7,0.7,0.5,0.5],
+                                          evader_limits = [2,2,0.7,0.7,0.5,0.5],
                                           catch_radius = 0.1,
                                           hidden_layer_num = 100,
                                           solver_max_iter = 1000,
@@ -956,26 +1089,41 @@ def main():
     logging.info("Start Training")
     logging.info("Training Parameters: %s", generator.__dict__)
     
-    generator.load_model(6)
+    #generator.load_model(4)
     
     pursuer_error_sim, evader_error_sim,\
     pursuer_states_sim, evader_states_sim,\
     pursuer_controls_sim, evader_controls_sim,\
-    pursuer_trajectories_sim, evader_trajectories_sim = generator.train(P_LR = 0.01,
-                                                                        E_LR = 0.01,
-                                                                        num_epochs = 50000,
-                                                                        save_model = True,
-                                                                        load_model = False,
-                                                                        reset_n_step = 200,
-                                                                        scheduler_step_size = 500,
-                                                                        scheduler_gamma = 0.95)
+    pursuer_trajectories_sim, evader_trajectories_sim, avg_distance = generator.train(  P_LR = 0.01,
+                                                                                        E_LR = 0.01,
+                                                                                        num_epochs = 100,
+                                                                                        save_model = True,
+                                                                                        load_model = False,
+                                                                                        reset_n_step = 400,
+                                                                                        scheduler_step_size = 500,
+                                                                                        scheduler_gamma = 0.95)
+
+    
+    # pursuer_error_sim, evader_error_sim,\
+    # pursuer_states_sim, evader_states_sim,\
+    # pursuer_controls_sim, evader_controls_sim,\
+    # pursuer_trajectories_sim, evader_trajectories_sim = generator.train_batch(  P_LR = 0.01,
+    #                                                                             E_LR = 0.01,
+    #                                                                             num_epochs = 10,
+    #                                                                             save_model = True,
+    #                                                                             load_model = False,
+    #                                                                             reset_n_step = 200,
+    #                                                                             batch_num = 4,
+    #                                                                             scheduler_step_size = 1,
+    #                                                                             scheduler_gamma = 0.98)
     
     logging.info("End Training")
 
     generator.plot_losses(pursuer_error_sim, evader_error_sim)
 
-    name = file_path + "/training_animation.mp4"
-    generator.animate(pursuer_states_sim, evader_states_sim, pursuer_trajectories_sim, evader_trajectories_sim, name)
+    generator.plot_losses(avg_distance, -1*avg_distance, name = "/train_dist_plot_v2.png")
+    # name = file_path + "/training_animation.mp4"
+    # generator.animate(pursuer_states_sim, evader_states_sim, pursuer_trajectories_sim, evader_trajectories_sim, name)
     
     
     # Test the model    
