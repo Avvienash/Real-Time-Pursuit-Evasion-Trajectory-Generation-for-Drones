@@ -1,7 +1,5 @@
 # Real Time Pursuit-Evasion Trajectory Generation for Drones using Deep Declarative Networks
 
-![image](media\images\closeup_drone.jpg)
-
 ## Description
 
 This repository implements a learning-based mixed-strategy pursuit-evasion trajectory generation and demonstrates its feasibility using a physical micro-drone testbed, specifically the Crazyflie 2.1, utilizing the CrazySwarm 2 ROS package.
