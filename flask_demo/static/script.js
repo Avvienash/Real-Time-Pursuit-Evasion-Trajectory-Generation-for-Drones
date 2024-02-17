@@ -59,6 +59,49 @@ function logButtons(e) {
     // console.log(str);
   }
   
+// Keys
+let keys = 
+{
+    up: false,
+    left: false,
+    right: false,
+    down: false
+}
+window.addEventListener('keydown', (event) => {
+    switch (event.key) {
+        case 'ArrowUp':
+            keys.up = true
+            break
+        case 'ArrowLeft':
+            keys.left = true
+            break
+        case 'ArrowRight':
+            keys.right = true
+            break
+        case 'ArrowDown':
+            keys.down = true
+            break
+    }
+  })
+
+window.addEventListener('keyup', (event) => {
+    switch (event.key) {
+        case 'ArrowUp':
+            keys.up = false
+            break
+        case 'ArrowLeft':
+            keys.left = false
+            break
+        case 'ArrowRight':
+            keys.right = false
+            break
+        case 'ArrowDown':
+            keys.down = false
+            break
+    }
+  })
+
+
 document.addEventListener("mouseup", logButtons);
 canvas.addEventListener("mousedown", logButtons);
 canvas.addEventListener('mousemove', logButtons);
@@ -132,6 +175,9 @@ class Agent
         this.y = y;
         this.vx = vx;
         this.vy = vy;
+        this.ax = 0;
+        this.ay = 0;
+        this.da = 0.01;
         this.radius = radius;
         this.color = color;
         this.type = type;
@@ -144,6 +190,91 @@ class Agent
         ctx.arc(x, y, this.radius, 0, Math.PI * 2);
         ctx.fillStyle = this.color;
         ctx.fill();
+    }
+
+    manual_control()
+    {
+
+        if (keys.up)
+        {
+            this.ay += this.da;
+        }
+        if (keys.down)
+        {
+            this.ay += -1*this.da;
+        }
+        if (keys.left)
+        {
+            this.ax += -1 * this.da;
+        }
+        if (keys.right)
+        {
+            this.ax += this.da;
+        }
+
+        this.ay = Math.min(Math.max(this.ay, -0.5), 0.5);
+        this.ax = Math.min(Math.max(this.ax, -0.5), 0.5);
+
+        this.vx += this.ax;
+        this.vy += this.ay;
+        this.vx = Math.min(Math.max(this.ax, -0.5), 0.5);
+        this.vy = Math.min(Math.max(this.ay, -0.5), 0.5);
+
+        this.x += this.vx;
+        this.y += this.vy;
+
+        let m, c;
+        for (let i = 0; i < 5; i++) 
+        {
+            m = (Math.cos((i+1)*(2*Math.PI/5)) - Math.cos((i)*(2*Math.PI/5))) / (Math.sin((i+1)*(2*Math.PI/5)) - Math.sin((i)*(2*Math.PI/5)));
+            c = ENVIROMENT_RADIUS * Math.cos((i)*(2*Math.PI/5)) - m * ENVIROMENT_RADIUS * Math.sin((i)*(2*Math.PI/5));
+
+            
+            if (i == 1 || i == 3) 
+            {
+                if (this.y < m*this.x + c + (this.radius/COORDINATE_CONVERSION_SCALE))
+                {
+                    let temp_x  = (this.y - c - (this.radius/COORDINATE_CONVERSION_SCALE))/m;
+                    let temp_y = m*this.x + c + (this.radius/COORDINATE_CONVERSION_SCALE);
+                    this.x = (temp_x+this.x)/2;
+                    this.y = (temp_y+this.y)/2;
+                    this.vy = 0;
+                    this.ay = 0;
+                    this.vx = 0;
+                    this.ax = 0;
+
+                }
+            }
+            else if (i == 2)
+            {
+                if (this.y < m*this.x + c + (this.radius/COORDINATE_CONVERSION_SCALE))
+                {
+                    this.y = m*this.x + c + (this.radius/COORDINATE_CONVERSION_SCALE);
+                    this.vy = 0;
+                    this.ay = 0;
+                    this.vx = 0;
+                    this.ax = 0;
+
+                }
+            }
+            else
+            {
+                if (this.y > m*this.x + c - (this.radius/COORDINATE_CONVERSION_SCALE) )
+                {
+                    let temp_x  = (this.y - c + (this.radius/COORDINATE_CONVERSION_SCALE))/m;
+                    let temp_y = m*this.x + c - (this.radius/COORDINATE_CONVERSION_SCALE);
+                    this.x = (temp_x+this.x)/2;
+                    this.y = (temp_y+this.y)/2;
+                    this.vy = 0;
+                    this.ay = 0;
+                    this.vx = 0;
+                    this.ax = 0;
+
+                }
+            }
+        }
+        
+    
     }
 }
 
@@ -174,12 +305,13 @@ function animate()
     // Clear the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+
+    // Update the agent
+    agent.manual_control();
+
     // Draw the enviroment
     drawEnvironment(ENVIROMENT_RADIUS, ENVIROMENT_COLOR, ENVIROMENT_THICKNESS);
-
-    // Draw the agents
     agent.draw();
-
 
     if (SET_FPS > 0)
     {
