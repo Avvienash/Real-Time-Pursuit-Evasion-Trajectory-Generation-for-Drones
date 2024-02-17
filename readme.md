@@ -168,7 +168,17 @@ However, in real-world scenarios, drones are not confined to two dimensions or a
 2. Gould, Stephen, Richard Hartley, and Dylan Campbell. "Deep declarative networks." IEEE Transactions on Pattern Analysis and Machine Intelligence 44.8 (2021): 3988-4004.
 3. Peters, L., Ferranti, L., Stachniss, C., & Laine, F. (2022). Learning Mixed Strategies in Trajectory Games. ArXiv. /abs/2205.00291
 
+## Languages and Tools
+<p align="left"> <a href="https://opencv.org/" target="_blank" rel="noreferrer">
 
+ <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/> </a> <a href="https://pytorch.org/" target="_blank" rel="noreferrer"> 
+ <img src="https://www.vectorlogo.zone/logos/pytorch/pytorch-icon.svg" alt="pytorch" width="40" height="40"/> </a> 
+ 
+ </p>
+
+
+
+*Author: Avvienash Jaganathan*
 
 
 
