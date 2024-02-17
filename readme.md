@@ -160,7 +160,6 @@ In conclusion, this study successfully replicates and expands upon a method for 
 
 Future plans include exploring different dynamic systems (e.g., Unicycle Dynamics, Bicycle Dynamics), exploring three-dimensional games, and multi-agent implementation and testing.
 
-However, in real-world scenarios, drones are not confined to two dimensions or a singular agent. Therefore, the future of this research involves expanding the method to 3D environments and incorporating multi-agent scenarios.
 
 ## REFERENCES
 
