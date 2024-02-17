@@ -4,6 +4,7 @@
 
 ## Description
 
+
 This repository implements a learning-based mixed-strategy pursuit-evasion trajectory generation and demonstrates its feasibility using a physical micro-drone testbed, specifically the Crazyflie 2.1, utilizing the CrazySwarm 2 ROS package.
 
 ## Introduction
@@ -143,13 +144,15 @@ The tests, conducted in a 2D pentagon environment with a single pursuer versus a
 
 ### Pursuer Drone vs Simulated Evader:
 
-![](media/videos/freecompress-pursuer_evader_combined.mp4)
-
+https://github.com/Avvienash/Mixed-Learning-Trajectory-Generation/assets/66234703/1a92fa78-b97b-402b-ae53-42364aa6fee9
 
 ### Simulated Pursuer vs Evader Drone:
 
+https://github.com/Avvienash/Mixed-Learning-Trajectory-Generation/assets/66234703/851f1245-7a79-4434-9052-e806285007ea
+
 ### Pursuer Drone vs Drone Evader:
 
+https://github.com/Avvienash/Mixed-Learning-Trajectory-Generation/assets/66234703/4f273f87-3007-43a5-8aac-4f654afb0c7c
 
 ## CONCLUSION AND FUTURE PLANS
 
