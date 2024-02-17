@@ -121,6 +121,49 @@ python test_single_run.py
 - ```test_grid.py```: It runs tests for each possible initial condition in the xy grid.
 
 
+## ALGORITHM ARCHITECTURE (TRAJECTORY GENERATOR)
+
+![Overview of the Algorithm](media/images/algorithim_bg.png)
+
+The implementation of the trajectory generation is shown in the figure above and explained in the steps below. 
+
+The trajectory generator starts by using the states of the pursuer and evader as input for a neural network. This network then produces a set of potential trajectories that are optimized to ensure feasibility. 
+
+The loss is calculated for all combinations of pursuer and evader trajectories, creating a Bimatrix Game. This game is solved to find the equilibrium point. The trajectory corresponding to this equilibrium point is chosen as the optimal trajectory.
+
+## PHYSICAL TESTBED
+
+We managed to implement this method on a physical testbed using micro-drones as the agents and a motion capture system to obtain the states. The environment was set up as per the original publication, a 2D dimensional pentagon Plane with a single pursuer and evader. We ran multiple tests and compared it to the original simulated results. In conclusion, we have successfully replicated the proposed method and demonstrated the feasibility on a physical testbed.
+
+![Overview of the Test Bed Setup](media/images/controller_bg.png)
+
+## RESULTS AND DISCUSSION
+
+The tests, conducted in a 2D pentagon environment with a single pursuer versus a single evader, yielded the following outcomes:
+
+### Pursuer Drone vs Simulated Evader:
+  
+  ![Video]()
+
+### Simulated Pursuer vs Evader Drone:
+  ![Video]()
+
+### Pursuer Drone vs Drone Evader:
+  ![Video]()
+
+## CONCLUSION AND FUTURE PLANS
+
+In conclusion, this study successfully replicates and expands upon a method for learning mixed strategies in pursuit-evasion games with drone agents. Through the implementation using mini-drones, the proposed approach demonstrates its versatility and accuracy to the mathematical predictions.
+
+Future plans include exploring different dynamic systems (e.g., Unicycle Dynamics, Bicycle Dynamics), exploring three-dimensional games, and multi-agent implementation and testing.
+
+However, in real-world scenarios, drones are not confined to two dimensions or a singular agent. Therefore, the future of this research involves expanding the method to 3D environments and incorporating multi-agent scenarios.
+
+## REFERENCES
+
+1. Chung, Timothy H., Geoffrey A. Hollinger, and Volkan Isler. "Search and pursuit-evasion in mobile robotics: A survey." Autonomous robots 31 (2011): 299-316.
+2. Gould, Stephen, Richard Hartley, and Dylan Campbell. "Deep declarative networks." IEEE Transactions on Pattern Analysis and Machine Intelligence 44.8 (2021): 3988-4004.
+3. Peters, L., Ferranti, L., Stachniss, C., & Laine, F. (2022). Learning Mixed Strategies in Trajectory Games. ArXiv. /abs/2205.00291
 
 
 
