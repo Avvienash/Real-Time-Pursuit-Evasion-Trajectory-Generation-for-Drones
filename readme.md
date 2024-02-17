@@ -142,7 +142,10 @@ We managed to implement this method on a physical testbed using micro-drones as 
 The tests, conducted in a 2D pentagon environment with a single pursuer versus a single evader, yielded the following outcomes:
 
 ### Pursuer Drone vs Simulated Evader:
-  
+
+![](media/videos/freecompress-pursuer_evader_combined.mp4)
+
+
 ### Simulated Pursuer vs Evader Drone:
 
 ### Pursuer Drone vs Drone Evader:
