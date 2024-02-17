@@ -143,13 +143,10 @@ The tests, conducted in a 2D pentagon environment with a single pursuer versus a
 
 ### Pursuer Drone vs Simulated Evader:
   
-  ![Video]()
-
 ### Simulated Pursuer vs Evader Drone:
-  ![Video]()
 
 ### Pursuer Drone vs Drone Evader:
-  ![Video]()
+
 
 ## CONCLUSION AND FUTURE PLANS
 
