@@ -1,0 +1,180 @@
+Important Comand Line:
+
+----
+usbipd list
+usbipd --help
+usbipd bind --busid=<BUSID>
+usbipd attach --wsl --busid=<BUSID>
+
+usbipd bind --busid=2-2
+usbipd attach --wsl --busid=2-2
+
+lsusb
+----
+source /opt/ros/humble/setup.bash
+export PYTHONPATH=~/crazyflie-firmware/build:$PYTHONPATH
+cd ros2_ws
+colcon build --symlink-install
+
+ros2 launch crazyflie launch.py
+
+ros2 run my_crazyflie_controller traj_gen
+
+ros2 run crazyflie_examples hello_world
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----
+https://github.com/dorssel/usbipd-win/
+----
+
+usbipd list
+usbipd --help
+usbipd bind --busid=<BUSID>
+usbipd attach --wsl --busid=<BUSID>
+
+usbipd bind --busid=2-2
+usbipd attach --wsl --busid=2-2
+
+lsusb
+
+
+----
+https://docs.ros.org/en/humble/Installation/Alternatives/Ubuntu-Development-Setup.html#id5
+----
+
+
+. ~/ros2_humble/install/local_setup.bash
+ros2 run demo_nodes_cpp talker
+. ~/ros2_humble/install/local_setup.bash
+ros2 run demo_nodes_py listener
+
+To update:
+
+cd ros2_ws/src/crazyswarm2
+git pull
+git submodule sync
+git submodule update --init --recursive
+cd ../../
+colcon build --symlink-install
+
+
+
+. install/local_setup.bash
+
+sudo apt install ros-humble-joy -y --reinstall
+
+sudo apt list --installed | grep ros-humble-joy
+
+ros2 pkg list | grep joy
+
+run this 2:
+
+
+
+
+
+
+
+
+"""
+ source /opt/ros/humble/setup.bash
+export PYTHONPATH=~/crazyflie-firmware/build:$PYTHONPATH
+cd ros2_ws
+
+
+[in ros2_ws]
+colcon build --symlink-install
+
+ros2 launch crazyflie launch.py
+
+When using sim
+[terminal1]$ ros2 launch crazyflie launch.py backend:=sim
+[terminal2]$ ros2 run crazyflie_examples hello_world --ros-args -p use_sim_time:=True
+
+
+
+
+"""
+ros2 launch crazyflie launch.py
+
+
+ python TestClientPython.py 192.168.11.3:801
+
+export LD_LIBRARY_PATH=/home/a/vicon_sdk_linux/libs:$LD_LIBRARY_PATH
+
+
+
+cd ~/vicon_sdk_linux/
+export LD_LIBRARY_PATH=/home/a/vicon_sdk_linux/libs:$LD_LIBRARY_PATH
+g++ ViconDataStreamSDK_CPPTest.cpp -o test -L/home/a/vicon_sdk_linux/libs -lViconDataStreamSDK_CPP
+./test
+
+
+https://www.youtube.com/watch?v=K4D4jKnTSSk&ab_channel=UMCadOp
+
+
+
+
+
+ROS2 TUT:
+
+touch my_first_node.py
+chmod +x my_first_node.py
+
+colcon build --s
+
+ros2 topic list
+ros2 topic info /name
+ ros2 interface show geometry_msgs/msg/Twist
+
+ ros2 echo /turtle1/cmd_vel
+
+HOW TO ADD TO BASHRC
+gedit .bashrc
+
+
+HOW to create a ros2 workspace
+
+mkdir ros2_ws
+cd ros2_ws
+mkdir src
+
+source ~/ros2_ws/install/setup.bash # add to bashrc
+
+Then Create Package
+
+cd ~/ros2_ws/src
+
+ros2 pkg create my_robot_controller --build-type ament_python  --dependencies rclpy # OR ament_cmake
+
+/// 
+ros2 launch crazyflie launch.py
+
+
+python3 ../examples/circle_with_time.py
+python3 ../scripts/generate_trajectory.py timed_waypoints_circle0.csv circle0.csv --pieces 5
+
+
+
+When using sim
+[terminal1]$ ros2 launch crazyflie launch.py backend:=sim
+[terminal2]$ ros2 run crazyflie_examples hello_world --ros-args -p use_sim_time:=True
+
+ ros2 run my_crazyflie_controller traj_gen
