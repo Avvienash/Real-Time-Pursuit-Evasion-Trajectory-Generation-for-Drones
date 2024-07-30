@@ -1,5 +1,11 @@
 # Real Time Pursuit-Evasion Trajectory Generation for Drones using Deep Declarative Networks
 
+![Python](https://img.shields.io/badge/Python-3.x-blue.svg)
+![PyTorch](https://img.shields.io/badge/PyTorch-v1.10.0-orange.svg)
+![CrazySwarm](https://img.shields.io/badge/CrazySwarm-v2.0-orange)
+![Crazyflie](https://img.shields.io/badge/Crazyflie-2.1-lightgrey)
+![VICON](https://img.shields.io/badge/VICON-Setup-green)
+
 ![image](media/images/closeup_drone.jpg)
 
 ## Description
